@@ -21,6 +21,7 @@ public class Pedido {
     private String nombrePersona;
     private Date fechaCreacion;
     private String direccion;
+    private String tocken;
     
 	public int getId() {
 		return id;
@@ -45,6 +46,12 @@ public class Pedido {
 	}
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
+	}
+	public String getTocken() {
+		return tocken;
+	}
+	public void setTocken(String tocken) {
+		this.tocken = tocken;
 	}
 	
     
