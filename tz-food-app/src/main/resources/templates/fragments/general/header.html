@@ -4,11 +4,22 @@
             <div class="navbar-header">
                 <a class="navbar-brand" href="#" th:href="@{/}">Home</a>
                 <ul class="nav navbar-nav">
-                    <li><a href="#" th:href="@{/pedido/nuevo}">Pedir Pedido</a></li>
-                    <li><a href="#" th:href="@{/pedidos}">Listar Pedidios</a></li>
+                    <li><a href="#" th:href="@{/pedido/nuevo}" sec:authorize="!hasRole('ROLE_ADMIN')">Hacer Pedido</a></li>
+                    <li><a href="#" th:href="@{/pedidos}" sec:authorize="hasRole('ROLE_ADMIN')">Listar Pedidos</a></li>
+                	<li>
+                		<form th:action="@{/logout}" method="post">
+				            <div class="col-sm-2" style="padding-top: 30px;">
+			                    <span sec:authorize="isAuthenticated()">
+			                    	<input type="submit" value="Sign Out"/>
+			                    </span>
+				            </div>
+				        </form>
+                	</li>
+                	
                 </ul>
 
             </div>
+            
         </div>
     </nav>
 </div>

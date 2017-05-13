@@ -10,6 +10,10 @@
 <div class="container">
     <!--/*/ <th:block th:include="fragments/general/header :: header"></th:block> /*/-->
     
+    <div class="welcome">
+        <span sec:authorize="isAuthenticated()">Bienvenido <span sec:authentication="name"></span></span>
+    </div>
+    
     <div th:if="${not #lists.isEmpty(pedidos)}">
         <h2>Product List</h2>
         <table class="table table-striped">
@@ -23,9 +27,9 @@
             <tr th:each="pedido : ${pedidos}">
                 <td th:text="${pedido.id}"><a href="/pedido/${product.id}">Id</a></td>
                 <td th:text="${pedido.nombrePersona}"></td>
-                <td><a th:href="${ '/pedido/' + pedido.id}">View</a></td>
-                <td><a th:href="${'/pedido/editar/' + pedido.id}">Edit</a></td>
-                <td><a th:href="${'/pedido/eliminar/' + pedido.id}">Eliminar</a></td>
+                <td><a th:href="${ '/pedido/' + pedido.id}" sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')">View</a></td>
+                <td><a th:href="${'/pedido/editar/' + pedido.id}" sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')">Edit</a></td>
+                <td><a th:href="${'/pedido/eliminar/' + pedido.id}" sec:authorize="hasAnyRole('ROLE_USER','ROLE_ADMIN')">Eliminar</a></td>
             </tr>
         </table>
 
