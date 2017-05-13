@@ -26,7 +26,7 @@ public class PedidoController {
     @RequestMapping("pedido/nuevo")
     public String newPedido(Model model){
         model.addAttribute("pedido", new Pedido());
-        return "pedidoForm";
+        return "fragments/pedido/pedidoForm";
     }
     
     @RequestMapping(value = "pedido/nuevo", method = RequestMethod.POST)
@@ -39,19 +39,19 @@ public class PedidoController {
     @RequestMapping("pedido/{id}")
     public String details(@PathVariable int id, Model model){
         model.addAttribute("pedido", pedidoService.getPedido(id));
-        return "showPedido";
+        return "fragments/pedido/pedidoDetails";
     }
     
     @RequestMapping(value = "/pedidos", method = RequestMethod.GET)
     public String list(Model model){
         model.addAttribute("pedidos", pedidoService.listPedidos());
-        return "pedidos";
+        return "fragments/pedido/pedidosList";
     }
     
     @RequestMapping("pedido/editar/{id}")
     public String edit(@PathVariable int id, Model model){
         model.addAttribute("pedido", pedidoService.getPedido(id));
-        return "pedidoForm";
+        return "fragments/pedido/pedidoForm";
     }
     
     
@@ -64,7 +64,7 @@ public class PedidoController {
     
     
     @RequestMapping("pedido/eliminar/{id}/{token}")
-    public String delete(@PathVariable int id, @PathVariable String tocken){
+    public String delete(@PathVariable int id, @PathVariable String token){
     	pedidoService.deletePedido(id);
         return "redirect:/pedidos";
     }

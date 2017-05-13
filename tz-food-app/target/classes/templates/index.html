@@ -4,23 +4,16 @@
  
     <title>Spring Framework Guru</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    
-
-    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
-          th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}"
-          rel="stylesheet" media="screen" />
-
-    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
-            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
-
-          
-    <link href="../static/css/main.css"
-          th:href="@{css/main.css}" rel="stylesheet" media="screen"/>
+     <!--/*/ <th:block th:include="fragments/general/head :: head"></th:block> /*/-->
     
 </head>
 <body>
-<h1>Hello</h1>
- 
-<h2>Fellow Spring Framework Gurus!!!</h2>
+	<div class="container">
+	    <!--/*/ <th:block th:include="fragments/general/header :: header"></th:block> /*/-->
+	    
+	    <div>
+	    	<h3>Aca puede hacer un pedido</h3>
+	    </div>
+	</div>
 </body>
 </html>
