@@ -17,4 +17,7 @@ public class GeneralConstants {
 	public static final String DISTRITO = "DISTRITO";
 
 	
+	public static final String ROL_ADMIN = "ROL_ADMIN";
+	public static final String ROL_GUEST = "ROL_GUEST";
+	
 }

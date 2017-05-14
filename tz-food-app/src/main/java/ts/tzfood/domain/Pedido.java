@@ -12,23 +12,14 @@ import javax.persistence.*;
  *
  */
 @Entity
-public class Pedido {
-
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+public class Pedido extends ObjetoBase{
 
     private String nombrePersona;
     private Date fechaCreacion;
     private String direccion;
-    private String tocken;
+    private String token;
     
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+
 	public String getNombrePersona() {
 		return nombrePersona;
 	}
@@ -47,11 +38,11 @@ public class Pedido {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	public String getTocken() {
-		return tocken;
+	public String getToken() {
+		return token;
 	}
-	public void setTocken(String tocken) {
-		this.tocken = tocken;
+	public void setTocken(String token) {
+		this.token = token;
 	}
 	
     

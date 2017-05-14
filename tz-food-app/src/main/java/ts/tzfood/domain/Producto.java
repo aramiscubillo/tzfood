@@ -13,19 +13,11 @@ import javax.persistence.Id;
  *
  */
 @Entity
-public class Producto {
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-	
+public class Producto extends ObjetoBase{
+
 	private String nombre;
 	private String tipo;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
+
 	public String getNombre() {
 		return nombre;
 	}

@@ -26,7 +26,7 @@ public class PedidoController {
     @RequestMapping("pedido/nuevo")
     public String newPedido(Model model){
         model.addAttribute("pedido", new Pedido());
-        return "fragments/pedido/pedidoForm";
+        return "views/pedido/pedidoForm";
     }
     
     @RequestMapping(value = "pedido/nuevo", method = RequestMethod.POST)
@@ -39,19 +39,19 @@ public class PedidoController {
     @RequestMapping("pedido/{id}")
     public String details(@PathVariable int id, Model model){
         model.addAttribute("pedido", pedidoService.getPedido(id));
-        return "fragments/pedido/pedidoDetails";
+        return "views/pedido/pedidoDetails";
     }
     
     @RequestMapping(value = "/pedidos", method = RequestMethod.GET)
     public String list(Model model){
         model.addAttribute("pedidos", pedidoService.listPedidos());
-        return "fragments/pedido/pedidosList";
+        return "views/pedido/pedidosList";
     }
     
     @RequestMapping("pedido/editar/{id}")
     public String edit(@PathVariable int id, Model model){
         model.addAttribute("pedido", pedidoService.getPedido(id));
-        return "fragments/pedido/pedidoForm";
+        return "views/pedido/pedidoForm";
     }
     
     
