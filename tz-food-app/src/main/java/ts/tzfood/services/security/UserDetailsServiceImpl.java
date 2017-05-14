@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import ts.tzfood.domain.Usuario;
-import ts.tzfood.services.UsuarioService;
+import ts.tzfood.services.UsuarioServiceInterface;
 
 /**
  * @author Aramis
@@ -22,7 +22,7 @@ import ts.tzfood.services.UsuarioService;
 public class UserDetailsServiceImpl implements UserDetailsService{
 
 	@Autowired
-	private UsuarioService usuarioService;
+	private UsuarioServiceInterface usuarioService;
 	
     private Converter<Usuario, UserDetails> usuarioUserDetailsConverter;
 

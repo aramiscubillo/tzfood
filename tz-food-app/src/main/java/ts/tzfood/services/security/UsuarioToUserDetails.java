@@ -16,7 +16,8 @@ import java.util.Collection;
 
 @Component
 public class UsuarioToUserDetails implements Converter<Usuario, UserDetails> {
-    @Override
+    
+	@Override
     public UserDetails convert(Usuario usuario) {
     	
         UserDetailsImpl userDetails = new UserDetailsImpl();

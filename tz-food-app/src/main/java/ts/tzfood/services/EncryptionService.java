@@ -5,11 +5,13 @@ package ts.tzfood.services;
 
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Aramis
  *
  */
+@Service
 public class EncryptionService implements EncryptionServiceInterface{
 
 	private StrongPasswordEncryptor strongEncryptor;

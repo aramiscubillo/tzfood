@@ -3,14 +3,11 @@
  */
 package ts.tzfood.services;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import ts.tzfood.domain.Producto;
 import ts.tzfood.domain.Usuario;
 import ts.tzfood.repositories.UsuarioRepository;
 
@@ -19,14 +16,14 @@ import ts.tzfood.repositories.UsuarioRepository;
  *
  */
 @Service
-@Profile("springdatajpa")
+//@Profile("springdatajpa")
 public class UsuarioService implements UsuarioServiceInterface{
 
 	@Autowired
 	private UsuarioRepository usuarioRepo;
 	
 	@Autowired
-	private EncryptionService encryptionService;
+	private EncryptionServiceInterface encryptionService;
 	
 	/* (non-Javadoc)
 	 * @see ts.tzfood.services.UsuarioServiceInterface#listAll()
