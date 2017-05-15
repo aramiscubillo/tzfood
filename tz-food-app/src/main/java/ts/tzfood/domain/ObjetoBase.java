@@ -24,6 +24,7 @@ public class ObjetoBase {
 	private Date fechaCreacion;
     private Date fechaEdicion;
     private boolean activo;
+    
 	public int getId() {
 		return id;
 	}

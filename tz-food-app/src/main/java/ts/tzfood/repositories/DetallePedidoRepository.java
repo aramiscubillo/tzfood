@@ -5,12 +5,11 @@ package ts.tzfood.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 
-import ts.tzfood.domain.Lugar;
-
+import ts.tzfood.domain.DetallePedido;
 /**
  * @author Aramis
  *
  */
-public interface LugarRepository extends CrudRepository<Lugar, Integer>{
+public interface DetallePedidoRepository extends CrudRepository<DetallePedido, Integer>{
 
 }

@@ -5,23 +5,23 @@ package ts.tzfood.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import ts.tzfood.domain.Lugar;
-import ts.tzfood.repositories.LugarRepository;
+import ts.tzfood.domain.Ubicacion;
+import ts.tzfood.repositories.UbicacionRepository;
 
 /**
  * @author Aramis
  *
  */
-public class LugarService implements LugarServiceInterface{
+public class UbicacionService implements UbicacionServiceInterface{
 
 	@Autowired
-	private LugarRepository lugarRepo;
+	private UbicacionRepository lugarRepo;
 	
 	/* (non-Javadoc)
 	 * @see ts.tzfood.services.LugarServiceInterface#listLugar()
 	 */
 	@Override
-	public Iterable<Lugar> listLugar() {
+	public Iterable<Ubicacion> listLugar() {
 		return lugarRepo.findAll();
 	}
 
@@ -29,7 +29,7 @@ public class LugarService implements LugarServiceInterface{
 	 * @see ts.tzfood.services.LugarServiceInterface#getLugar(int)
 	 */
 	@Override
-	public Lugar getLugar(int id) {
+	public Ubicacion getLugar(int id) {
 		return lugarRepo.findOne(id);
 	}
 
@@ -37,7 +37,7 @@ public class LugarService implements LugarServiceInterface{
 	 * @see ts.tzfood.services.LugarServiceInterface#saveLugar(ts.tzfood.domain.Lugar)
 	 */
 	@Override
-	public Lugar saveLugar(Lugar lugar) {
+	public Ubicacion saveLugar(Ubicacion lugar) {
 		return lugarRepo.save(lugar);
 	}
 

@@ -16,7 +16,10 @@ import javax.persistence.Id;
 public class Producto extends ObjetoBase{
 
 	private String nombre;
-	private String tipo;
+	private String marca;
+	private String presentacion;
+	private String estilo;
+	private double precio;
 
 	public String getNombre() {
 		return nombre;
@@ -24,12 +27,31 @@ public class Producto extends ObjetoBase{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public String getTipo() {
-		return tipo;
+	public String getMarca() {
+		return marca;
 	}
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setMarca(String marca) {
+		this.marca = marca;
 	}
+	public String getPresentacion() {
+		return presentacion;
+	}
+	public void setPresentacion(String presentacion) {
+		this.presentacion = presentacion;
+	}
+	public String getEstilo() {
+		return estilo;
+	}
+	public void setEstilo(String estilo) {
+		this.estilo = estilo;
+	}
+	public double getPrecio() {
+		return precio;
+	}
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}
+	
 	
 	
 }

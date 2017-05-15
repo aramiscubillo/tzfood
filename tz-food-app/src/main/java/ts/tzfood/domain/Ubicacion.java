@@ -13,7 +13,7 @@ import javax.persistence.Id;
  *
  */
 @Entity
-public class Lugar extends ObjetoBase{
+public class Ubicacion extends ObjetoBase{
 
 
 	private String nombre;

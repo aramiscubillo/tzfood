@@ -25,6 +25,12 @@ public class Usuario extends ObjetoBase{
 	private String rol;
 	private int failedLoginAttempts = 0;
 	
+	@OneToMany(mappedBy="encargadoDeAprobacion", fetch=FetchType.LAZY)
+	private List<Pedido> pedidosAprobados;
+	
+	@OneToMany(mappedBy="encargadoDeEntrega", fetch=FetchType.LAZY)
+	private List<Pedido> pedidosEntregados;
+	
 	
 	public String getUsername() {
         return username;
@@ -73,6 +79,26 @@ public class Usuario extends ObjetoBase{
 
 	public void setRol(String rol) {
 		this.rol = rol;
+	}
+
+	public List<Pedido> getPedidosAprobados() {
+		return pedidosAprobados;
+	}
+
+	public void setPedidosAprobados(List<Pedido> pedidosAprobados) {
+		this.pedidosAprobados = pedidosAprobados;
+	}
+
+	public List<Pedido> getPedidosEntregados() {
+		return pedidosEntregados;
+	}
+
+	public void setPedidosEntregados(List<Pedido> pedidosEntregados) {
+		this.pedidosEntregados = pedidosEntregados;
+	}
+
+	public void setFailedLoginAttempts(int failedLoginAttempts) {
+		this.failedLoginAttempts = failedLoginAttempts;
 	}
 
 	
