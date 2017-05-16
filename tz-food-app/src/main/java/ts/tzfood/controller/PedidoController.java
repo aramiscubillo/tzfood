@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ts.tzfood.constants.GeneralConstants;
 import ts.tzfood.domain.Pedido;
@@ -28,6 +29,7 @@ public class PedidoController {
     @RequestMapping("pedido/nuevo")
     public String newPedido(Model model){
         model.addAttribute("pedido", new Pedido());
+        model.addAttribute("marcas", GeneralConstants.MARCAS);
         return "views/pedido/pedidoForm";
     }
     
@@ -51,6 +53,7 @@ public class PedidoController {
         return "views/pedido/pedidosList";
     }
     
+
     @RequestMapping("pedido/editar/{id}")
     public String edit(@PathVariable int id, Model model){
         model.addAttribute("pedido", pedidoService.getPedido(id));

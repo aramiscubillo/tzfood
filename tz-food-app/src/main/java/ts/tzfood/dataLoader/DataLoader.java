@@ -97,21 +97,49 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent>{
 	    
 	    Producto producto = new Producto();
 	    producto.setActivo(true);
-	    producto.setEstilo("Weight Managament");
+	    producto.setNombre("Weight Managament");
 	    producto.setFechaCreacion(new Date());
 	    producto.setMarca("Super Guato");
-	    producto.setNombre("A1");
-	    producto.setPrecio(5000);
-	    producto.setPresentacion("Perro grandes");
+	    producto.setPrecio(1000);
+	    producto.setPresentacion("5 kg");
+	    productoRepo.save(producto);
 	    
 	    producto = new Producto();
 	    producto.setActivo(true);
-	    producto.setEstilo("Weight Managament");
+	    producto.setNombre("Weight Managament");
 	    producto.setFechaCreacion(new Date());
 	    producto.setMarca("Super Guato");
-	    producto.setNombre("A2");
-	    producto.setPrecio(5000);
-	    producto.setPresentacion("Perro pequeños");
+	    producto.setPrecio(10000);
+	    producto.setPresentacion("10 kg");
+	    productoRepo.save(producto);
+	    
+	    producto = new Producto();
+	    producto.setActivo(true);
+	    producto.setNombre("Weight Managament");
+	    producto.setFechaCreacion(new Date());
+	    producto.setMarca("Super Guato");
+	    producto.setPrecio(15000);
+	    producto.setPresentacion("20 kg");
+	    productoRepo.save(producto);
+	    
+	    
+	    producto = new Producto();
+	    producto.setActivo(true);
+	    producto.setNombre("Pate");
+	    producto.setFechaCreacion(new Date());
+	    producto.setMarca("Saprissa");
+	    producto.setPrecio(15000);
+	    producto.setPresentacion("8 kg");
+	    productoRepo.save(producto);
+	    
+	    producto = new Producto();
+	    producto.setActivo(true);
+	    producto.setNombre("Carvajal");
+	    producto.setFechaCreacion(new Date());
+	    producto.setMarca("Saprissa");
+	    producto.setPrecio(1000);
+	    producto.setPresentacion("8 kg");
+	    productoRepo.save(producto);
 	}
 	
 }

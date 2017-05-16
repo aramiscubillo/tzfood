@@ -5,28 +5,101 @@
     <title>Crear pedidio</title>
 
     <!--/*/ <th:block th:include="fragments/general/head :: head"></th:block> /*/-->
+    
+     <script src="../static/js/pedido.js"
+            th:src="@{/js/pedido.js}"></script>
+
+          
+    <link href="../static/css/main.css"
+          th:href="@{css/main.css}" rel="stylesheet" media="screen"/>
 </head>
 <body>
 <div class="container">
     <!--/*/ <th:block th:include="fragments/general/header :: header"></th:block> /*/-->
-
-    <h2>Crear Pedidio</h2>
-    <div>
-        <form class="form-horizontal" th:object="${pedido}" th:action="@{/pedido/nuevo}" method="post">
-            <input type="hidden" th:field="*{id}"/>
-            
-            <div class="form-group">
-                <label class="col-sm-2 control-label">Nombre:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" th:field="*{nombrePersona}"/>
-                </div>
-            </div>
-           
-            <div class="row">
-                <button type="submit" class="btn btn-default">Submit</button>
-            </div>
-        </form>
-    </div>
+	
+	<div class="row">
+		<div class="col-lg-4"></div>
+		<div class="col-lg-4">
+		
+			<h2>Solicitar Pedido</h2>
+		    <div>
+		        <form class="form-horizontal" th:object="${pedido}" th:action="@{/pedido/nuevo}" method="post">
+		            <input type="hidden" th:field="*{id}"/>
+		            
+		            <div class="form-group">
+		                <label class="col-sm-2 control-label">Nombre Completo:</label>
+		                <div class="col-sm-10">
+		                    <input type="text" class="form-control" th:field="*{nombrePersona}"/>
+		                </div>
+		            </div>
+		             <div class="form-group">
+		                <label class="col-sm-2 control-label">Email:</label>
+		                <div class="col-sm-10">
+		                    <input type="email" class="form-control" th:field="*{email}"/>
+		                </div>
+		            </div>
+		            <div class="form-group">
+					  <label for="comment">Disponibilidad:</label>
+					  <textarea class="form-control" rows="3" th:field="*{disponibilidad}"></textarea>
+					</div>
+		           
+		           
+		           	<div class="">
+		           		<h3>Agregar producto</h3>
+		          
+		           		<div class="form-group">
+						    <label for="marcas">Marca:</label>
+						    <select id="marcas" class="form-control" required="required" 
+						        name="marcas">
+						      <option disabled="disabled" selected="selected" > -- seleccione la marca -- </option>
+						      <option th:each="marca, status : ${marcas}" th:value="${marca}" 
+						       th:text="${marca}" >
+						      </option>
+						    </select>
+						</div>
+						
+						<div class="form-group">
+						    <label for="productos">Producto:</label>
+			                <select id="productos" class="form-control" 
+			                name="productos" required="required">
+			                    <option disabled="disabled" selected="selected" > --seleccione la marca --</option>
+			                </select>
+						</div>
+						
+						<div class="form-group">
+						    <label for="presentacion">Presentación:</label>
+			                <select id="presentacion" class="form-control" 
+			                name="presentacion" required="required">
+			                    <option disabled="disabled" selected="selected" > --seleccione un producto --</option>
+			                </select>
+						</div>
+						
+						<label class="col-sm-2 control-label">Cantidad:</label>
+		                <div class="col-sm-10">
+		                    <input type="number" id="cantidad" class="form-control"/>
+		                </div>
+						
+						<button id="btnAgregar" type="button" class="btn btn-default">Agregar</button>
+						<br/>
+						<br/>
+						
+						<div id="tbl-productos">
+						
+						</div>
+						
+		           	</div>
+		           
+		         
+		            <div class="row">
+		                <button type="submit" class="btn btn-default">Realizar Pedido</button>
+		            </div>
+		        </form>
+		    </div>
+		
+		</div>
+	</div>
+	
+    
 </div>
 
 </body>

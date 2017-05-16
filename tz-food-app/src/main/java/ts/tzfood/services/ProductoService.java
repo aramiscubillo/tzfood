@@ -3,6 +3,8 @@
  */
 package ts.tzfood.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,4 +54,13 @@ public class ProductoService implements ProductoServiceInterface{
 		productoRepo.delete(id);
 	}
 
+	
+	public List<String> getNombreProductosPorMarca(String nombre){
+		return productoRepo.findByMarca(nombre);
+	}
+	
+	
+	public List<Producto> getProductosPorNombre(String nombre){
+		return productoRepo.findByNombre(nombre);
+	}
 }

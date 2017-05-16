@@ -3,6 +3,8 @@
  */
 package ts.tzfood.services;
 
+import java.util.List;
+
 import ts.tzfood.domain.Producto;
 
 /**
@@ -18,4 +20,8 @@ public interface ProductoServiceInterface {
 	Producto saveProducto(Producto pedido);
 	
 	void deleteProducto(int id);
+	
+	List<String> getNombreProductosPorMarca(String nombre);
+	
+	List<Producto> getProductosPorNombre(String nombre);
 }

@@ -18,6 +18,7 @@ public class Pedido extends ObjetoBase{
 
 	private String cedulaPersona;
     private String nombrePersona;
+    private String email;
     private Date fechaPago;
     private Date fechaEntrega;
     private String disponibilidad;
@@ -125,6 +126,14 @@ public class Pedido extends ObjetoBase{
 	}
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	
     
