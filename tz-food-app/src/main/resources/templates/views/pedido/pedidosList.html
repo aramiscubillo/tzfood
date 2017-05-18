@@ -24,13 +24,19 @@
                 <th></th>
                 <th></th>
             </tr>
-            <tr th:each="pedido : ${pedidos}">
+            <tr th:each="pedido : ${pedidos}" th:text="$(pedido.nombrePersona)">
                 <td th:text="${pedido.id}"><a href="/pedido/${product.id}">Id</a></td>
                 <td th:text="${pedido.nombrePersona}"></td>
                 <td><a th:href="${ '/pedido/' + pedido.id}" sec:authorize="hasAnyAuthority('USER','ADMIN')">View</a></td>
                 <td><a th:href="${'/pedido/editar/' + pedido.id}" sec:authorize="hasAnyAuthority('USER','ADMIN')">Edit</a></td>
                 <td><a th:href="${'/pedido/eliminar/' + pedido.id}" sec:authorize="hasAnyAuthority('USER','ADMIN')">Eliminar</a></td>
             </tr>
+             <div th:text="${department.children.add(department)}" th:remove="all"></div>
+
+	        <h1>Result</h1>
+	        <ul>
+	           <li th:each="child : ${department.children}" th:text="${child.name}"></li>
+	        </ul>
         </table>
 
     </div>

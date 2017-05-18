@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import ts.tzfood.constants.GeneralConstants;
 import ts.tzfood.domain.Pedido;
+import ts.tzfood.models.PedidoModel;
 import ts.tzfood.services.PedidoServiceInterface;
 
 /**
@@ -28,7 +29,7 @@ public class PedidoController {
 
     @RequestMapping("pedido/nuevo")
     public String newPedido(Model model){
-        model.addAttribute("pedido", new Pedido());
+        model.addAttribute("model", new PedidoModel());
         model.addAttribute("marcas", GeneralConstants.MARCAS);
         return "views/pedido/pedidoForm";
     }
