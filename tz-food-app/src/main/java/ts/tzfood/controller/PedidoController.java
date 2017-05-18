@@ -79,6 +79,7 @@ public class PedidoController {
     		detalle.setFechaCreacion(new Date());
     		detalle.setPedido(pedido);
     		detalle.setPrecio(producto.getPrecio());
+    		detalle.setProducto(producto);
     		pedido.getDetalles().add(detalle);
     		
     		detallePedidoService.savePedido(detalle);
