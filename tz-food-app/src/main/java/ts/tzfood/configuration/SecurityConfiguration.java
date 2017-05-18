@@ -60,13 +60,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 		 
 		 httpSecurity
-		 .authorizeRequests().antMatchers("/","/pedido/nuevo","/pedido/*","/producto/*", "/console/**").permitAll()
+		 .authorizeRequests().antMatchers("/","/pedido/nuevo","/pedido/*","/producto/*").permitAll()
 		 .anyRequest().authenticated()
 		 .and()
 		 .formLogin().loginPage("/login").permitAll().and().logout().permitAll();
 	
-		httpSecurity.csrf().disable();
-		httpSecurity.headers().frameOptions().disable();
 		 
     }
 	

@@ -13,11 +13,7 @@
     <h2>Product Details</h2>
         <div>
             <form class="form-horizontal">
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Pedido Id:</label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${pedido.id}">Product Id</p></div>
-                </div>
+              
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Nombre:</label>
                     <div class="col-sm-10">
@@ -25,32 +21,42 @@
                     </div>
                 </div>
                  <div class="form-group">
-                    <label class="col-sm-2 control-label">Detalles:</label>
+                    <label class="col-sm-2 control-label">Email:</label>
                     <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${pedido.detalles.length}">pedido</p>
+                        <p class="form-control-static" th:text="${pedido.email}"></p>
                     </div>
                 </div>
+                 <div class="form-group">
+                    <label class="col-sm-2 control-label">Entregado:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${pedido.entregado}"></p>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-sm-2 control-label">Pagado:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${pedido.pagado}"></p>
+                    </div>
+                </div>
+                <h3>Productos:</h3>
                  <table class="table table-striped">
 		            <tr>
 		                <th>Producto</th>
 		                <th>Presentaci&oacute;n</th>
-		                <th></th>
-		                <th></th>
-		                <th></th>
+		                <th>Marca</th>
+		                <th>Cantidad</th>
+		                <th>Precio</th>
+		                <th>Precio Total</th>    
 		            </tr>
-		            <tr th:each="pedido : ${pedidos}" th:text="$(pedido.nombrePersona)">
-		                <td th:text="${pedido.id}"><a href="/pedido/${product.id}">Id</a></td>
-		                <td th:text="${pedido.nombrePersona}"></td>
-		                <td><a th:href="${ '/pedido/' + pedido.id}" sec:authorize="hasAnyAuthority('USER','ADMIN')">View</a></td>
-		                <td><a th:href="${'/pedido/editar/' + pedido.id}" sec:authorize="hasAnyAuthority('USER','ADMIN')">Edit</a></td>
-		                <td><a th:href="${'/pedido/eliminar/' + pedido.id}" sec:authorize="hasAnyAuthority('USER','ADMIN')">Eliminar</a></td>
+		            <tr th:each="detalle : ${pedido.detalles}" >
+		                <td th:text="${detalle.producto.nombre}"></td>
+		                <td th:text="${detalle.producto.presentacion}"></td>
+		                <td th:text="${detalle.producto.marca}"></td>
+		                <td th:text="${detalle.cantidad}"></td>
+		                <td th:text="${detalle.precio}"></td>
+		                <td th:text="${detalle.precio*detalle.cantidad}"></td>
 		            </tr>
-		             <div th:text="${department.children.add(department)}" th:remove="all"></div>
-		
-			        <h1>Result</h1>
-			        <ul>
-			           <li th:each="child : ${department.children}" th:text="${child.name}"></li>
-			        </ul>
+		           
 		        </table>
             </form>
     </div>

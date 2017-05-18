@@ -41,7 +41,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent>{
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
-	
+	/*
 	    Ubicacion provincia = new Ubicacion();
 	    provincia.setNombre("San José");
 	    provincia.setTipo(GeneralConstants.PROVINCIA);
@@ -140,6 +140,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent>{
 	    producto.setPrecio(1000);
 	    producto.setPresentacion("8 kg");
 	    productoRepo.save(producto);
+	    */
 	}
 	
 }
