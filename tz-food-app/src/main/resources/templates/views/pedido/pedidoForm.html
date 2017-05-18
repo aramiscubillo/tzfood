@@ -49,7 +49,7 @@
 		          
 		           		<div class="form-group">
 						    <label for="marcas">Marca:</label>
-						    <select id="marcas" class="form-control" required="required" 
+						    <select id="marcas" class="form-control" 
 						        name="marcas">
 						      <option selected="selected" > -- seleccione la marca -- </option>
 						      <option th:each="marca, status : ${marcas}" th:value="${marca}" 
@@ -61,7 +61,7 @@
 						<div class="form-group">
 						    <label for="productos">Producto:</label>
 			                <select id="productos" class="form-control" 
-			                name="productos" required="required">
+			                name="productos" >
 			                    <option disabled="disabled" selected="selected" > --seleccione la marca --</option>
 			                </select>
 						</div>
@@ -69,7 +69,7 @@
 						<div class="form-group">
 						    <label for="presentacion">Presentación:</label>
 			                <select id="presentacion" class="form-control" 
-			                name="presentacion" required="required">
+			                name="presentacion" >
 			                    <option disabled="disabled" selected="selected" > --seleccione un producto --</option>
 			                </select>
 						</div>

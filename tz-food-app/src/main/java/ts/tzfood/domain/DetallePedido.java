@@ -16,7 +16,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class DetallePedido extends ObjetoBase{
 
-	private boolean precio;
+	private double precio;
 	private int cantidad;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
@@ -27,10 +27,11 @@ public class DetallePedido extends ObjetoBase{
 	@JoinColumn(name = "id_producto")
 	private Producto producto;
 	
-	public boolean isPrecio() {
+	
+	public double getPrecio() {
 		return precio;
 	}
-	public void setPrecio(boolean precio) {
+	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
 	public int getCantidad() {
@@ -44,6 +45,12 @@ public class DetallePedido extends ObjetoBase{
 	}
 	public void setPedido(Pedido pedido) {
 		this.pedido = pedido;
+	}
+	public Producto getProducto() {
+		return producto;
+	}
+	public void setProducto(Producto producto) {
+		this.producto = producto;
 	}
 	
 	

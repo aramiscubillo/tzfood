@@ -7,15 +7,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ts.tzfood.domain.Pedido;
-import ts.tzfood.domain.Producto;
+import ts.tzfood.jsonModels.ProductoJsonModel;
+import ts.tzfood.mappers.ProductoMapper;
 import ts.tzfood.services.ProductoServiceInterface;
 
 /**
@@ -25,6 +23,8 @@ import ts.tzfood.services.ProductoServiceInterface;
 @Controller
 public class ProductoController {
 
+	private ProductoMapper mapper = new ProductoMapper();
+	
 	@Autowired
 	private ProductoServiceInterface productoService;
 	
@@ -35,9 +35,9 @@ public class ProductoController {
     }
 	
 	@RequestMapping(value = "producto/getByNombre", method = RequestMethod.GET)
-    public @ResponseBody List<Producto> getNombresPorNombre( @RequestParam(value = "nombre", required = true) String nombre) {
+    public @ResponseBody List<ProductoJsonModel> getNombresPorNombre( @RequestParam(value = "nombre", required = true) String nombre) {
        
-		return productoService.getProductosPorNombre(nombre);
+		return mapper.mapToJsonModel(productoService.getProductosPorNombre(nombre));
     }
 	
 }

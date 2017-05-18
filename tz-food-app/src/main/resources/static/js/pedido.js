@@ -54,8 +54,6 @@ $( document ).ready(function() {
 		 productos.push(producto);
 		 
 		 $("#marcas").val($("#marcas option:first").val());
-		 //$("#marcas option:first-child").attr("selected", true);
-		
 		 
 		 var tempOption = "<option disabled='disabled' selected='selected' value=''>--seleccione un producto--</option>";
 		 $('#presentacion').html(tempOption);

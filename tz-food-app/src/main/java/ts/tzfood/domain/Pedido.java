@@ -85,7 +85,7 @@ public class Pedido extends ObjetoBase{
 	public String getToken() {
 		return token;
 	}
-	public void setTocken(String token) {
+	public void setToken(String token) {
 		this.token = token;
 	}
 	public String getCedulaPersona() {
@@ -124,9 +124,7 @@ public class Pedido extends ObjetoBase{
 	public void setEntregado(boolean entregado) {
 		this.entregado = entregado;
 	}
-	public void setToken(String token) {
-		this.token = token;
-	}
+
 
 	public String getEmail() {
 		return email;
