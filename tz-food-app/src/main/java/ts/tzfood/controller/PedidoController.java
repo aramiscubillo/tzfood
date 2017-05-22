@@ -22,6 +22,7 @@ import ts.tzfood.constants.GeneralConstants;
 import ts.tzfood.domain.DetallePedido;
 import ts.tzfood.domain.Pedido;
 import ts.tzfood.domain.Producto;
+import ts.tzfood.email.EmailTemplateUtils;
 import ts.tzfood.jsonModels.ProductoJsonModel;
 import ts.tzfood.models.PedidoModel;
 import ts.tzfood.services.DetallePedidoServiceInterface;
@@ -43,6 +44,13 @@ public class PedidoController {
 	
 	@Autowired
 	private DetallePedidoServiceInterface detallePedidoService;
+	
+	@Autowired
+	private EmailTemplateUtils sender;
+	
+	
+	
+	
 
     @RequestMapping("pedido/nuevo")
     public String newPedido(Model model){
@@ -85,14 +93,24 @@ public class PedidoController {
     		detallePedidoService.savePedido(detalle);
     	}
 
-        return "redirect:/pedido/" +pedido.getId();
+    	sender.emailPedidoHecho(pedido.getId(), "", pedido.getEmail(), pedido.getNombrePersona());
+    	
+        return "redirect:/pedido/" +pedido.getId()+"/"+pedido.getToken();
     }
     
     
-    @RequestMapping("pedido/{id}")
-    public String details(@PathVariable int id, Model model){
-        model.addAttribute("pedido", pedidoService.getPedido(id));
-        return "views/pedido/pedidoDetails";
+    @RequestMapping("pedido/{id}/{token}")
+    public String details(@PathVariable int id, @PathVariable String token,  Model model){
+        
+    	Pedido pedido = pedidoService.getPedido(id);
+    	
+    	if(pedido.getToken().equals(token)){
+    		model.addAttribute("pedido", pedido);
+            return "views/pedido/pedidoDetails";
+    	}else{
+    		 return "redirect:/";
+    	}
+   
     }
     
     @Secured({GeneralConstants.ROL_ADMIN})
