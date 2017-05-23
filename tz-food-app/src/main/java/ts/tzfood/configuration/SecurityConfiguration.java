@@ -60,7 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 		 
 		 httpSecurity
-		 .authorizeRequests().antMatchers("/","/pedido/nuevo","/pedido/*","/producto/*").permitAll()
+		 .authorizeRequests().antMatchers("/","/pedido/nuevo","/pedidos" ,"/pedido/*", "/pedido/*/*","/producto/*").permitAll()
 		 .anyRequest().authenticated()
 		 .and()
 		 .formLogin().loginPage("/login").permitAll().and().logout().permitAll();

@@ -9,12 +9,14 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -25,9 +27,11 @@ import ts.tzfood.domain.Producto;
 import ts.tzfood.email.EmailTemplateUtils;
 import ts.tzfood.jsonModels.ProductoJsonModel;
 import ts.tzfood.models.PedidoModel;
+import ts.tzfood.models.PedidoSearchModel;
 import ts.tzfood.services.DetallePedidoServiceInterface;
 import ts.tzfood.services.PedidoServiceInterface;
 import ts.tzfood.services.ProductoServiceInterface;
+import ts.tzfood.utils.Pager;
 
 /**
  * @author Aramis
@@ -49,7 +53,8 @@ public class PedidoController {
 	private EmailTemplateUtils sender;
 	
 	
-	
+	private static final int[] PAGE_SIZES = {3, 5, 10, 20, 50, 100 };
+	private static final String[] BOLEANOS = {"", "Si", "No" };
 	
 
     @RequestMapping("pedido/nuevo")
@@ -93,7 +98,9 @@ public class PedidoController {
     		detallePedidoService.savePedido(detalle);
     	}
 
-    	sender.emailPedidoHecho(pedido.getId(), "", pedido.getEmail(), pedido.getNombrePersona());
+    	String urlDetails = "http://localhost:8080/pedido/"+pedido.getId()+"/"+pedido.getToken();
+    	sender.emailPedidoHecho(pedido.getId(), urlDetails,
+    			pedido.getEmail(), pedido.getNombrePersona());
     	
         return "redirect:/pedido/" +pedido.getId()+"/"+pedido.getToken();
     }
@@ -113,11 +120,43 @@ public class PedidoController {
    
     }
     
-    @Secured({GeneralConstants.ROL_ADMIN})
+   // @Secured({GeneralConstants.ROL_ADMIN})
     @RequestMapping(value = "/pedidos", method = RequestMethod.GET)
     public String list(Model model){
-        model.addAttribute("pedidos", pedidoService.listPedidos());
-        return "views/pedido/pedidosList";
+        
+    	PedidoSearchModel search = new PedidoSearchModel();
+    	search.setPageSize(5);
+    	search.setPageNumber(0);
+    	Page<Pedido> pedidos;
+    	
+    	pedidos = pedidoService.find(search);
+    	//5 = buttons to show
+    	Pager pager = new Pager(pedidos.getTotalPages(), pedidos.getNumber(), 5);
+    	search.setPedidos(pedidos);
+    	search.setPager(pager);
+    	model.addAttribute("search", search);
+    	model.addAttribute("pageSizes", PAGE_SIZES);
+    	model.addAttribute("boleanos", BOLEANOS);
+    	
+    	return "views/pedido/pedidosList";
+    }
+    
+    
+    @RequestMapping(value = "/pedidos", method = RequestMethod.POST)
+    public String listPost(PedidoSearchModel search){
+    	ModelAndView modelAndView = new ModelAndView();
+    	Page<Pedido> pedidos;
+    	
+    	pedidos = pedidoService.find(search);
+    	//5 = buttons to show
+    	Pager pager = new Pager(pedidos.getTotalPages(), pedidos.getNumber(), 5);
+    	search.setPedidos(pedidos);
+    	search.setPager(pager);
+    	modelAndView.addObject("search", search);
+    	modelAndView.addObject("pageSizes", PAGE_SIZES);
+    	modelAndView.addObject("boleanos", BOLEANOS);
+    	
+    	return "views/pedido/pedidosList";
     }
     
 
