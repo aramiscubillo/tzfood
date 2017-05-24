@@ -125,7 +125,8 @@ public class PedidoController {
     public String list(Model model){
         
     	PedidoSearchModel search = new PedidoSearchModel();
-    	search.setPageSize(5);
+    	search.setNewSearch("old");
+    	search.setPageSize(3);
     	search.setPageNumber(0);
     	Page<Pedido> pedidos;
     	
@@ -143,18 +144,22 @@ public class PedidoController {
     
     
     @RequestMapping(value = "/pedidos", method = RequestMethod.POST)
-    public String listPost(PedidoSearchModel search){
-    	ModelAndView modelAndView = new ModelAndView();
+    public String listPost(PedidoSearchModel search, Model model){
+    	
     	Page<Pedido> pedidos;
+    	
+    	if(search.getNewSearch().equals("new")){
+    		search.setPageNumber(0);
+    	}
     	
     	pedidos = pedidoService.find(search);
     	//5 = buttons to show
     	Pager pager = new Pager(pedidos.getTotalPages(), pedidos.getNumber(), 5);
     	search.setPedidos(pedidos);
     	search.setPager(pager);
-    	modelAndView.addObject("search", search);
-    	modelAndView.addObject("pageSizes", PAGE_SIZES);
-    	modelAndView.addObject("boleanos", BOLEANOS);
+    	model.addAttribute("search", search);
+    	model.addAttribute("pageSizes", PAGE_SIZES);
+    	model.addAttribute("boleanos", BOLEANOS);
     	
     	return "views/pedido/pedidosList";
     }

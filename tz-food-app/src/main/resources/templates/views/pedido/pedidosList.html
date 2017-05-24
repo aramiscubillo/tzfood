@@ -19,9 +19,10 @@
     <div th:if="${not #lists.isEmpty(search.pedidos)}">
         <h2>Administraci&oacute;n de Pedidos</h2>
         
-         <form class="form-horizontal" th:object="${search}" th:action="@{/pedidos}" method="post">
-         	<input type="hidden" id="pageNumber" th:field="*{pageNumber}"/>
+         <form class="form-horizontal" id="frmBuscar" th:object="${search}" th:action="@{/pedidos}" method="post">
          	
+         	<input type="hidden" id="pageNumber" th:field="*{pageNumber}"/>
+         	<input type="hidden" id="newSearch" th:field="*{newSearch}"/>
          	
         	<div class="form-group">
                 <label class="col-sm-2 control-label">C&eacute;dula:</label>
@@ -37,18 +38,18 @@
             </div>   
            <div class="form-group">
 			    <label for="entregado">Entregado:</label>
-			    <select id="entregado" class="form-control" 
+			    <select id="entregado" class="form-control"  th:field="*{entregado}"
 			        name="entregado">
-			      <option th:each="opt, status : ${boleanos}" th:value="${entregado}" 
+			      <option th:each="opt, status : ${boleanos}" th:value="${opt}" 
 			       th:text="${opt}" th:selected="${opt} == ${entregado}">
 			      </option>
 			    </select>
 			</div>
 			 <div class="form-group">
 			    <label for="pagado">Pagado:</label>
-			    <select id="pagado" class="form-control" 
+			    <select id="pagado" class="form-control"  th:field="*{pagado}"
 			        name="pagado">
-			      <option th:each="opt, status : ${boleanos}" th:value="${pagado}" 
+			      <option th:each="opt, status : ${boleanos}" th:value="${opt}" 
 			       th:text="${opt}" th:selected="${opt} == ${pagado}">
 			      </option>
 			    </select>
@@ -59,28 +60,33 @@
 				</select>
 			</div>
 			 <div class="row">
-                <button type="submit" id="buscar" class="btn btn-default">Buscar</button>
+                <button type="button" id="buscar" class="btn btn-default">Buscar</button>
             </div>
 		 </form>
         
         <table class="table table-striped">
             <tr>
-                <th>Id</th>
+                <th>C&eacute;dula</th>
                 <th>Nombre</th>
+                <th>Pagado</th>
+                <th>Entregado</th>
                 <th></th>
                 <th></th>
                 <th></th>
             </tr>
             <tr th:each="pedido : ${search.pedidos}">
-                <td th:text="${pedido.id}"><a href="/pedido/${pedido.id}">Id</a></td>
+                <td th:text="${pedido.cedulaPersona}"></td>
                 <td th:text="${pedido.nombrePersona}"></td>
+                 <td th:text="${pedido.pagado}"></td>
+                  <td th:text="${pedido.entregado}"></td>
                 <td><a th:href="${ '/pedido/' + pedido.id}" sec:authorize="hasAnyAuthority('USER','ADMIN')">View</a></td>
                 <td><a th:href="${'/pedido/editar/' + pedido.id}" sec:authorize="hasAnyAuthority('USER','ADMIN')">Edit</a></td>
                 <td><a th:href="${'/pedido/eliminar/' + pedido.id}" sec:authorize="hasAnyAuthority('USER','ADMIN')">Eliminar</a></td>
             </tr>
            
         </table>
-		<div class="row">
+
+		<div class="row" th:if="${search.pedidos.size >0}">
 			
 			<div th:if="${search.pedidos.totalPages != 1}" class="form-group col-md-11 pagination-centered">
 				<ul class="pagination">

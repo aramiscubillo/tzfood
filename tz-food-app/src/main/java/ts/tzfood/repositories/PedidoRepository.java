@@ -22,7 +22,7 @@ public interface PedidoRepository extends CrudRepository<Pedido, Integer>{
 
 	@Query("SELECT p FROM Pedido p WHERE "
 			+ "( :cedula is null or p.cedulaPersona = :cedula ) and "
-			+ "( :nombrePersonaNull  is null or p.nombrePersona like :nombrePersona ) and "
+			+ "( :nombrePersonaNull  is null or LOWER(p.nombrePersona) like :nombrePersona  ) and "
 			+ "( :pagadoNull  is null or p.pagado = :pagado ) and "
 			+ "( :entregadoNull  is null or p.entregado = :entregado )  ")
 			/*+ "( :fechaCreacInicio is null or p.fechaCreacion >= :fechaCreacInicio ) and "

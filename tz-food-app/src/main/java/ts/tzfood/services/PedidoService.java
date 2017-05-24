@@ -85,17 +85,17 @@ public class PedidoService  implements PedidoServiceInterface{
 		
 		if(model.getNombrePersona() != null && model.getNombrePersona().length()>0){
 			nombrePersonaNull = model.getNombrePersona();
-			nombrePersona = model.getNombrePersona();
+			nombrePersona = "%"+model.getNombrePersona().toLowerCase()+"%";
 		}
 		
 		if(model.getPagado() != null && model.getPagado().length()>0){
 			pagadoNull = model.getPagado();
-			pagado = model.getPagado().equals("true")? true:false;
+			pagado = model.getPagado().equals("Si")? true:false;
 		}
 		
 		if(model.getEntregado() != null && model.getEntregado().length()>0){
 			entregadoNull = model.getEntregado();
-			entregado = model.getEntregado().equals("true")? true:false;
+			entregado = model.getEntregado().equals("Si")? true:false;
 		}
 		
 		

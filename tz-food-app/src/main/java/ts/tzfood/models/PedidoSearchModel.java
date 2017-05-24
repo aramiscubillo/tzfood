@@ -36,6 +36,8 @@ public class PedidoSearchModel {
 	private int pageSize;
 	
 	private Pager pager;
+	
+	private String newSearch;
 
 	public Page<Pedido> getPedidos() {
 		return pedidos;
@@ -115,6 +117,14 @@ public class PedidoSearchModel {
 
 	public void setPager(Pager pager) {
 		this.pager = pager;
+	}
+
+	public String getNewSearch() {
+		return newSearch;
+	}
+
+	public void setNewSearch(String newSearch) {
+		this.newSearch = newSearch;
 	}
 	
 	
