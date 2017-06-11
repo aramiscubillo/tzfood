@@ -4,6 +4,7 @@
 package ts.tzfood.controller;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -16,6 +17,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -72,6 +75,7 @@ public class PedidoController {
     	pedido.setActivo(true);
     	pedido.setFechaCreacion(new Date());
     	pedido.setPagado(false);
+    	pedido.setListoParaEntrega(false);
     	pedido.setToken(new Date().getTime()+"");
     	
     	pedidoService.savePedido(pedido);
@@ -120,7 +124,18 @@ public class PedidoController {
    
     }
     
-   // @Secured({GeneralConstants.ROL_ADMIN})
+    @Secured({GeneralConstants.ROL_ADMIN})
+    @RequestMapping(value = "pedido/pagar", method = RequestMethod.GET)
+    public @ResponseBody String getNombresPorNombre( @RequestParam(value = "id", required = true) int id) {
+       
+    	Pedido pedido = pedidoService.getPedido(id);
+    	pedido.setPagado(true);
+    	pedidoService.savePedido(pedido);
+    	
+    	 return "200";
+    }
+    
+    @Secured({GeneralConstants.ROL_ADMIN})
     @RequestMapping(value = "/pedidos", method = RequestMethod.GET)
     public String list(Model model){
         

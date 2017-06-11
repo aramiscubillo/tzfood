@@ -39,6 +39,12 @@
 		                    <input type="text" class="form-control" th:field="*{pedido.cedulaPersona}"/>
 		                </div>
 		            </div>
+		            <div class="form-group">
+		                <label class="control-label">Tel&eacute;fono:</label>
+		                <div class="">
+		                    <input type="text" class="form-control" th:field="*{pedido.telefono}"/>
+		                </div>
+		            </div>
 		             <div class="form-group">
 		                <label class="control-label">Email:</label>
 		                <div class="">
@@ -46,11 +52,23 @@
 		                </div>
 		            </div>
 		            <div class="form-group">
-					  <label for="comment">Disponibilidad:</label>
+		                <label class="control-label">Provincia:</label>
+		                <div class="">
+		                    <input type="text" class="form-control" th:field="*{pedido.provincia}"/>
+		                </div>
+		            </div>
+		            <div class="form-group">
+		                <label class="control-label">Cant&oacute;n:</label>
+		                <div class="">
+		                    <input type="text" class="form-control" th:field="*{pedido.canton}"/>
+		                </div>
+		            </div>
+		            <div class="form-group">
+					  <label for="comment">Direcci&oacute;n:</label>
 					  <textarea class="form-control" rows="3" th:field="*{pedido.disponibilidad}"></textarea>
 					</div>
 		           
-		           
+		           <br/>
 		           	<div class="">
 		           		<h3>Agregar producto</h3>
 		          
@@ -74,41 +92,46 @@
 						</div>
 						
 						<div class="form-group">
-						    <label for="presentacion">Presentación:</label>
+						    <label for="presentacion">Presentaci&oacute;n:</label>
 			                <select id="presentacion" class="form-control" 
 			                name="presentacion" >
 			                    <option disabled="disabled" selected="selected" > --seleccione un producto --</option>
 			                </select>
 						</div>
+						<div class="form-group">
+						    <label for="cantidad">Cantidad:</label>
+			                 <input type="number" id="cantidad" class="form-control"/>
+						</div>
 						
-						<label class="col-sm-2 control-label">Cantidad:</label>
-		                <div class="col-sm-10">
-		                    <input type="number" id="cantidad" class="form-control"/>
-		                </div>
-						
-						<button id="btnAgregar" type="button" class="btn btn-default">Agregar</button>
+						<button id="btnAgregar" type="button" class="btn btn-default">Agregar Producto</button>
 						
 						<input type="hidden" th:field="*{productosList}"/>
 						<br/>
 						<br/>
 						
-						<div id="tbl-productos">
-						
-						</div>
-						
 		           	</div>
-		           
-		         
-		            <div class="row">
-		                <button type="submit" class="btn btn-default">Realizar Pedido</button>
+
+		            <div>
+		                <button type="submit" class="btn btn-default">Crear Pedido</button>
 		            </div>
+		            <br/><br/>
 		        </form>
 		    </div>
 		
 		</div>
 	</div>
-	
-    
+	<div class="row">
+		<div class="col-lg-3"></div>
+		<div class="col-lg-6">
+			<div id="tbl-productos">
+						
+			</div>
+		</div>
+	</div>
+    	<br/>
+		<br/>
+		<br/>
+		<br/>
 </div>
 
 </body>

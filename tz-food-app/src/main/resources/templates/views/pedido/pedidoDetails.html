@@ -9,12 +9,17 @@
 <body>
 <div class="container">
     <!--/*/ <th:block th:include="fragments/general/header :: header"></th:block> /*/-->
-	<h2>Su pedido ha sido realizado</h2>
 	
-    <h2>Información del Pedido</h2>
+    <h2>Informaci&oacute;n del Pedido</h2>
         <div>
             <form class="form-horizontal">
               
+              	 <div class="form-group">
+                    <label class="col-sm-2 control-label">C&eacute;dula:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${pedido.cedulaPersona}"></p>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Nombre:</label>
                     <div class="col-sm-10">
@@ -28,15 +33,35 @@
                     </div>
                 </div>
                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Tel&eacute;fono:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${pedido.telefono}"></p>
+                    </div>
+                </div>
+                 <div class="form-group">
                     <label class="col-sm-2 control-label">Entregado:</label>
                     <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${pedido.entregado}"></p>
+                       	<span th:if="${pedido.entregado}==true">Si</span>
+               			<span th:if="${pedido.entregado}==false">No</span>
                     </div>
                 </div>
                  <div class="form-group">
                     <label class="col-sm-2 control-label">Pagado:</label>
                     <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${pedido.pagado}"></p>
+                        <span th:if="${pedido.pagado}==true">Si</span>
+               			<span th:if="${pedido.pagado}==false">No</span>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-sm-2 control-label">Provincia:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${pedido.provincia}"></p>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label class="col-sm-2 control-label">Cant&oacute;n:</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static" th:text="${pedido.canton}"></p>
                     </div>
                 </div>
                 <h3>Productos:</h3>

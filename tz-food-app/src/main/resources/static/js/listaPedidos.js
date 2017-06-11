@@ -46,3 +46,28 @@ function setPaging(pageNumber){
 	 //$('#buscar').trigger('click');
 	 $( "#frmBuscar" ).submit();
 }
+
+
+function confirmar(id){
+	
+	var r = confirm("¿Está seguro que desea marcar la orden como pagada?");
+	
+	if (r == true) {
+
+		  $.getJSON("/pedido/pagar", {
+          	id : id,
+              ajax : 'true'
+          }, function(data) {
+        	  
+        	  if(data == '200'){
+        		  location.reload();  
+        	  }
+        	 
+          });
+
+	} else {
+
+
+	}
+	
+}

@@ -22,9 +22,13 @@ public class Pedido extends ObjetoBase{
     private Date fechaPago;
     private Date fechaEntrega;
     private String disponibilidad;
+    private boolean listoParaEntrega;
     private boolean pagado;
     private boolean entregado;
     private String token;
+    private String provincia;
+    private String canton;
+    private String telefono;
     
     @OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "id_ubicacion")
@@ -133,7 +137,39 @@ public class Pedido extends ObjetoBase{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	public boolean isListoParaEntrega() {
+		return listoParaEntrega;
+	}
+
+	public void setListoParaEntrega(boolean listoParaEntrega) {
+		this.listoParaEntrega = listoParaEntrega;
+	}
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+	public String getCanton() {
+		return canton;
+	}
+
+	public void setCanton(String canton) {
+		this.canton = canton;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
 	
-    
     
 }

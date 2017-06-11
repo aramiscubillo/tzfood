@@ -62,7 +62,9 @@ $( document ).ready(function() {
 		 $('#productos').html(tempOption);
 		 
 		 $('#productosList').val(encodeURIComponent(JSON.stringify(productos)));
-
+		 
+		 $('#cantidad').val('');
+		 
 		 buildTable();
 	});
 	 
@@ -72,14 +74,14 @@ $( document ).ready(function() {
 var productos = [];
 
 function buildTable(){
-	 html = '<table>'+
+	 html = '<table class="table table-striped">'+
 				'<tr>'+
 					'<th>Producto</th>'+
 					'<th>Marca</th>'+
 					'<th>Presentacion</th>'+
-					'<th>Precio unitario</th>'+
+					'<th>Unitario</th>'+
 					'<th>Cantidad</th>'+
-					'<th>Precio Total</th>'+
+					'<th>Total</th>'+
 					'<th></th>'
 				'</tr>';
 	  
