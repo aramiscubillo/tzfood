@@ -38,6 +38,8 @@ public class PedidoSearchModel {
 	private Pager pager;
 	
 	private String newSearch;
+	
+	private String viewType;
 
 	public Page<Pedido> getPedidos() {
 		return pedidos;
@@ -125,6 +127,14 @@ public class PedidoSearchModel {
 
 	public void setNewSearch(String newSearch) {
 		this.newSearch = newSearch;
+	}
+
+	public String getViewType() {
+		return viewType;
+	}
+
+	public void setViewType(String viewType) {
+		this.viewType = viewType;
 	}
 	
 	

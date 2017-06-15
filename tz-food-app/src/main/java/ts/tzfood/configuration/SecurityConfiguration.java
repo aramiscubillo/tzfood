@@ -63,7 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		 .authorizeRequests().antMatchers("/","/pedido/nuevo",/*"/pedidos" ,*/"/pedido/*", "/pedido/*/*","/producto/*").permitAll()
 		 .anyRequest().authenticated()
 		 .and()
-		 .formLogin().loginPage("/login").defaultSuccessUrl("/pedidos").permitAll().and().logout().permitAll();
+		 .formLogin().loginPage("/login").defaultSuccessUrl("/pedidos/general").permitAll().and().logout().permitAll();
 	
 		 
     }

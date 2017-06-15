@@ -22,6 +22,7 @@ public interface PedidoServiceInterface {
 	
 	void deletePedido(int id);
 	
-	public Page<Pedido> find(PedidoSearchModel model);
+	Page<Pedido> find(PedidoSearchModel model);
+	
 	
 }
