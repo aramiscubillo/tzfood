@@ -3,16 +3,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
 
-    <title>Crear pedidio</title>
+    <title>Crear pedido</title>
 
     <!--/*/ <th:block th:include="fragments/general/head :: head"></th:block> /*/-->
-    
-     <script src="../static/js/pedido.js"
-            th:src="@{/js/pedido.js}"></script>
+	
+	<script src="../static/js/pedido.js" th:src="@{/js/pedido.js}"></script>
+	
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+	
 
-          
-    <link href="../static/css/main.css"
-          th:href="@{css/main.css}" rel="stylesheet" media="screen"/>
+	
 </head>
 <body>
 <div class="container">
@@ -30,32 +30,28 @@
 		            <div class="form-group">
 		                <label class="control-label">Nombre Completo:</label>
 		                <div class="">
-		                    <input type="text" id="pedido_name" name="name" class="form-control" th:field="*{pedido.nombrePersona}"/>
-		                	<span class="error"> This field is required</span>
+		                    <input type="text" id="pedido_name" name="name" class="form-control" th:field="*{pedido.nombrePersona}"  data-validation="required" data-validation-error-msg="El campo de nombre completo es requerido"/>
 		                </div>
 		              
 		            </div>
 	              	<div class="form-group">
 		                <label class="control-label">C&eacute;dula:</label>
 		                <div class="">
-		                    <input type="text" class="form-control" th:field="*{pedido.cedulaPersona}"/>
-		                    <span class="error"> This field is required</span>
+		                    <input type="text" class="form-control" th:field="*{pedido.cedulaPersona}" data-validation="required" data-validation-error-msg="El campo de c&eacute;dula es requerido"/>
 		                </div>
 		                 
 		            </div>
 		            <div class="form-group">
 		                <label class="control-label">Tel&eacute;fono:</label>
 		                <div class="">
-		                    <input type="text" class="form-control" th:field="*{pedido.telefono}"/>
-		                    <span class="error"> This field is required</span>
+		                    <input type="text" class="form-control" th:field="*{pedido.telefono}" data-validation="number" data-validation-allowing="float" data-validation-error-msg="El campo de t&eacute;lefono es requerido y solo permite numeros"/>
 		                </div>
 		                 
 		            </div>
 		             <div class="form-group">
 		                <label class="control-label">Email:</label>
 		                <div class="">
-		                    <input type="email" id="pedido_email" class="form-control" th:field="*{pedido.email}"/>
-		                    <span class="error"> This field is required</span>
+		                    <input type="email" id="pedido_email" class="form-control" th:field="*{pedido.email}" data-validation="email" data-validation-error-msg="No se ha ingresado un email v&aacute;lido"/>   
 		                </div>
 		                 
 		            </div>
@@ -67,7 +63,7 @@
 					        name="provincias">
 					      <option selected="selected" > -- seleccione la provincia -- </option>
 					      <option th:each="provincia, status : ${provincias}" th:value="${provincia.id}" 
-					       th:text="${provincia.nombre}" >
+					       th:text="${provincia.nombre}">
 					      </option>
 					    </select>
 					</div>
@@ -83,15 +79,10 @@
 					    </select>
 					</div>
 		            
-		            <div class="form-group">
-		                <label class="control-label">Cant&oacute;n:</label>
-		                <div class="">
-		                    <input type="text" class="form-control" th:field="*{pedido.canton}"/>
-		                </div>
-		            </div>
+		            
 		            <div class="form-group">
 					  <label for="comment">Direcci&oacute;n:</label>
-					  <textarea class="form-control" rows="3" th:field="*{pedido.disponibilidad}"></textarea>
+					  <textarea class="form-control" rows="3" th:field="*{pedido.disponibilidad}" data-validation="required" data-validation-error-msg="El campo de direccion es requerido"></textarea>
 					</div>
 		           
 		           <br/>
@@ -126,7 +117,7 @@
 						</div>
 						<div class="form-group">
 						    <label for="cantidad">Cantidad:</label>
-			                 <input type="number" id="cantidad" class="form-control"/>
+			                 <input type="number" id="cantidad" class="form-control" data-validation="number" data-validation-allowing="float" data-validation-error-msg="El campo de cantidad es requerido"/>
 						</div>
 						
 						<button id="btnAgregar" type="button" class="btn btn-default">Agregar Producto</button>
