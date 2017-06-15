@@ -60,7 +60,7 @@ public class PedidoController {
 	private static final String[] BOLEANOS = {"", "Si", "No" };
 	
 
-    @RequestMapping("pedido/nuevo")
+	@RequestMapping(value = {"/","pedido/nuevo"}, method = RequestMethod.GET)
     public String newPedido(Model model){
         model.addAttribute("model", new PedidoModel());
         model.addAttribute("marcas", GeneralConstants.MARCAS);
@@ -69,7 +69,6 @@ public class PedidoController {
     
     @RequestMapping(value = "pedido/nuevo", method = RequestMethod.POST)
     public String save(PedidoModel model) throws Exception{
-    	
     	
     	Pedido pedido = model.getPedido();
     	pedido.setActivo(true);
