@@ -84,7 +84,8 @@
                  <td th:text="${pedido.telefono}"></td>
                 <td>
                 	<span th:if="${pedido.pagado}==true">Si</span>
-                	<span th:if="${pedido.pagado}==false">No</span>
+                	<span th:if="${pedido.pagado}==false && ${pedido.efectivo}==false">No</span>
+                	<span th:if="${pedido.pagado}==false && ${pedido.efectivo}==true">Efectivo</span>
                 </td>
                  <td>
                  	<span th:if="${pedido.entregado}==true">Si</span>
@@ -95,10 +96,16 @@
                  <td th:text="${pedido.canton}"></td>
                	 <td><a th:href="${ '/pedido/' + pedido.id+ '/'+pedido.token}" sec:authorize="hasAnyAuthority('ROL_ADMIN')">Detalles</a></td>
                  <td th:if="${pedido.listoParaEntrega}==false}">
-                 	<button th:onclick="'confirmar(\'' + ${pedido.id} + '\');'">Confirmar</button>
+                 	
+                 	<button  type="button" class="btn btn-info" th:onclick="'confirmar(\'' + ${pedido.id} + '\');'">
+                 		<span class="glyphicon glyphicon-search"></span> Confirmar
+                 	</button>
+				    
                  </td>
                  <td th:if="${pedido.pagado}==false && ${pedido.listoParaEntrega}==true && ${pedido.efectivo} ==false">
-                	<button th:onclick="'pagar(\'' + ${pedido.id} + '\');'">Pagar</button>
+                	<button type="button" class="btn btn-info" th:onclick="'pagar(\'' + ${pedido.id} + '\');'">
+                		<span class="glyphicon glyphicon-search"></span> Pagar
+                	</button>
              	 </td>
                 <td th:if="${pedido.pagado}==true">
                </td>
