@@ -25,6 +25,7 @@ public class Pedido extends ObjetoBase{
     private boolean listoParaEntrega;
     private boolean pagado;
     private boolean entregado;
+    private boolean efectivo;
     private String token;
     private String provincia;
     private String canton;
@@ -168,6 +169,14 @@ public class Pedido extends ObjetoBase{
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	public boolean isEfectivo() {
+		return efectivo;
+	}
+
+	public void setEfectivo(boolean efectivo) {
+		this.efectivo = efectivo;
 	}
 
 	
