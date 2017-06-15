@@ -24,39 +24,65 @@
 		
 			<h2>Solicitar Pedido</h2>
 		    <div>
-		        <form class="form-horizontal" th:object="${model}" th:action="@{/pedido/nuevo}" method="post">
+		        <form class="form-horizontal" th:object="${model}" th:action="@{/pedido/nuevo}" method="post" id="pedido">
 		            <input type="hidden" th:field="*{pedido.id}"/>
 		            
 		            <div class="form-group">
 		                <label class="control-label">Nombre Completo:</label>
 		                <div class="">
-		                    <input type="text" class="form-control" th:field="*{pedido.nombrePersona}"/>
+		                    <input type="text" id="pedido_name" name="name" class="form-control" th:field="*{pedido.nombrePersona}"/>
+		                	<span class="error"> This field is required</span>
 		                </div>
+		              
 		            </div>
 	              	<div class="form-group">
 		                <label class="control-label">C&eacute;dula:</label>
 		                <div class="">
 		                    <input type="text" class="form-control" th:field="*{pedido.cedulaPersona}"/>
+		                    <span class="error"> This field is required</span>
 		                </div>
+		                 
 		            </div>
 		            <div class="form-group">
 		                <label class="control-label">Tel&eacute;fono:</label>
 		                <div class="">
 		                    <input type="text" class="form-control" th:field="*{pedido.telefono}"/>
+		                    <span class="error"> This field is required</span>
 		                </div>
+		                 
 		            </div>
 		             <div class="form-group">
 		                <label class="control-label">Email:</label>
 		                <div class="">
-		                    <input type="email" class="form-control" th:field="*{pedido.email}"/>
+		                    <input type="email" id="pedido_email" class="form-control" th:field="*{pedido.email}"/>
+		                    <span class="error"> This field is required</span>
 		                </div>
+		                 
 		            </div>
+		     
+		            
 		            <div class="form-group">
-		                <label class="control-label">Provincia:</label>
-		                <div class="">
-		                    <input type="text" class="form-control" th:field="*{pedido.provincia}"/>
-		                </div>
-		            </div>
+					    <label for="provincias">Provincia:</label>
+					    <select id="provincias" class="form-control" 
+					        name="provincias">
+					      <option selected="selected" > -- seleccione la provincia -- </option>
+					      <option th:each="provincia, status : ${provincias}" th:value="${provincia.id}" 
+					       th:text="${provincia.nombre}" >
+					      </option>
+					    </select>
+					</div>
+					
+					<div class="form-group">
+					    <label for="cantones">Canton:</label>
+					    <select id="cantones" class="form-control" 
+					        name="cantones">
+					      <option selected="selected" > -- seleccione el canton -- </option>
+					      <option th:each="canton, status : ${cantones}" th:value="${canton.id}" 
+					       th:text="${canton.nombre}" >
+					      </option>
+					    </select>
+					</div>
+		            
 		            <div class="form-group">
 		                <label class="control-label">Cant&oacute;n:</label>
 		                <div class="">
@@ -111,7 +137,7 @@
 						
 		           	</div>
 
-		            <div>
+		            <div id="pedido_submit">
 		                <button type="submit" class="btn btn-default">Crear Pedido</button>
 		            </div>
 		            <br/><br/>

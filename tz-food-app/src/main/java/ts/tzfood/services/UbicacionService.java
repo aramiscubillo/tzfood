@@ -3,7 +3,10 @@
  */
 package ts.tzfood.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import ts.tzfood.domain.Ubicacion;
 import ts.tzfood.repositories.UbicacionRepository;
@@ -12,6 +15,7 @@ import ts.tzfood.repositories.UbicacionRepository;
  * @author Aramis
  *
  */
+@Service
 public class UbicacionService implements UbicacionServiceInterface{
 
 	@Autowired
@@ -47,6 +51,14 @@ public class UbicacionService implements UbicacionServiceInterface{
 	@Override
 	public void deleteLugar(int id) {
 		lugarRepo.delete(id);
+	}
+
+	@Override
+	public List<Ubicacion> getUbicacionByRegionPapa(int papa) {
+		List<Ubicacion> list= lugarRepo.findByRegionPapa(papa);
+		
+		
+		return list;
 	}
 
 }

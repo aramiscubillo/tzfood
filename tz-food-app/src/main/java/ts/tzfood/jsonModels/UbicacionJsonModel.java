@@ -1,24 +1,30 @@
 /**
  * 
  */
-package ts.tzfood.domain;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+package ts.tzfood.jsonModels;
 
 /**
  * @author Aramis
  *
  */
-@Entity
-public class Ubicacion extends ObjetoBase{
-
-
+public class UbicacionJsonModel {
+	
+	private int id;
 	private String nombre;
 	private int regionPapa;
 	
+	/**
+	 * 
+	 */
+	public UbicacionJsonModel() {
+	
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	public String getNombre() {
 		return nombre;
@@ -26,15 +32,12 @@ public class Ubicacion extends ObjetoBase{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
 	public int getRegionPapa() {
 		return regionPapa;
 	}
 	public void setRegionPapa(int regionPapa) {
 		this.regionPapa = regionPapa;
 	}
-	
-	
 	
 	
 	

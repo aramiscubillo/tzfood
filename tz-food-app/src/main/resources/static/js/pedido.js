@@ -1,5 +1,43 @@
 $( document ).ready(function() {
 
+	// Name can't be blank
+	$('#pedido_name').on('input', function() {
+		var input=$(this);
+		var is_name=input.val();
+		if(is_name){input.removeClass("invalid").addClass("valid");}
+		else{input.removeClass("valid").addClass("invalid");}
+	});
+	
+	
+	// Email must be an email
+	$('#pedido_email').on('input', function() {
+		var input=$(this);
+		var re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+		var is_email=re.test(input.val());
+		if(is_email){input.removeClass("invalid").addClass("valid");}
+		else{input.removeClass("valid").addClass("invalid");}
+	});
+	
+	
+	// After Form Submitted Validation
+	/*$("#pedido_submit button").click(function(event){
+		var form_data=$("#pedido").serializeArray();
+		var error_free=true;
+		for (var input in form_data){
+			var element=$("#pedido_"+form_data[input]['name']);
+			var valid=element.hasClass("valid");
+			var error_element=$("span", element.parent());
+			if (!valid){error_element.removeClass("error").addClass("error_show"); error_free=false;}
+			else{error_element.removeClass("error_show").addClass("error");}
+		}
+		if (!error_free){
+			event.preventDefault(); 
+		}
+		else{
+			alert('No errors: Form will be submitted');
+		}
+	});*/
+	
 	 $('#marcas').change(
 		        function() {
 		        	var pathname = window.location.pathname;
@@ -17,6 +55,26 @@ $( document ).ready(function() {
 		                $('#productos').html(html);
 		            });
     });
+	 
+	 
+	 $('#provincias').change(
+			 function() {
+				 var pathname = window.location.pathname;
+				 $.getJSON("/ubicacion/getRegionByRegionPapa", {
+					 regionPapa : $(this).val(),
+					 ajax : 'true'
+				 }, function(data) {
+					 var html = '<option value="">--selecione un canton--</option>';
+					 var len = data.length;
+					 for ( var i = 0; i < len; i++) {
+						 html += '<option value="' + data[i].id + '">'
+						 + data[i].nombre + '</option>';
+					 }
+					 html += '</option>';
+					 $('#cantones').html(html);
+				 });
+			 });
+
 	 
 	 
 	 
