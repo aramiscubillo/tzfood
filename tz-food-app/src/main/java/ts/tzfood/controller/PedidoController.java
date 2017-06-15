@@ -34,6 +34,7 @@ import ts.tzfood.models.PedidoSearchModel;
 import ts.tzfood.services.DetallePedidoServiceInterface;
 import ts.tzfood.services.PedidoServiceInterface;
 import ts.tzfood.services.ProductoServiceInterface;
+import ts.tzfood.services.UbicacionServiceInterface;
 import ts.tzfood.utils.Pager;
 
 /**
@@ -48,6 +49,9 @@ public class PedidoController {
 	
 	@Autowired 
 	private ProductoServiceInterface productoService;
+	
+	@Autowired 
+	private UbicacionServiceInterface ubicacionService;
 	
 	@Autowired
 	private DetallePedidoServiceInterface detallePedidoService;
@@ -64,6 +68,7 @@ public class PedidoController {
     public String newPedido(Model model){
         model.addAttribute("model", new PedidoModel());
         model.addAttribute("marcas", GeneralConstants.MARCAS);
+        model.addAttribute("provincias", ubicacionService.getUbicacionByRegionPapa(1));
         return "views/pedido/pedidoForm";
     }
     

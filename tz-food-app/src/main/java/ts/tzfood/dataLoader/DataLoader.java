@@ -41,7 +41,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent>{
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
-	/*
+		/*
 	    Ubicacion provincia = new Ubicacion();
 	    provincia.setNombre("San José");
 	    provincia.setTipo(GeneralConstants.PROVINCIA);
@@ -76,7 +76,8 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent>{
 	    provincia.setNombre("Guanacaste");
 	    provincia.setTipo(GeneralConstants.PROVINCIA);
 	    lugarRepo.save(provincia);
-	    
+	    */
+		/*
 	    Usuario usuario = new Usuario();
 	    usuario.setActivo(true);
 	    usuario.setEnabled(true);
@@ -91,8 +92,8 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent>{
 	    usuario.setEnabled(true);
 	    usuario.setFechaCreacion(new Date());
 	    usuario.setRol(GeneralConstants.ROL_ADMIN);
-	    usuario.setEncryptedPassword(strongEncryptor.encryptPassword("abc123456"));
-	    usuario.setUsername("mop1");
+	    usuario.setEncryptedPassword(strongEncryptor.encryptPassword("eso12345"));
+	    usuario.setUsername("Doc");
 	    usuarioRepo.save(usuario);
 	    
 	    Producto producto = new Producto();

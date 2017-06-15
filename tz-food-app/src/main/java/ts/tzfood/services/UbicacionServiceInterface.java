@@ -3,6 +3,8 @@
  */
 package ts.tzfood.services;
 
+import java.util.List;
+
 import ts.tzfood.domain.Ubicacion;
 
 /**
@@ -18,5 +20,7 @@ public interface UbicacionServiceInterface {
 	Ubicacion saveLugar(Ubicacion lugar);
 	
 	void deleteLugar(int id);
+	
+	List<Ubicacion> getUbicacionByRegionPapa(int papa);
 	
 }
