@@ -89,6 +89,27 @@ function confirmar(id){
 }
 
 
+function entregar(id){
+	
+	var r = confirm("¿Está seguro que desea entregar la orden?");
+	
+	if (r == true) {
+
+		  $.getJSON("/pedido/entregar", {
+          	id : id,
+              ajax : 'true'
+          }, function(data) {
+        	  
+        	  if(data == '200'){
+        		  $( "#frmBuscar" ).submit();  
+        	  }
+        	 
+          });
+
+	}
+}
+
+
 function eliminar(id){
 	
 	var r = confirm("¿Está seguro que desea eliminar la orden? Una vez eliminada no podrá recuperarla");

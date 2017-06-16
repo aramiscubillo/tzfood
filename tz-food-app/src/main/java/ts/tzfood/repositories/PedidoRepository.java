@@ -21,7 +21,7 @@ import ts.tzfood.domain.Pedido;
 public interface PedidoRepository extends CrudRepository<Pedido, Integer>{
 
 	@Query("SELECT p FROM Pedido p WHERE "
-			+ "( :cedula is null or p.cedulaPersona = :cedula ) and "
+			+ "( :cedulaNull  is null or LOWER(p.cedulaPersona) like :cedula  ) and "
 			+ "( :nombrePersonaNull  is null or LOWER(p.nombrePersona) like :nombrePersona  ) and "
 			+ "( :pagadoNull  is null or p.pagado = :pagado ) and "
 			+ "( :listoNull  is null or p.listoParaEntrega = :listo ) and "
@@ -30,6 +30,7 @@ public interface PedidoRepository extends CrudRepository<Pedido, Integer>{
 			/*+ "( :fechaCreacInicio is null or p.fechaCreacion >= :fechaCreacInicio ) and "
 			+ "( :fechaCreacFin is null or p.fechaCreacion <= :fechaCreacFin )")*/
 	public Page<Pedido> find(
+			@Param("cedulaNull") String cedulaNull,
 			@Param("cedula") String cedula,
 			@Param("nombrePersonaNull") String nombrePersonaNull,
 			@Param("nombrePersona") String nombrePersona,

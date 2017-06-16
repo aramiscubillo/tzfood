@@ -159,6 +159,17 @@ public class PedidoController {
     	 return "200";
     }
     
+    @RequestMapping(value = "pedido/entregar", method = RequestMethod.GET)
+    public @ResponseBody String entregar( @RequestParam(value = "id", required = true) int id) {
+       
+    	Pedido pedido = pedidoService.getPedido(id);
+    	pedido.setEntregado(true);
+    	pedido.setPagado(true);
+    	pedidoService.savePedido(pedido);
+    	
+    	 return "200";
+    }
+    
     //@Secured({GeneralConstants.ROL_ADMIN})
     @RequestMapping(value = "/pedidos/{type}", method = RequestMethod.GET)
     public String list(@PathVariable String type, Model model){
@@ -169,6 +180,11 @@ public class PedidoController {
     	search.setPageNumber(0);
     	search.setViewType(type);
     	Page<Pedido> pedidos;
+    	
+    	if(type.equals("entrega")){
+    		search.setListoParaEntrega("Si");
+    		search.setEntregado("No");
+    	}
     	
     	pedidos = pedidoService.find(search);
     	//5 = buttons to show
@@ -192,6 +208,11 @@ public class PedidoController {
     		search.setPageNumber(0);
     	}
     	
+    	if(type.equals("entrega")){
+    		search.setListoParaEntrega("Si");
+    		search.setEntregado("No");
+    	}
+    	
     	pedidos = pedidoService.find(search);
     	//5 = buttons to show
     	Pager pager = new Pager(pedidos.getTotalPages(), pedidos.getNumber(), 5);
@@ -211,7 +232,7 @@ public class PedidoController {
     		return "views/pedido/pedidosList";
     	}
     	
-    	if(view.equals("pagados")){
+    	if(view.equals("entrega")){
     		return "views/pedido/pedidosPagadosList";
     	}
     	

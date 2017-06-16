@@ -108,16 +108,23 @@
                  </td>
                  <td th:text="${#dates.format(pedido.fechaCreacion, 'dd-MM-yyyy')}"></td>
                  <td th:text="${pedido.provincia}"></td>
-               	 <td><a th:href="${ '/pedido/' + pedido.id+ '/'+pedido.token}" sec:authorize="hasAnyAuthority('ROL_ADMIN')">Detalles</a></td>
-                 <td th:if="${pedido.listoParaEntrega}==false">
+               	 <td>
+               	 	<a class="btn btn-info" th:href="${ '/pedido/' + pedido.id+ '/'+pedido.token}">
+						<span class="glyphicon glyphicon-search"></span>
+					</a>
+               	 	
+              	 	</td>
+                 <td>
                  	
-                 	<button  type="button" class="btn btn-info" th:onclick="'confirmar(\'' + ${pedido.id} + '\');'">
+                 	<button th:if="${pedido.listoParaEntrega}==false" 
+                 			type="button" class="btn btn-info" 
+                 			th:onclick="'confirmar(\'' + ${pedido.id} + '\');'">
                  		<span class="glyphicon glyphicon-ok"></span>
                  	</button>
 				    
-                 </td>
-                 <td th:if="${pedido.pagado}==false and ${pedido.listoParaEntrega}==true and ${pedido.efectivo} ==false">
-                	<button type="button" class="btn btn-info" th:onclick="'pagar(\'' + ${pedido.id} + '\');'">
+                	<button th:if="${pedido.pagado}==false and ${pedido.listoParaEntrega}==true and ${pedido.efectivo} ==false"
+                			type="button" class="btn btn-info" 
+                			th:onclick="'pagar(\'' + ${pedido.id} + '\');'">
                 		<span class="glyphicon glyphicon-usd"></span>
                 	</button>
              	 </td>
