@@ -5,6 +5,7 @@ $( document ).ready(function() {
 	    scrollToTopOnError : false // Set this property to true on longer forms
 	  });
 	
+	
 	 $('#marcas').change(
 		        function() {
 		        	var pathname = window.location.pathname;
@@ -90,6 +91,8 @@ $( document ).ready(function() {
 		 
 		 $('#cantidad').val('');
 		 
+		 $("div").removeClass("hidden");
+		 
 		 buildTable();
 	});
 	 
@@ -136,6 +139,9 @@ function buildTable(){
 	 			'<td>'+totalSum+'</td>'+
 	 		'</tr>'
 	 html+='</table>'
+		 
+	
+				
 	 $('#tbl-productos').html(html);
 	 
 	 
