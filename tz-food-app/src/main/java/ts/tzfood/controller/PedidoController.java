@@ -3,6 +3,8 @@
  */
 package ts.tzfood.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -186,6 +188,8 @@ public class PedidoController {
     		search.setEntregado("No");
     	}
     	
+    	
+    	
     	pedidos = pedidoService.find(search);
     	//5 = buttons to show
     	Pager pager = new Pager(pedidos.getTotalPages(), pedidos.getNumber(), 5);
@@ -225,7 +229,7 @@ public class PedidoController {
     	return pedidosSearchViewHandler(search.getViewType());
     }
     
-    
+     
 
     private String pedidosSearchViewHandler(String view){
     	if(view.equals("general")){

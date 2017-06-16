@@ -19,6 +19,11 @@ $( document ).ready(function() {
 	    $( "#frmBuscar" ).submit();
 	 });
 	
+	 
+	 $('.picker').datepicker({
+	      dateFormat: 'dd-mm-yy'
+	});
+	 
 });
 
 /*

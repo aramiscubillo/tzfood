@@ -3,6 +3,8 @@
  */
 package ts.tzfood.services;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,46 +80,73 @@ public class PedidoService  implements PedidoServiceInterface{
 		PageRequest pr = null;
 		
 		
+		try{
 		
+			Sort sort = new Sort(Sort.Direction.DESC, "fechaCreacion");
+			pr = new PageRequest(model.getPageNumber(), model.getPageSize(), sort);
+			
+			Page<Pedido> result = null;
+	
+			
+			if(model.getCedula() != null && model.getCedula().length()>0){
+				cedulaNull = model.getCedula();
+				cedula = "%"+model.getCedula().toLowerCase()+"%";
+			}
+			
+			if(model.getNombrePersona() != null && model.getNombrePersona().length()>0){
+				nombrePersonaNull = model.getNombrePersona();
+				nombrePersona = "%"+model.getNombrePersona().toLowerCase()+"%";
+			}
+			
+			if(model.getPagado() != null && model.getPagado().length()>0){
+				pagadoNull = model.getPagado();
+				pagado = model.getPagado().equals("Si")? true:false;
+			}
+			
+			if(model.getEntregado() != null && model.getEntregado().length()>0){
+				entregadoNull = model.getEntregado();
+				entregado = model.getEntregado().equals("Si")? true:false;
+			}
+			
+			if(model.getListoParaEntrega() != null && model.getListoParaEntrega().length()>0){
+				listoNull = model.getListoParaEntrega();
+				listo = model.getListoParaEntrega().equals("Si")? true:false;
+			}
+			
+			if(model.getFechaCreacionInicio() != null && model.getFechaCreacionInicio().length()>0){
+				fechaCreacInicio = getDate(model.getFechaCreacionInicio());
+			}
+			
+			if(model.getFechaCreacionFin() != null && model.getFechaCreacionFin().length()>0){
+				fechaCreacFin = getDate(model.getFechaCreacionFin());
+			}
+			
+			
+			if(model.getViewType().equals("general")){
+				
+				return pedidoRepo.findGeneral(cedulaNull, cedula, nombrePersonaNull, nombrePersona, 
+								pagadoNull, pagado, entregadoNull, entregado,
+								listoNull, listo, fechaCreacInicio, fechaCreacFin,
+								  pr);		
+			}else{
+				return pedidoRepo.findEntrega(cedulaNull, cedula, nombrePersonaNull, nombrePersona, 
+						 fechaCreacInicio, fechaCreacFin,
+						  pr);	
+			}
 		
-		Sort sort = new Sort(Sort.Direction.DESC, "fechaCreacion");
-		pr = new PageRequest(model.getPageNumber(), model.getPageSize(), sort);
-		
-		Page<Pedido> result = null;
-
-		
-		if(model.getCedula() != null && model.getCedula().length()>0){
-			cedulaNull = model.getCedula();
-			cedula = "%"+model.getCedula().toLowerCase()+"%";
+		} catch(Exception e){
+			return null;
 		}
-		
-		if(model.getNombrePersona() != null && model.getNombrePersona().length()>0){
-			nombrePersonaNull = model.getNombrePersona();
-			nombrePersona = "%"+model.getNombrePersona().toLowerCase()+"%";
-		}
-		
-		if(model.getPagado() != null && model.getPagado().length()>0){
-			pagadoNull = model.getPagado();
-			pagado = model.getPagado().equals("Si")? true:false;
-		}
-		
-		if(model.getEntregado() != null && model.getEntregado().length()>0){
-			entregadoNull = model.getEntregado();
-			entregado = model.getEntregado().equals("Si")? true:false;
-		}
-		
-		if(model.getListoParaEntrega() != null && model.getListoParaEntrega().length()>0){
-			listoNull = model.getListoParaEntrega();
-			listo = model.getListoParaEntrega().equals("Si")? true:false;
-		}
-		
-		return pedidoRepo.find(cedulaNull, cedula, nombrePersonaNull, nombrePersona, 
-							pagadoNull, pagado, entregadoNull, entregado,
-							listoNull, listo,
-							  pr);
-		
 	}
 	
+		
+	 private Date getDate(String dateString) throws Exception{
+	    	
+    	DateFormat df = new SimpleDateFormat("dd-MM-yyyy"); 
+
+    	return df.parse(dateString);
+    	
+    }
 	
 	
 }
