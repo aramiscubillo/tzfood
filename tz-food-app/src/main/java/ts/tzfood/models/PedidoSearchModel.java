@@ -42,6 +42,10 @@ public class PedidoSearchModel {
 	private String newSearch;
 	
 	private String viewType;
+	
+	private String provincia;
+	
+	private String canton;
 
 	public Page<Pedido> getPedidos() {
 		return pedidos;
@@ -145,6 +149,22 @@ public class PedidoSearchModel {
 
 	public void setListoParaEntrega(String listoParaEntrega) {
 		this.listoParaEntrega = listoParaEntrega;
+	}
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+	public String getCanton() {
+		return canton;
+	}
+
+	public void setCanton(String canton) {
+		this.canton = canton;
 	}
 	
 	

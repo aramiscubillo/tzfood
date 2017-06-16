@@ -206,6 +206,7 @@ public class PedidoController {
     	model.addAttribute("search", search);
     	model.addAttribute("pageSizes", PAGE_SIZES);
     	model.addAttribute("boleanos", BOLEANOS);
+    	model.addAttribute("provincias", ubicacionService.getUbicacionByRegionPapa(1));
     	
     	return pedidosSearchViewHandler(type);
     }
@@ -233,6 +234,7 @@ public class PedidoController {
     	model.addAttribute("search", search);
     	model.addAttribute("pageSizes", PAGE_SIZES);
     	model.addAttribute("boleanos", BOLEANOS);
+    	model.addAttribute("provincias", ubicacionService.getUbicacionByRegionPapa(1));
     	
     	return pedidosSearchViewHandler(search.getViewType());
     }
@@ -250,55 +252,7 @@ public class PedidoController {
     	
     	return "";
     }
-    
-    //@Secured({GeneralConstants.ROL_ADMIN})
-    @RequestMapping(value = "/pedidosPagados", method = RequestMethod.GET)
-    public String listPagados(Model model){
-        
-    	PedidoSearchModel search = new PedidoSearchModel();
-    	search.setNewSearch("old");
-    	search.setPageSize(3);
-    	search.setPageNumber(0);
-    	search.setPagado("Si");
-    	search.setEntregado("Si");
-    	search.setListoParaEntrega("Si");
-    	Page<Pedido> pedidos;
-    	
-    	pedidos = pedidoService.find(search);
-    	//5 = buttons to show
-    	Pager pager = new Pager(pedidos.getTotalPages(), pedidos.getNumber(), 5);
-    	search.setPedidos(pedidos);
-    	search.setPager(pager);
-    	model.addAttribute("search", search);
-    	model.addAttribute("pageSizes", PAGE_SIZES);
-    	model.addAttribute("provincias", BOLEANOS);
-    	
-    	return "views/pedido/pedidosPagados";
-    }
-    
-    
-    @RequestMapping(value = "/pedidosPedidos", method = RequestMethod.POST)
-    public String listPagadosPost(PedidoSearchModel search, Model model){
-    	
-    	Page<Pedido> pedidos;
-    	
-    	if(search.getNewSearch().equals("new")){
-    		search.setPageNumber(0);
-    	}
-    	
-    	pedidos = pedidoService.find(search);
-    	//5 = buttons to show
-    	Pager pager = new Pager(pedidos.getTotalPages(), pedidos.getNumber(), 5);
-    	search.setPedidos(pedidos);
-    	search.setPager(pager);
-    	model.addAttribute("search", search);
-    	model.addAttribute("pageSizes", PAGE_SIZES);
-    	model.addAttribute("provincias", BOLEANOS);
-    	
-    	return "views/pedido/pedidosPagados";
-    }
-    
-    
+     
     
     @RequestMapping("pedido/editar/{id}")
     public String edit(@PathVariable int id, Model model){

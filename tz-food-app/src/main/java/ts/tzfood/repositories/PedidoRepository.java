@@ -27,6 +27,8 @@ public interface PedidoRepository extends CrudRepository<Pedido, Integer>{
 			+ "( :listoNull  is null or p.listoParaEntrega = :listo ) and "
 			+ "( :entregadoNull  is null or p.entregado = :entregado )  and "
 			+ " p.activo = 1 and " 
+			+ "( :provincia is null or p.provincia = :provincia ) and "
+			+ "( :canton is null or p.canton = :canton ) and "
 			+ "( :fechaCreacInicio is null or Date(p.fechaCreacion) >= Date(:fechaCreacInicio) ) and "
 			+ "( :fechaCreacFin is null or Date(p.fechaCreacion) <= Date(:fechaCreacFin) )")
 	public Page<Pedido> findGeneral(
@@ -42,6 +44,8 @@ public interface PedidoRepository extends CrudRepository<Pedido, Integer>{
 			@Param("listo") boolean listo,
 			@Param("fechaCreacInicio") Date fechaCreacInicio, 
 			@Param("fechaCreacFin") Date fechaCreacFin,
+			@Param("provincia") String provincia, 
+			@Param("canton") String canton,
 			Pageable pageable);
 	
 	
@@ -53,6 +57,8 @@ public interface PedidoRepository extends CrudRepository<Pedido, Integer>{
 			+ "( p.listoParaEntrega = 1 ) and "
 			+ "( p.entregado = 0 )  and "
 			+ " p.activo = 1 and " 
+			+ "( :provincia is null or p.provincia = :provincia ) and "
+			+ "( :canton is null or p.canton = :canton ) and "
 			+ "( :fechaCreacInicio is null or Date(p.fechaCreacion) >= Date(:fechaCreacInicio) ) and "
 			+ "( :fechaCreacFin is null or Date(p.fechaCreacion) <= Date(:fechaCreacFin) )")
 	public Page<Pedido> findEntrega(
@@ -62,6 +68,8 @@ public interface PedidoRepository extends CrudRepository<Pedido, Integer>{
 			@Param("nombrePersona") String nombrePersona,
 			@Param("fechaCreacInicio") Date fechaCreacInicio, 
 			@Param("fechaCreacFin") Date fechaCreacFin,
+			@Param("provincia") String provincia, 
+			@Param("canton") String canton,
 			Pageable pageable);
 	
 }

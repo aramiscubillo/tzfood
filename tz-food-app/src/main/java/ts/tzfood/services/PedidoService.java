@@ -26,6 +26,9 @@ public class PedidoService  implements PedidoServiceInterface{
 
 	@Autowired
 	private PedidoRepository pedidoRepo;
+	
+	@Autowired 
+	private UbicacionServiceInterface ubicacionService;
 
 	/* (non-Javadoc)
 	 * @see ts.tzfood.services.PedidoServiceInterface#listPedidos()
@@ -77,6 +80,8 @@ public class PedidoService  implements PedidoServiceInterface{
 		boolean entregado = false;
 		Date fechaCreacInicio = null;
 		Date fechaCreacFin = null;
+		String provincia = null;
+		String canton = null;
 		PageRequest pr = null;
 		
 		
@@ -122,15 +127,23 @@ public class PedidoService  implements PedidoServiceInterface{
 			}
 			
 			
+			if(model.getProvincia() != null && model.getProvincia().length()>0){
+				provincia = ubicacionService.getLugar(Integer.parseInt(model.getProvincia())).getNombre();
+			}
+			
+			if(model.getCanton() != null && model.getCanton().length()>0){
+				canton = ubicacionService.getLugar(Integer.parseInt(model.getCanton())).getNombre();
+			}
+			
 			if(model.getViewType().equals("general")){
 				
 				return pedidoRepo.findGeneral(cedulaNull, cedula, nombrePersonaNull, nombrePersona, 
 								pagadoNull, pagado, entregadoNull, entregado,
-								listoNull, listo, fechaCreacInicio, fechaCreacFin,
+								listoNull, listo, fechaCreacInicio, fechaCreacFin, provincia, canton,
 								  pr);		
 			}else{
 				return pedidoRepo.findEntrega(cedulaNull, cedula, nombrePersonaNull, nombrePersona, 
-						 fechaCreacInicio, fechaCreacFin,
+						 fechaCreacInicio, fechaCreacFin, provincia, canton,
 						  pr);	
 			}
 		
