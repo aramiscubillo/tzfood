@@ -85,7 +85,6 @@
                 <th>Confirmado</th>
                 <th>Fecha Creaci&oacute;n</th>
                 <th>Provincia</th>
-                <th>Cant&oacute;n</th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -109,7 +108,6 @@
                  </td>
                  <td th:text="${#dates.format(pedido.fechaCreacion, 'dd-MM-yyyy')}"></td>
                  <td th:text="${pedido.provincia}"></td>
-                 <td th:text="${pedido.canton}"></td>
                	 <td><a th:href="${ '/pedido/' + pedido.id+ '/'+pedido.token}" sec:authorize="hasAnyAuthority('ROL_ADMIN')">Detalles</a></td>
                  <td th:if="${pedido.listoParaEntrega}==false">
                  	
