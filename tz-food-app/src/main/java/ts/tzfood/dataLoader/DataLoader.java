@@ -12,9 +12,11 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import ts.tzfood.constants.GeneralConstants;
+import ts.tzfood.domain.Pedido;
 import ts.tzfood.domain.Producto;
 import ts.tzfood.domain.Ubicacion;
 import ts.tzfood.domain.Usuario;
+import ts.tzfood.repositories.PedidoRepository;
 import ts.tzfood.repositories.ProductoRepository;
 import ts.tzfood.repositories.UbicacionRepository;
 import ts.tzfood.repositories.UsuarioRepository;
@@ -37,6 +39,9 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent>{
 	
 	@Autowired
 	private ProductoRepository productoRepo;
+	
+	@Autowired
+	private PedidoRepository pedidoRepo;
      
 
 	@Override
@@ -108,6 +113,8 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent>{
 	    producto.setPresentacion("8 kg");
 	    productoRepo.save(producto);
 	    */
+		
+		
 	}
 	
 }

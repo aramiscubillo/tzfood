@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
 
-    <title>Admiistraci&oactue;n de Pedidos</title>
+    <title>Admiistraci&oacute;n de Pedidos</title>
 
     <!--/*/ <th:block th:include="fragments/general/head :: head"></th:block> /*/-->
      <script src="../static/js/listaPedidos.js"
@@ -20,10 +20,11 @@
         <h2>Administraci&oacute;n de Pedidos</h2>
         <div class="row">
         	<div class="col-lg-4">
-		         <form class="form-horizontal" id="frmBuscar" th:object="${search}" th:action="@{/pedidos}" method="post">
+		         <form class="form-horizontal" id="frmBuscar" th:object="${search}" th:action="@{'/pedidos/'+${search.viewType}}" method="post">
 		         	
 		         	<input type="hidden" id="pageNumber" th:field="*{pageNumber}"/>
 		         	<input type="hidden" id="newSearch" th:field="*{newSearch}"/>
+		         	<input type="hidden" th:field="*{viewType}"/>
 		         	
 		        	<div class="form-group">
 		                <label class="control-label">C&eacute;dula:</label>
@@ -33,7 +34,16 @@
 		            <div class="form-group">
 		                <label class="control-label">Nombre:</label>
 		                <input type="text" class="form-control" th:field="*{nombrePersona}"/>
-		            </div>   
+		            </div>
+		            <div class="form-group">
+					    <label for="entregado">Confirmado:</label>
+					    <select id="listoParaEntrega" class="form-control"  th:field="*{listoParaEntrega}"
+					        name="listoParaEntrega">
+					      <option th:each="opt, status : ${boleanos}" th:value="${opt}" 
+					       th:text="${opt}" th:selected="${opt} == ${listoParaEntrega}">
+					      </option>
+					    </select>
+					</div>   
 		           <div class="form-group">
 					    <label for="entregado">Entregado:</label>
 					    <select id="entregado" class="form-control"  th:field="*{entregado}"
@@ -64,6 +74,7 @@
 				 </form>
         	</div>
         </div>
+        
         <table class="table table-striped">
             <tr>
                 <th>C&eacute;dula</th>
@@ -71,9 +82,9 @@
                 <th>Tel</th>
                 <th>Pagado</th>
                 <th>Entregado</th>
+                <th>Confirmado</th>
                 <th>Fecha Creaci&oacute;n</th>
                 <th>Provincia</th>
-                <th>Cant&oacute;n</th>
                 <th></th>
                 <th></th>
                 <th></th>
@@ -84,38 +95,50 @@
                  <td th:text="${pedido.telefono}"></td>
                 <td>
                 	<span th:if="${pedido.pagado}==true">Si</span>
-                	<span th:if="${pedido.pagado}==false && ${pedido.efectivo}==false">No</span>
-                	<span th:if="${pedido.pagado}==false && ${pedido.efectivo}==true">Efectivo</span>
+                	<span th:if="${pedido.pagado==false and pedido.efectivo==false}">No</span>
+                	<span th:if="${pedido.pagado==false and pedido.efectivo==true}">Efectivo</span>
                 </td>
                  <td>
                  	<span th:if="${pedido.entregado}==true">Si</span>
                		<span th:if="${pedido.entregado}==false">No</span>
                  </td>
+                  <td>
+                 	<span th:if="${pedido.listoParaEntrega}==true">Si</span>
+               		<span th:if="${pedido.listoParaEntrega}==false">No</span>
+                 </td>
                  <td th:text="${#dates.format(pedido.fechaCreacion, 'dd-MM-yyyy')}"></td>
                  <td th:text="${pedido.provincia}"></td>
-                 <td th:text="${pedido.canton}"></td>
-               	 <td><a th:href="${ '/pedido/' + pedido.id+ '/'+pedido.token}" sec:authorize="hasAnyAuthority('ROL_ADMIN')">Detalles</a></td>
-                 <td th:if="${pedido.listoParaEntrega}==false}">
+               	 <td>
+               	 	<a class="btn btn-info" th:href="${ '/pedido/' + pedido.id+ '/'+pedido.token}">
+						<span class="glyphicon glyphicon-search"></span>
+					</a>
+               	 	
+              	 	</td>
+                 <td>
                  	
-                 	<button  type="button" class="btn btn-info" th:onclick="'confirmar(\'' + ${pedido.id} + '\');'">
-                 		<span class="glyphicon glyphicon-search"></span> Confirmar
+                 	<button th:if="${pedido.listoParaEntrega}==false" 
+                 			type="button" class="btn btn-info" 
+                 			th:onclick="'confirmar(\'' + ${pedido.id} + '\');'">
+                 		<span class="glyphicon glyphicon-ok"></span>
                  	</button>
 				    
-                 </td>
-                 <td th:if="${pedido.pagado}==false && ${pedido.listoParaEntrega}==true && ${pedido.efectivo} ==false">
-                	<button type="button" class="btn btn-info" th:onclick="'pagar(\'' + ${pedido.id} + '\');'">
-                		<span class="glyphicon glyphicon-search"></span> Pagar
+                	<button th:if="${pedido.pagado}==false and ${pedido.listoParaEntrega}==true and ${pedido.efectivo} ==false"
+                			type="button" class="btn btn-info" 
+                			th:onclick="'pagar(\'' + ${pedido.id} + '\');'">
+                		<span class="glyphicon glyphicon-usd"></span>
                 	</button>
              	 </td>
-                <td th:if="${pedido.pagado}==true">
-               </td>
-                <td><a th:href="${'/pedido/eliminar/' + pedido.id}" sec:authorize="hasAnyAuthority('ROL_ADMIN')">Eliminar</a></td>
+                <td th:if="${pedido.entregado}==false">
+                	<button type="button" class="btn btn-danger" th:onclick="'eliminar(\'' + ${pedido.id} + '\');'">
+                		<span class="glyphicon glyphicon-trash"></span>
+                	</button>
+                </td>
             </tr>
         </table>
 
-		<div class="row" th:if="${search.pedidos.size >0}">
+		<div class="row" >
 			
-			<div th:if="${search.pedidos.totalPages != 1}" class="form-group col-md-11 pagination-centered">
+			<div th:if="${search.pedidos.totalPages > 1}" class="form-group col-md-11 pagination-centered">
 				<ul class="pagination">
 					<li th:class="${search.pedidos.number == 0} ? disabled">
 						<span class="pageLink" onClick="setPaging(1)">&laquo;</span>
@@ -128,10 +151,10 @@
 						<span class="pageLink" th:onclick="'javascript:setPaging('+ ${page} +');'"  th:text="${page}"></span>
 					</li>
 					<li th:class="${search.pedidos.number + 1 == search.pedidos.totalPages} ? disabled">
-						<a class="pageLink" th:href="@{pedidos(pageSize=${search.pageSize}, page=${search.pedidos.number + 2})}">&rarr;</a>
+						<span class="pageLink" th:onclick="'javascript:setPaging('+ ${search.pedidos.number + 2} +');'">&rarr;</span>
 					</li>
 					<li th:class="${search.pedidos.number + 1 == search.pedidos.totalPages} ? disabled">
-						<a class="pageLink" th:href="@{pedidos(pageSize=${search.pageSize}, page=${search.pedidos.totalPages})}">&raquo;</a>
+						<span class="pageLink" th:onclick="'javascript:setPaging('+ ${search.pedidos.totalPages} +');'"  >&raquo;</span>
 					</li>
 				</ul>
 			</div>

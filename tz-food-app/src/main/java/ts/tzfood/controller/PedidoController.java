@@ -128,9 +128,9 @@ public class PedidoController {
    
     }
     
-    @Secured({GeneralConstants.ROL_ADMIN})
+    //@Secured({GeneralConstants.ROL_ADMIN})
     @RequestMapping(value = "pedido/pagar", method = RequestMethod.GET)
-    public @ResponseBody String getNombresPorNombre( @RequestParam(value = "id", required = true) int id) {
+    public @ResponseBody String marcasPago( @RequestParam(value = "id", required = true) int id) {
        
     	Pedido pedido = pedidoService.getPedido(id);
     	pedido.setPagado(true);
@@ -139,7 +139,38 @@ public class PedidoController {
     	 return "200";
     }
     
-    @Secured({GeneralConstants.ROL_ADMIN})
+    @RequestMapping(value = "pedido/confirmar", method = RequestMethod.GET)
+    public @ResponseBody String marcarConfirmado( @RequestParam(value = "id", required = true) int id) {
+       
+    	Pedido pedido = pedidoService.getPedido(id);
+    	pedido.setListoParaEntrega(true);
+    	pedidoService.savePedido(pedido);
+    	
+    	 return "200";
+    }
+    
+    @RequestMapping(value = "pedido/eliminar", method = RequestMethod.GET)
+    public @ResponseBody String eliminarAdmin( @RequestParam(value = "id", required = true) int id) {
+       
+    	Pedido pedido = pedidoService.getPedido(id);
+    	pedido.setActivo(false);
+    	pedidoService.savePedido(pedido);
+    	
+    	 return "200";
+    }
+    
+    @RequestMapping(value = "pedido/entregar", method = RequestMethod.GET)
+    public @ResponseBody String entregar( @RequestParam(value = "id", required = true) int id) {
+       
+    	Pedido pedido = pedidoService.getPedido(id);
+    	pedido.setEntregado(true);
+    	pedido.setPagado(true);
+    	pedidoService.savePedido(pedido);
+    	
+    	 return "200";
+    }
+    
+    //@Secured({GeneralConstants.ROL_ADMIN})
     @RequestMapping(value = "/pedidos/{type}", method = RequestMethod.GET)
     public String list(@PathVariable String type, Model model){
         
@@ -149,6 +180,11 @@ public class PedidoController {
     	search.setPageNumber(0);
     	search.setViewType(type);
     	Page<Pedido> pedidos;
+    	
+    	if(type.equals("entrega")){
+    		search.setListoParaEntrega("Si");
+    		search.setEntregado("No");
+    	}
     	
     	pedidos = pedidoService.find(search);
     	//5 = buttons to show
@@ -163,13 +199,18 @@ public class PedidoController {
     }
     
     
-    @RequestMapping(value = "/pedidos", method = RequestMethod.POST)
-    public String listPost(PedidoSearchModel search, Model model){
+    @RequestMapping(value = "/pedidos/{type}", method = RequestMethod.POST)
+    public String listPost(PedidoSearchModel search, @PathVariable String type, Model model){
     	
     	Page<Pedido> pedidos;
     	
     	if(search.getNewSearch().equals("new")){
     		search.setPageNumber(0);
+    	}
+    	
+    	if(type.equals("entrega")){
+    		search.setListoParaEntrega("Si");
+    		search.setEntregado("No");
     	}
     	
     	pedidos = pedidoService.find(search);
@@ -191,14 +232,14 @@ public class PedidoController {
     		return "views/pedido/pedidosList";
     	}
     	
-    	if(view.equals("pagados")){
+    	if(view.equals("entrega")){
     		return "views/pedido/pedidosPagadosList";
     	}
     	
     	return "";
     }
     
-    @Secured({GeneralConstants.ROL_ADMIN})
+    //@Secured({GeneralConstants.ROL_ADMIN})
     @RequestMapping(value = "/pedidosPagados", method = RequestMethod.GET)
     public String listPagados(Model model){
         
@@ -208,6 +249,7 @@ public class PedidoController {
     	search.setPageNumber(0);
     	search.setPagado("Si");
     	search.setEntregado("Si");
+    	search.setListoParaEntrega("Si");
     	Page<Pedido> pedidos;
     	
     	pedidos = pedidoService.find(search);
@@ -262,7 +304,7 @@ public class PedidoController {
     
     
     @RequestMapping("pedido/eliminar/{id}/{token}")
-    public String delete(@PathVariable int id, @PathVariable String token){
+    public String deleteCliente(@PathVariable int id, @PathVariable String token){
     	pedidoService.deletePedido(id);
         return "redirect:/pedidos";
     }
