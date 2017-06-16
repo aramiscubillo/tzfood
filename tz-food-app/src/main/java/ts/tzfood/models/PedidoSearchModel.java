@@ -27,6 +27,8 @@ public class PedidoSearchModel {
 	
 	private String entregado;
 	
+	private String listoParaEntrega;
+	
 	private Date fechaCreacionInicio;
 	
 	private Date fechaCreacionFin;
@@ -135,6 +137,14 @@ public class PedidoSearchModel {
 
 	public void setViewType(String viewType) {
 		this.viewType = viewType;
+	}
+
+	public String getListoParaEntrega() {
+		return listoParaEntrega;
+	}
+
+	public void setListoParaEntrega(String listoParaEntrega) {
+		this.listoParaEntrega = listoParaEntrega;
 	}
 	
 	

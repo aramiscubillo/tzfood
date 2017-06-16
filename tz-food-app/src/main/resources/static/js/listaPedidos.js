@@ -48,7 +48,7 @@ function setPaging(pageNumber){
 }
 
 
-function confirmar(id){
+function pagar(id){
 	
 	var r = confirm("¿Está seguro que desea marcar la orden como pagada?");
 	
@@ -60,14 +60,51 @@ function confirmar(id){
           }, function(data) {
         	  
         	  if(data == '200'){
-        		  location.reload();  
+        		  $( "#frmBuscar" ).submit();  
         	  }
         	 
           });
 
-	} else {
+	}
+}
 
+function confirmar(id){
+	
+	var r = confirm("¿Está seguro que desea marcar la orden como confirmada?");
+	
+	if (r == true) {
+
+		  $.getJSON("/pedido/confirmar", {
+          	id : id,
+              ajax : 'true'
+          }, function(data) {
+        	  
+        	  if(data == '200'){
+        		  $( "#frmBuscar" ).submit();  
+        	  }
+        	 
+          });
 
 	}
+}
+
+
+function eliminar(id){
 	
+	var r = confirm("¿Está seguro que desea eliminar la orden? Una vez eliminada no podrá recuperarla");
+	
+	if (r == true) {
+
+		  $.getJSON("/pedido/eliminar", {
+          	id : id,
+              ajax : 'true'
+          }, function(data) {
+        	  
+        	  if(data == '200'){
+        		  $( "#frmBuscar" ).submit();  
+        	  }
+        	 
+          });
+
+	}
 }

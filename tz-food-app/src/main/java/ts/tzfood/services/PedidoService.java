@@ -69,13 +69,18 @@ public class PedidoService  implements PedidoServiceInterface{
 		String pagadoNull = null;
 		boolean pagado = false;
 		String entregadoNull = null;
+		String listoNull = null;
+		boolean listo = false;
 		boolean entregado = false;
 		Date fechaCreacInicio = null;
 		Date fechaCreacFin = null;
 		PageRequest pr = null;
 		
-	
-		pr = new PageRequest(model.getPageNumber(), model.getPageSize());
+		
+		
+		
+		Sort sort = new Sort(Sort.Direction.DESC, "fechaCreacion");
+		pr = new PageRequest(model.getPageNumber(), model.getPageSize(), sort);
 		
 		Page<Pedido> result = null;
 
@@ -98,9 +103,14 @@ public class PedidoService  implements PedidoServiceInterface{
 			entregado = model.getEntregado().equals("Si")? true:false;
 		}
 		
+		if(model.getListoParaEntrega() != null && model.getListoParaEntrega().length()>0){
+			listoNull = model.getListoParaEntrega();
+			listo = model.getListoParaEntrega().equals("Si")? true:false;
+		}
 		
 		return pedidoRepo.find(cedula, nombrePersonaNull, nombrePersona, 
-							pagadoNull, pagado, entregadoNull, entregado, 
+							pagadoNull, pagado, entregadoNull, entregado,
+							listoNull, listo,
 							  pr);
 		
 	}
