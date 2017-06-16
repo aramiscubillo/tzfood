@@ -59,6 +59,8 @@ public class PedidoController {
 	@Autowired
 	private EmailTemplateUtils sender;
 	
+
+	
 	
 	private static final int[] PAGE_SIZES = {3, 5, 10, 20, 50, 100 };
 	private static final String[] BOLEANOS = {"", "Si", "No" };
@@ -81,6 +83,12 @@ public class PedidoController {
     	pedido.setPagado(false);
     	pedido.setListoParaEntrega(false);
     	pedido.setToken(new Date().getTime()+"");
+    	
+    	String provincia = ubicacionService.getLugar(Integer.parseInt(model.getPedido().getProvincia())).getNombre();
+    	String canton = ubicacionService.getLugar(Integer.parseInt(model.getPedido().getCanton())).getNombre();
+    	
+    	pedido.setProvincia(provincia);
+    	pedido.setCanton(canton);
     	
     	pedidoService.savePedido(pedido);
     	
