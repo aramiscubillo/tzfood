@@ -5,6 +5,7 @@ $( document ).ready(function() {
 	    scrollToTopOnError : false // Set this property to true on longer forms
 	  });
 	
+	
 	 $('#marcas').change(
 		        function() {
 		        	var pathname = window.location.pathname;
@@ -90,6 +91,8 @@ $( document ).ready(function() {
 		 
 		 $('#cantidad').val('');
 		 
+		 $("div").removeClass("hidden");
+		 
 		 buildTable();
 	});
 	 
@@ -99,7 +102,8 @@ $( document ).ready(function() {
 var productos = [];
 
 function buildTable(){
-	 html = '<table class="table table-striped">'+
+	 html = '<div class="table-responsive"> '+
+		 	'<table class="table table-striped ">'+
 				'<tr>'+
 					'<th>Producto</th>'+
 					'<th>Marca</th>'+
@@ -134,8 +138,11 @@ function buildTable(){
 	 			'<td></td>'+
 	 			'<td></td>'+
 	 			'<td>'+totalSum+'</td>'+
-	 		'</tr>'
-	 html+='</table>'
+	 		'</tr>'+
+ 		'</table>'
+	 html+='</div>'
+	
+				
 	 $('#tbl-productos').html(html);
 	 
 	 

@@ -1,0 +1,42 @@
+.hidden{
+	visibility: hidden;
+}
+
+.no-margin{
+	margin:0 !important;
+}
+
+.text-form{
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.btn-pedido{
+	font-size: 20px;
+	margin-bottom: 20px;
+}
+
+.pedido-title{
+	font-size: 22px;
+}	
+
+.margin-group{
+	margin-top: 10px;
+}
+
+@media (max-width: 768px){
+	.btn-pedido{
+		font-size: 15px;
+	}
+	
+	.text-form{
+	    font-size: 15px;
+	    font-weight: 400;
+	}
+	
+	.pedido-title{
+		font-size: 20px;
+		margin-top: 5px;
+    	margin-bottom: 20px;
+	}	
+}
