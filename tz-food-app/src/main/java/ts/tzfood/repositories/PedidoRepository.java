@@ -26,10 +26,12 @@ public interface PedidoRepository extends CrudRepository<Pedido, Integer>{
 			+ "( :pagadoNull  is null or p.pagado = :pagado ) and "
 			+ "( :listoNull  is null or p.listoParaEntrega = :listo ) and "
 			+ "( :entregadoNull  is null or p.entregado = :entregado )  and "
-			+ "p.activo = 1")
-			/*+ "( :fechaCreacInicio is null or p.fechaCreacion >= :fechaCreacInicio ) and "
-			+ "( :fechaCreacFin is null or p.fechaCreacion <= :fechaCreacFin )")*/
-	public Page<Pedido> find(
+			+ " p.activo = 1 and " 
+			+ "( :provincia is null or p.provincia = :provincia ) and "
+			+ "( :canton is null or p.canton = :canton ) and "
+			+ "( :fechaCreacInicio is null or Date(p.fechaCreacion) >= Date(:fechaCreacInicio) ) and "
+			+ "( :fechaCreacFin is null or Date(p.fechaCreacion) <= Date(:fechaCreacFin) )")
+	public Page<Pedido> findGeneral(
 			@Param("cedulaNull") String cedulaNull,
 			@Param("cedula") String cedula,
 			@Param("nombrePersonaNull") String nombrePersonaNull,
@@ -40,8 +42,34 @@ public interface PedidoRepository extends CrudRepository<Pedido, Integer>{
 			@Param("entregado") boolean entregado,
 			@Param("listoNull") String listoNull,
 			@Param("listo") boolean listo,
-			/*@Param("fechaCreacInicio") Date fechaCreacInicio, 
-			@Param("fechaCreacFin") Date fechaCreacFin,*/
+			@Param("fechaCreacInicio") Date fechaCreacInicio, 
+			@Param("fechaCreacFin") Date fechaCreacFin,
+			@Param("provincia") String provincia, 
+			@Param("canton") String canton,
+			Pageable pageable);
+	
+	
+	
+	@Query("SELECT p FROM Pedido p WHERE "
+			+ "( :cedulaNull  is null or LOWER(p.cedulaPersona) like :cedula  ) and "
+			+ "( :nombrePersonaNull  is null or LOWER(p.nombrePersona) like :nombrePersona  ) and "
+			+ "( p.pagado = 1 or p.efectivo = 1 ) and "
+			+ "( p.listoParaEntrega = 1 ) and "
+			+ "( p.entregado = 0 )  and "
+			+ " p.activo = 1 and " 
+			+ "( :provincia is null or p.provincia = :provincia ) and "
+			+ "( :canton is null or p.canton = :canton ) and "
+			+ "( :fechaCreacInicio is null or Date(p.fechaCreacion) >= Date(:fechaCreacInicio) ) and "
+			+ "( :fechaCreacFin is null or Date(p.fechaCreacion) <= Date(:fechaCreacFin) )")
+	public Page<Pedido> findEntrega(
+			@Param("cedulaNull") String cedulaNull,
+			@Param("cedula") String cedula,
+			@Param("nombrePersonaNull") String nombrePersonaNull,
+			@Param("nombrePersona") String nombrePersona,
+			@Param("fechaCreacInicio") Date fechaCreacInicio, 
+			@Param("fechaCreacFin") Date fechaCreacFin,
+			@Param("provincia") String provincia, 
+			@Param("canton") String canton,
 			Pageable pageable);
 	
 }

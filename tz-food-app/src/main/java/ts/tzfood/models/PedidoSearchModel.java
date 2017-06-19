@@ -29,9 +29,9 @@ public class PedidoSearchModel {
 	
 	private String listoParaEntrega;
 	
-	private Date fechaCreacionInicio;
+	private String fechaCreacionInicio;
 	
-	private Date fechaCreacionFin;
+	private String fechaCreacionFin;
 	
 	private int pageNumber;
 	
@@ -42,6 +42,10 @@ public class PedidoSearchModel {
 	private String newSearch;
 	
 	private String viewType;
+	
+	private String provincia;
+	
+	private String canton;
 
 	public Page<Pedido> getPedidos() {
 		return pedidos;
@@ -83,19 +87,19 @@ public class PedidoSearchModel {
 		this.entregado = entregado;
 	}
 
-	public Date getFechaCreacionInicio() {
+	public String getFechaCreacionInicio() {
 		return fechaCreacionInicio;
 	}
 
-	public void setFechaCreacionInicio(Date fechaCreacionInicio) {
+	public void setFechaCreacionInicio(String fechaCreacionInicio) {
 		this.fechaCreacionInicio = fechaCreacionInicio;
 	}
 
-	public Date getFechaCreacionFin() {
+	public String getFechaCreacionFin() {
 		return fechaCreacionFin;
 	}
 
-	public void setFechaCreacionFin(Date fechaCreacionFin) {
+	public void setFechaCreacionFin(String fechaCreacionFin) {
 		this.fechaCreacionFin = fechaCreacionFin;
 	}
 
@@ -145,6 +149,22 @@ public class PedidoSearchModel {
 
 	public void setListoParaEntrega(String listoParaEntrega) {
 		this.listoParaEntrega = listoParaEntrega;
+	}
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+	public String getCanton() {
+		return canton;
+	}
+
+	public void setCanton(String canton) {
+		this.canton = canton;
 	}
 	
 	

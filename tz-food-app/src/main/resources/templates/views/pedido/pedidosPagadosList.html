@@ -36,13 +36,34 @@
 		                <label class="control-label">Nombre:</label>
 		                <input type="text" class="form-control" th:field="*{nombrePersona}"/>
 		            </div>
+		            
+					<div class=" form-group">
+					    <label for="provincias " class="text-form">Provincia:</label>
+					    <select id="provincias" class="form-control pedido-input" name="provincias" th:field="*{provincia}" data-validation="required" data-validation-error-msg="El campo de provincia es requerido">
+					      <option selected="selected" value=""> -- seleccione la provincia -- </option>
+					      <option th:each="provincia, status : ${provincias}" th:value="${provincia.id}" 
+					       th:text="${provincia.nombre}">
+					      </option>
+					    </select>	  	
+					</div>
+					
+					<div class="form-group">
+					    <label for="cantones" class="text-form">Canton:</label>
+					    <select id="cantones" class="form-control pedido-input" data-validation="required" th:field="*{canton}" data-validation-error-msg="El campo de cant&oacute;n es requerido"
+					        name="cantones">
+					      <option selected="selected" value=""> -- seleccione la provincia -- </option>
+					    </select>
+					    
+					</div>
+
 		            <div class="form-group">
-		                <label class="control-label">Provincia:</label>
-		               
-		            </div>   
-		             <div class="form-group">
-		                <label class="control-label">Cant&oacute;n:</label>
-		            </div> 
+		                <label class="control-label">Fecha Inicio:</label>
+		                <input type="text" class="form-control picker" th:field="*{fechaCreacionInicio}"/>
+		            </div>
+		            <div class="form-group">
+		                <label class="control-label">Fecha Fin:</label>
+		                <input type="text" class="form-control picker" th:field="*{fechaCreacionFin}"/>
+		            </div>
 					<div class="form-group">
 						<select class="form-control pagination" th:field="*{pageSize}">
 							<option th:each="ps : ${pageSizes}" th:text="${ps}" th:value="${ps}" th:selected="${ps} == ${pageSize}"></option>

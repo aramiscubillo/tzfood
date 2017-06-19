@@ -19,6 +19,31 @@ $( document ).ready(function() {
 	    $( "#frmBuscar" ).submit();
 	 });
 	
+	 
+	 $('.picker').datepicker({
+	      dateFormat: 'dd-mm-yy'
+	});
+	 
+	 
+	 $('#provincias').change(
+			 function() {
+				 var pathname = window.location.pathname;
+				 $.getJSON("/ubicacion/getRegionByRegionPapa", {
+					 regionPapa : $(this).val(),
+					 ajax : 'true'
+				 }, function(data) {
+					 var html = '<option value="">--selecione un canton--</option>';
+					 var len = data.length;
+					 for ( var i = 0; i < len; i++) {
+						 html += '<option value="' + data[i].id + '">'
+						 + data[i].nombre + '</option>';
+					 }
+					 html += '</option>';
+					 $('#cantones').html(html);
+				 });
+			 });
+
+	 
 });
 
 /*
