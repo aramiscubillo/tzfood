@@ -30,6 +30,7 @@ public class Pedido extends ObjetoBase{
     private String provincia;
     private String canton;
     private String telefono;
+   
     
     @OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "id_ubicacion")
@@ -178,6 +179,7 @@ public class Pedido extends ObjetoBase{
 	public void setEfectivo(boolean efectivo) {
 		this.efectivo = efectivo;
 	}
+
 
 	
     

@@ -24,6 +24,10 @@
 	margin-top: 10px;
 }
 
+.error-label{
+	color:red;
+}
+
 @media (max-width: 768px){
 	.btn-pedido{
 		font-size: 15px;

@@ -5,7 +5,12 @@ $( document ).ready(function() {
 	    scrollToTopOnError : false // Set this property to true on longer forms
 	  });
 	
+	 $( "#errorCantidad" ).hide();
+	 $( "#errorPresentacion" ).hide();
+	 $( "#errorProducto" ).hide();
+	 $( "#errorMarca" ).hide();
 	
+	 
 	 $('#marcas').change(
 		        function() {
 		        	var pathname = window.location.pathname;
@@ -69,35 +74,82 @@ $( document ).ready(function() {
 		            });
     	});
 
+	 var validator = $('#productoForm').validate();
+
+	
 	 
 	 $( "#btnAgregar" ).click(function() {
-		 producto = $('#presentacion').find(":selected").data("value");
-		 cantidad = $('#cantidad').val();
+		 validateProductForm();
 
-
-		 producto.precioTotal = producto.precio * cantidad;
-		 producto.cantidad = cantidad;
-		 productos.push(producto);
-		 
-		 $("#marcas").val($("#marcas option:first").val());
-		 
-		 var tempOption = "<option disabled='disabled' selected='selected' value=''>--seleccione un producto--</option>";
-		 $('#presentacion').html(tempOption);
-		 
-		 tempOption = "<option disabled='disabled' selected='selected' value=''>--seleccione una marca--</option>";
-		 $('#productos').html(tempOption);
-		 
-		 $('#productosList').val(encodeURIComponent(JSON.stringify(productos)));
-		 
-		 $('#cantidad').val('');
-		 
-		 $("div").removeClass("hidden");
-		 
-		 buildTable();
 	});
 	 
 		
 });
+
+
+function validateProductForm(){
+	valid = true;   
+
+	if ($('#marcas').val() == '') {
+		$( "#errorMarca" ).show();
+        valid = false;
+    }else{
+    	$( "#errorMarca" ).hide();
+    }
+
+    if ($('#productos').val() == '') {
+    	$( "#errorProducto" ).show();
+         valid = false;
+    }else{
+    	$( "#errorProducto" ).hide();
+    }    
+    
+    if ($('#presentacion').val() == '') {
+    	$( "#errorPresentacion" ).show();
+         valid = false;
+    }else{
+    	$( "#errorPresentacion" ).hide();
+    }    
+    
+    if ($('#cantidad').val() == '') {
+    	$( "#errorCantidad" ).show();
+         valid = false;
+    }else{
+    	$( "#errorCantidad" ).hide();
+    }    
+	
+    if(valid){
+    	createProduct();
+    }
+    
+}
+
+
+function createProduct(){
+	producto = $('#presentacion').find(":selected").data("value");
+	 cantidad = $('#cantidad').val();
+
+
+	 producto.precioTotal = producto.precio * cantidad;
+	 producto.cantidad = cantidad;
+	 productos.push(producto);
+	 
+	 $("#marcas").val($("#marcas option:first").val());
+	 
+	 var tempOption = "<option disabled='disabled' selected='selected' value=''>--seleccione un producto--</option>";
+	 $('#presentacion').html(tempOption);
+	 
+	 tempOption = "<option disabled='disabled' selected='selected' value=''>--seleccione una marca--</option>";
+	 $('#productos').html(tempOption);
+	 
+	 $('#productosList').val(encodeURIComponent(JSON.stringify(productos)));
+	 
+	 $('#cantidad').val('');
+	 
+	 $("div").removeClass("hidden");
+	 
+	 buildTable();
+}
 
 var productos = [];
 

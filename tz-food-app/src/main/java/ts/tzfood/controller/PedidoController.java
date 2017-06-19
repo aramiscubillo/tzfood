@@ -86,9 +86,11 @@ public class PedidoController {
     	pedido.setListoParaEntrega(false);
     	pedido.setToken(new Date().getTime()+"");
     	
+    	
     	String provincia = ubicacionService.getLugar(Integer.parseInt(model.getPedido().getProvincia())).getNombre();
     	String canton = ubicacionService.getLugar(Integer.parseInt(model.getPedido().getCanton())).getNombre();
     	
+    	pedido.setEfectivo(model.getPedido().isEfectivo());
     	pedido.setProvincia(provincia);
     	pedido.setCanton(canton);
     	

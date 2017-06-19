@@ -48,7 +48,7 @@
 		                </div>
 		                 
 		            </div>
-		             <div class=" margin-group">
+	             	<div class=" margin-group">
 		                <label class="control-label text-form">Email:</label>
 		                <div class="">
 		                    <input type="email" id="pedido_email" class="form-control pedido-input" th:field="*{pedido.email}" data-validation="email" data-validation-error-msg="No se ha ingresado un email v&aacute;lido"/>   
@@ -87,48 +87,63 @@
 					  <textarea class="form-control pedido-input" rows="3" th:field="*{pedido.disponibilidad}" data-validation="required" data-validation-error-msg="El campo de direccion es requerido"></textarea>
 					</div>
 		           
+		           <div class=" margin-group">
+		                <label class="control-label text-form">Tipo de Pago:</label>
+							<div class="">
+								<label style="margin-right: 25px; margin-top: 10px;" class="text-form"> <input type="radio" name='pago' value='false' th:field="*{pedido.efectivo}" />Tarjeta</label>
+								<label style="margin-right: 25px; margin-top: 10px;" class="text-form" ><input type="radio" name='pago' value='true' checked="true" th:field="*{pedido.efectivo}"/>Efectivo</label> 
+								
+
+							</div>
+
+						</div>
+		           
 		           <br/>
-		           	<div class="margin-group">
-		           		<h3 class="text-center pedido-title" >Agregar producto</h3>
-		          
-		           		<div class=" margin-group">
-						    <label for="marcas"  class="text-form">Marca:</label>
-						    <select id="marcas" class="form-control pedido-input" 
-						        name="marcas">
-						      <option selected="selected" > -- seleccione la marca -- </option>
-						      <option th:each="marca, status : ${marcas}" th:value="${marca}" 
-						       th:text="${marca}" >
-						      </option>
-						    </select>
-						</div>
-						
-						<div class="margin-group ">
-						    <label for="productos"  class="text-form">Producto:</label>
-			                <select id="productos" class="form-control pedido-input" 
-			                name="productos" >
-			                    <option disabled="disabled" selected="selected" > --seleccione la marca --</option>
-			                </select>
-						</div>
-						
-						<div class=" margin-group">
-						    <label for="presentacion" class="text-form">Presentaci&oacute;n:</label>
-			                <select id="presentacion" class="form-control pedido-input" 
-			                name="presentacion" >
-			                    <option disabled="disabled" selected="selected" > --seleccione un producto --</option>
-			                </select>
-						</div>
-						<div class=" margin-group">
-						    <label for="cantidad" class="text-form">Cantidad:</label>
-			                 <input type="number" id="cantidad" class="form-control pedido-input"/>
-						</div>
-						 <br/><br/>
-						<div class="margin-group">
-							<button id="btnAgregar" type="button" class="btn btn-default btn-pedido">Agregar Producto</button>
-						</div>
-						
-						<input type="hidden" th:field="*{productosList}"/>
-						
-		           	</div>
+		          <div class="margin-group">
+			           		<h3 class="text-center pedido-title" >Agregar producto</h3>
+			          
+			           		<div class=" margin-group">
+							    <label for="marcas"  class="text-form">Marca:</label>
+							    <select id="marcas" class="form-control pedido-input"
+							        name="marcas">
+							      <option selected="selected" value="" > -- seleccione la marca -- </option>
+							      <option th:each="marca, status : ${marcas}" th:value="${marca}" 
+							       th:text="${marca}" >
+							      </option>
+							    </select>
+							    <label class="error-label" id="errorMarca" name="errorMarca">La marca es obligatoria</label>
+							</div>
+							
+							<div class="margin-group ">
+							    <label for="productos"  class="text-form">Producto:</label>
+				                <select id="productos" class="form-control pedido-input"
+				                name="productos" >
+				                    <option disabled="disabled" selected="selected"  value=""> --seleccione el producto --</option>
+				                </select>
+				                <label class="error-label" id="errorProducto" name="errorProducto">El producto es obligatorio</label>
+							</div>
+							
+							<div class=" margin-group">
+							    <label for="presentacion" class="text-form">Presentaci&oacute;n:</label>
+				                <select id="presentacion" class="form-control pedido-input"
+				                name="presentacion" >
+				                    <option disabled="disabled" selected="selected" value="" > --seleccione la presentacion --</option>
+				                </select>
+				                <label class="error-label" id="errorPresentacion" name="errorPresentacion">La presentacion es obligatoria</label>
+							</div>
+							<div class=" margin-group">
+							    <label for="cantidad" class="text-form">Cantidad:</label>
+				                 <input type="number" id="cantidad" class="form-control pedido-input" />
+								<label class="error-label" id="errorCantidad" name="errorCantidad">La cantidad es obligatoria</label>
+							</div>
+							 <br/><br/>
+							<div class="margin-group">
+								<button id="btnAgregar" type="button" class="btn btn-default btn-pedido">Agregar Producto</button>
+							</div>
+							
+							<input type="hidden" th:field="*{productosList}"/>
+							
+			           	</div>
 		           	<div class="row">
 						
 						<div class="col-lg-12">
@@ -137,9 +152,9 @@
 							</div>
 						</div>
 					</div>
-					<div class=" ">
+					<div class="">
 			            <div id="pedido_submit" class="hidden">
-			                <button type="submit" class="btn btn-default btn-pedido">Crear Pedido</button>
+			                <button style="margin-top: 20px;" type="submit" class="btn btn-default btn-pedido">Crear Pedido</button>
 			            </div>
 		            </div>
 		            <br/><br/>
