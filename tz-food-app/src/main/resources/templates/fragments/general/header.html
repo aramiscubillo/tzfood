@@ -1,16 +1,16 @@
 <div th:fragment="header">
     <nav class="navbar navbar-default">
-        <div class="container-fluid">
+            <div class="container-fluid" sec:authorize="isAuthenticated()">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#" th:href="@{/}">Home</a>
+                
                 <ul class="nav navbar-nav">
-                    <li><a href="#" th:href="@{/pedido/nuevo}" sec:authorize="!hasAuthority('ADMIN')">Hacer Pedido</a></li>
-                    <li><a href="#" th:href="@{/pedidos}" sec:authorize="hasAuthority('ADMIN')">Listar Pedidos</a></li>
+                    <li><a href="#" th:href="@{/pedidos/general}" >Administraci&oacute;n Pedidos</a></li>
+                    <li><a href="#" th:href="@{/pedidos/entrega}" >Entrega de Pedidos</a></li>
                 	<li>
                 		<form th:action="@{/logout}" method="post">
-				            <div class="col-sm-2" style="padding-top: 30px;">
-			                    <span sec:authorize="isAuthenticated()">
-			                    	<input type="submit" value="Sign Out"/>
+				            <div class="col-sm-2" style="padding-top: 12px;">
+			                    <span >
+			                    	<input class="btn btn-default" type="submit" value="Sign Out"/>
 			                    </span>
 				            </div>
 				        </form>

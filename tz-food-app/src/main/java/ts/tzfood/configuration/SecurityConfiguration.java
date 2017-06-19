@@ -23,7 +23,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  */
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
-
+	@Autowired	
 	private AuthenticationProvider authenticationProvider;
 
     @Autowired
@@ -60,7 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 		 
 		 httpSecurity
-		 .authorizeRequests().antMatchers("/*","/pedido/nuevo","/ubicacion/*", "/pedidos/*" ,"/pedido/*", "/pedido/*/*","/producto/*").permitAll()
+		 .authorizeRequests().antMatchers("/*","/pedido/nuevo","/ubicacion/*", "/pedido/*", "/pedido/*/*","/producto/*").permitAll()
 		 .anyRequest().authenticated()
 		 .and()
 		 .formLogin().loginPage("/login").defaultSuccessUrl("/pedidos/general").permitAll().and().logout().permitAll();

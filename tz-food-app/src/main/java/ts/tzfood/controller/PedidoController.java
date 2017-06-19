@@ -140,7 +140,7 @@ public class PedidoController {
    
     }
     
-    //@Secured({GeneralConstants.ROL_ADMIN})
+    @Secured({GeneralConstants.ROL_ADMIN})
     @RequestMapping(value = "pedido/pagar", method = RequestMethod.GET)
     public @ResponseBody String marcasPago( @RequestParam(value = "id", required = true) int id) {
        
@@ -160,6 +160,7 @@ public class PedidoController {
     	}
     }
     
+    @Secured({GeneralConstants.ROL_ADMIN})
     @RequestMapping(value = "pedido/confirmar", method = RequestMethod.GET)
     public @ResponseBody String marcarConfirmado( @RequestParam(value = "id", required = true) int id) {
        
@@ -180,6 +181,8 @@ public class PedidoController {
     	} 
     }
     
+    
+    @Secured({GeneralConstants.ROL_ADMIN})
     @RequestMapping(value = "pedido/eliminar", method = RequestMethod.GET)
     public @ResponseBody String eliminarAdmin( @RequestParam(value = "id", required = true) int id) {
        
@@ -190,6 +193,7 @@ public class PedidoController {
     	 return "200";
     }
     
+    @Secured({GeneralConstants.ROL_ADMIN})
     @RequestMapping(value = "pedido/entregar", method = RequestMethod.GET)
     public @ResponseBody String entregar( @RequestParam(value = "id", required = true) int id) {
        
@@ -201,7 +205,7 @@ public class PedidoController {
     	 return "200";
     }
     
-    //@Secured({GeneralConstants.ROL_ADMIN})
+    @Secured({GeneralConstants.ROL_ADMIN})
     @RequestMapping(value = "/pedidos/{type}", method = RequestMethod.GET)
     public String list(@PathVariable String type, Model model){
         
@@ -233,6 +237,7 @@ public class PedidoController {
     }
     
     
+    @Secured({GeneralConstants.ROL_ADMIN})
     @RequestMapping(value = "/pedidos/{type}", method = RequestMethod.POST)
     public String listPost(PedidoSearchModel search, @PathVariable String type, Model model){
     	
@@ -274,7 +279,7 @@ public class PedidoController {
     	return "";
     }
      
-    
+   /* 
     @RequestMapping("pedido/editar/{id}")
     public String edit(@PathVariable int id, Model model){
         model.addAttribute("pedido", pedidoService.getPedido(id));
@@ -288,12 +293,18 @@ public class PedidoController {
     	pedidoService.savePedido(pedido);
         return "redirect:/pedido/" + pedido.getId();
     }
-    
+    */
     
     @RequestMapping("pedido/eliminar/{id}/{token}")
     public String deleteCliente(@PathVariable int id, @PathVariable String token){
-    	pedidoService.deletePedido(id);
-        return "redirect:/pedidos";
+
+    	Pedido pedido = pedidoService.getPedido(id);
+    	
+    	if(pedido.getToken().equals(token) && pedido.isActivo()){
+    		pedido.setActivo(false);
+    	}
+    	
+    	return "redirect:/";
     }
 	
 }
