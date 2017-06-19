@@ -116,9 +116,9 @@ public class PedidoController {
     		detallePedidoService.savePedido(detalle);
     	}
 
-    	String urlDetails = "http://localhost:8080/pedido/"+pedido.getId()+"/"+pedido.getToken();
+    	String urlDetails = GeneralConstants.HOST+"/pedido/"+pedido.getId()+"/"+pedido.getToken();
     	sender.emailPedidoHecho(pedido.getId(), urlDetails,
-    			pedido.getEmail(), pedido.getNombrePersona());
+    			pedido.getEmail(), pedido.getNombrePersona(), pedido.isEfectivo());
     	
         return "redirect:/pedido/" +pedido.getId()+"/"+pedido.getToken();
     }
@@ -129,7 +129,7 @@ public class PedidoController {
         
     	Pedido pedido = pedidoService.getPedido(id);
     	
-    	if(pedido.getToken().equals(token)){
+    	if(pedido.getToken().equals(token) && pedido.isActivo()){
     		model.addAttribute("pedido", pedido);
             return "views/pedido/pedidoDetails";
     	}else{
@@ -142,21 +142,40 @@ public class PedidoController {
     @RequestMapping(value = "pedido/pagar", method = RequestMethod.GET)
     public @ResponseBody String marcasPago( @RequestParam(value = "id", required = true) int id) {
        
+    	try{
     	Pedido pedido = pedidoService.getPedido(id);
     	pedido.setPagado(true);
     	pedidoService.savePedido(pedido);
     	
+    	String urlDetails = GeneralConstants.HOST+"/pedido/"+pedido.getId()+"/"+pedido.getToken();
+    	sender.emailPedidoPagado(pedido.getId(), urlDetails,
+    			pedido.getEmail(), pedido.getNombrePersona());
+    	
     	 return "200";
+    	 
+    	}catch(Exception e){
+    		return "500";
+    	}
     }
     
     @RequestMapping(value = "pedido/confirmar", method = RequestMethod.GET)
     public @ResponseBody String marcarConfirmado( @RequestParam(value = "id", required = true) int id) {
        
-    	Pedido pedido = pedidoService.getPedido(id);
-    	pedido.setListoParaEntrega(true);
-    	pedidoService.savePedido(pedido);
+    	try{
+    		
+	    	Pedido pedido = pedidoService.getPedido(id);
+	    	pedido.setListoParaEntrega(true);
+	    	pedidoService.savePedido(pedido);
+	    	 
+	    	String urlDetails = GeneralConstants.HOST+"/pedido/"+pedido.getId()+"/"+pedido.getToken();
+	    	sender.emailPedidoConfirmado(pedido.getId(), urlDetails,
+	    			pedido.getEmail(), pedido.getNombrePersona());
     	
     	 return "200";
+    	 
+    	}catch(Exception e){
+    		return "500";
+    	} 
     }
     
     @RequestMapping(value = "pedido/eliminar", method = RequestMethod.GET)

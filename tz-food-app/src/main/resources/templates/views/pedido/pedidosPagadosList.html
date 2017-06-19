@@ -2,151 +2,157 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="en">
 
-    <title>Admiistraci&oacute;n de Pedidos</title>
+    <title>Entrega de Pedidos</title>
 
     <!--/*/ <th:block th:include="fragments/general/head :: head"></th:block> /*/-->
      <script src="../static/js/listaPedidos.js"
             th:src="@{/js/listaPedidos.js}"></script>
 </head>
 <body>
-<div class="container">
-    <!--/*/ <th:block th:include="fragments/general/header :: header"></th:block> /*/-->
-    
-    <div class="welcome">
-        <span sec:authorize="isAuthenticated()">Bienvenido <span sec:authentication="name"></span></span>
-    </div>
-    
-    <div th:if="${not #lists.isEmpty(search.pedidos)}">
-        <h2>Entrega de Pedidos</h2>
-        <div class="row">
-        	<div class="col-lg-4">
-		         <form class="form-horizontal" id="frmBuscar" th:object="${search}" th:action="@{'/pedidos/'+${search.viewType}}" method="post">
-		         	
-		         	<input type="hidden" id="pageNumber" th:field="*{pageNumber}"/>
-		         	<input type="hidden" id="newSearch" th:field="*{newSearch}"/>
-					<input type="hidden" th:field="*{pagado}"/>
-		         	<input type="hidden" th:field="*{viewType}"/>
-		         	
-		        	<div class="form-group">
-		                <label class="control-label">C&eacute;dula:</label>
-		                <input type="text" class="form-control" th:field="*{cedula}"/>
-		               
-		            </div>  
-		            <div class="form-group">
-		                <label class="control-label">Nombre:</label>
-		                <input type="text" class="form-control" th:field="*{nombrePersona}"/>
-		            </div>
-		            
-					<div class=" form-group">
-					    <label for="provincias " class="text-form">Provincia:</label>
-					    <select id="provincias" class="form-control pedido-input" name="provincias" th:field="*{provincia}" data-validation="required" data-validation-error-msg="El campo de provincia es requerido">
-					      <option selected="selected" value=""> -- seleccione la provincia -- </option>
-					      <option th:each="provincia, status : ${provincias}" th:value="${provincia.id}" 
-					       th:text="${provincia.nombre}">
-					      </option>
-					    </select>	  	
-					</div>
-					
-					<div class="form-group">
-					    <label for="cantones" class="text-form">Canton:</label>
-					    <select id="cantones" class="form-control pedido-input" data-validation="required" th:field="*{canton}" data-validation-error-msg="El campo de cant&oacute;n es requerido"
-					        name="cantones">
-					      <option selected="selected" value=""> -- seleccione la provincia -- </option>
-					    </select>
-					    
-					</div>
-
-		            <div class="form-group">
-		                <label class="control-label">Fecha Inicio:</label>
-		                <input type="text" class="form-control picker" th:field="*{fechaCreacionInicio}"/>
-		            </div>
-		            <div class="form-group">
-		                <label class="control-label">Fecha Fin:</label>
-		                <input type="text" class="form-control picker" th:field="*{fechaCreacionFin}"/>
-		            </div>
-					<div class="form-group">
-						<select class="form-control pagination" th:field="*{pageSize}">
-							<option th:each="ps : ${pageSizes}" th:text="${ps}" th:value="${ps}" th:selected="${ps} == ${pageSize}"></option>
-						</select>
-					</div>
-					 <div class="row">
-		                <button type="button" id="buscar" class="btn btn-default">Buscar</button>
-		            </div>
-		            <br/><br/>
-				 </form>
-        	</div>
-        </div>
-        
-        <table class="table table-striped">
-            <tr>
-                <th>C&eacute;dula</th>
-                <th>Nombre</th>
-                <th>Tel</th>
-                <th>Pagado</th>
-                <th>Efectivo</th>
-                <th>Fecha Creaci&oacute;n</th>
-                <th>Provincia</th>
-                <th>Cant&oacute;n</th>
-                <th></th>
-                <th></th>
-            </tr>
-            <tr th:each="pedido : ${search.pedidos}">
-                <td th:text="${pedido.cedulaPersona}"></td>
-                <td th:text="${pedido.nombrePersona}"></td>
-                <td th:text="${pedido.telefono}"></td>
-                <td>
-                 	<span th:if="${pedido.pagado}==true">Si</span>
-               		<span th:if="${pedido.pagado}==false">No</span>
-                 </td>
-                 <td>
-                 	<span th:if="${pedido.efectivo}==true">Si</span>
-               		<span th:if="${pedido.efectivo}==false">No</span>
-                 </td>
-                 <td th:text="${#dates.format(pedido.fechaCreacion, 'dd-MM-yyyy')}"></td>
-                 <td th:text="${pedido.provincia}"></td>
-				 <td th:text="${pedido.canton}"></td>
-               	 <td>
-               	 	<a class="btn btn-info" th:href="${ '/pedido/' + pedido.id+ '/'+pedido.token}">
-						<span class="glyphicon glyphicon-search"></span>
-					</a>
-              	 </td>
-                 <td>
-                 	
-                 	<button type="button" class="btn btn-info" 
-                 			th:onclick="'entregar(\'' + ${pedido.id} + '\');'">
-                 		<span class="glyphicon glyphicon-ok"></span>
-                 	</button>
-				    
-             	 </td>
-                
-            </tr>
-        </table>
-
-		<div class="row" >
-			
-			<div th:if="${search.pedidos.totalPages > 1}" class="form-group col-md-11 pagination-centered">
-				<ul class="pagination">
-					<li th:class="${search.pedidos.number == 0} ? disabled">
-						<span class="pageLink" onClick="setPaging(1)">&laquo;</span>
-					</li>
-					<li th:class="${search.pedidos.number == 0} ? disabled">
-						<span class="pageLink" th:onclick="'javascript:setPaging('+ ${search.pedidos.number} +');'" >&larr;</span>
-					</li>
-					<li th:class="${search.pedidos.number == (page - 1)} ? 'active pointer-disabled'"
-						th:each="page : ${#numbers.sequence(search.pager.startPage, search.pager.endPage)}">
-						<span class="pageLink" th:onclick="'javascript:setPaging('+ ${page} +');'"  th:text="${page}"></span>
-					</li>
-					<li th:class="${search.pedidos.number + 1 == search.pedidos.totalPages} ? disabled">
-						<span class="pageLink" th:onclick="'javascript:setPaging('+ ${search.pedidos.number + 2} +');'">&rarr;</span>
-					</li>
-					<li th:class="${search.pedidos.number + 1 == search.pedidos.totalPages} ? disabled">
-						<span class="pageLink" th:onclick="'javascript:setPaging('+ ${search.pedidos.totalPages} +');'"  >&raquo;</span>
-					</li>
-				</ul>
-			</div>
-		</div>
-    </div>
-</div>
-
+	<div class="container">
+	    <div class="row">
+	    	<div class="col-md-12">
+	    		<!--/*/ <th:block th:include="fragments/general/header :: header"></th:block> /*/-->
+	    
+	        	<h2>Entrega de Pedidos</h2>
+		        <div class="row">
+		        	<div class="col-lg-12">
+				         <form class="" id="frmBuscar" th:object="${search}" th:action="@{'/pedidos/'+${search.viewType}}" method="post">
+				         	
+				         	<input type="hidden" id="pageNumber" th:field="*{pageNumber}"/>
+				         	<input type="hidden" id="newSearch" th:field="*{newSearch}"/>
+				         	<input type="hidden" th:field="*{viewType}"/>
+				         	<input type="hidden" th:field="*{pagado}"/>
+				         	
+				         	<div class="row">
+					         	<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+					         		<div class="form-group">
+						                <label class="control-label">C&eacute;dula:</label>
+						                <input type="text" class="form-control" th:field="*{cedula}"/>
+						            </div>  
+						            <div class="form-group">
+						                <label class="control-label">Nombre:</label>
+						                <input type="text" class="form-control" th:field="*{nombrePersona}"/>
+						            </div>
+						            <div class=" form-group">
+									    <label for="provincias " class="text-form">Provincia:</label>
+									    <select id="provincias" class="form-control pedido-input" name="provincias" th:field="*{provincia}" data-validation="required" data-validation-error-msg="El campo de provincia es requerido">
+									      <option selected="selected" value=""> -- seleccione la provincia -- </option>
+									      <option th:each="provincia, status : ${provincias}" th:value="${provincia.id}" 
+									       th:text="${provincia.nombre}">
+									      </option>
+									    </select>	  	
+									</div>
+						            <div class="form-group">
+									    <label for="cantones" class="text-form">Canton:</label>
+									    <select id="cantones" class="form-control pedido-input" data-validation="required" th:field="*{canton}" data-validation-error-msg="El campo de cant&oacute;n es requerido"
+									        name="cantones">
+									      <option selected="selected" value=""> -- seleccione la provincia -- </option>
+									    </select>
+									</div>
+						            
+					         	</div>
+					         	<div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+					         		<div class="form-group">
+						                <label class="control-label">Fecha Inicio:</label>
+						                <input type="text" class="form-control picker" th:field="*{fechaCreacionInicio}"/>
+						            </div>
+						            <div class="form-group">
+						                <label class="control-label">Fecha Fin:</label>
+						                <input type="text" class="form-control picker" th:field="*{fechaCreacionFin}"/>
+						            </div>
+									<div class="form-group">
+										<label for="pageSize" class="text-form">Items por p&aacute;gina:</label>
+										<select class="form-control" th:field="*{pageSize}">
+											<option th:each="ps : ${pageSizes}" th:text="${ps}" th:value="${ps}" th:selected="${ps} == ${pageSize}"></option>
+										</select>
+									</div>
+					         	</div>
+				         	</div>		        			
+							 <div class="row">
+							 	<div class="col-md-12">
+							 		<button type="button" id="buscar" class="btn btn-primary">Buscar</button>
+							 	</div>
+				            </div>
+				            <br/><br/>
+						 </form>
+		        	</div>
+		        </div>
+	        	<div class="row">
+	        		<div class="col-lg-12">
+	        			<button type="button" id="verNormal" class="btn btn-default normal">Ver toda la tabla</button>
+	        			<button type="button" id="verMobil" class="btn  btn-default mobil">Ver resumen de tabla</button>
+	        			<div style="margin-top:5px;" class="table-responsive">
+		        			<table class="table table-striped">
+					            <tr>
+					                <th>C&eacute;d.</th>
+					                <th>Nombre</th>
+					                <th><span class="normal">Pagado</span><span class="mobil">Paga.</span></th>
+					                <th>Efectivo</th>
+					                <th class="extra">Fecha</th>
+					                <th>Provincia</th>
+					                <th>Cant&oacute;n</th>
+					                <th class="extra">Tel.</th>
+					                <th></th>
+					                <th></th>
+					            </tr>
+					            <tr th:each="pedido : ${search.pedidos}">
+					                <td th:text="${pedido.cedulaPersona}"></td>
+					                <td th:text="${pedido.nombrePersona}"></td>
+					                
+					                <td>
+					                 	<span th:if="${pedido.pagado}==true">Si</span>
+					               		<span th:if="${pedido.pagado}==false">No</span>
+					                 </td>
+					                 <td>
+					                 	<span th:if="${pedido.efectivo}==true">Si</span>
+					               		<span th:if="${pedido.efectivo}==false">No</span>
+					                 </td>
+					                 <td class="extra" th:text="${#dates.format(pedido.fechaCreacion, 'dd-MM-yyyy')}"></td>
+					                 <td th:text="${pedido.provincia}"></td>
+									 <td th:text="${pedido.canton}"></td>
+									 <td class="extra" th:text="${pedido.telefono}"></td>
+					               	 <td>
+					               	 	<a class="btn btn-info" th:href="${ '/pedido/' + pedido.id+ '/'+pedido.token}">
+											<span class="glyphicon glyphicon-search"></span>
+										</a>
+					              	 </td>
+					                 <td>
+					                 	
+					                 	<button type="button" class="btn btn-info" 
+					                 			th:onclick="'entregar(\'' + ${pedido.id} + '\');'">
+					                 		<span class="glyphicon glyphicon-ok"></span>
+					                 	</button>
+									    
+					             	 </td>
+					                
+					            </tr>
+					        </table>
+				        </div>
+						<div th:if="${search.pedidos.totalPages > 1}" class="form-group pagination-centered" style="text-align:center;">
+							<ul class="pagination">
+								<li th:class="${search.pedidos.number == 0} ? disabled">
+									<span class="pageLink" onClick="setPaging(1)">&laquo;</span>
+								</li>
+								<li th:class="${search.pedidos.number == 0} ? disabled">
+									<span class="pageLink" th:onclick="'javascript:setPaging('+ ${search.pedidos.number} +');'" >&larr;</span>
+								</li>
+								<li th:class="${search.pedidos.number == (page - 1)} ? 'active pointer-disabled'"
+									th:each="page : ${#numbers.sequence(search.pager.startPage, search.pager.endPage)}">
+									<span class="pageLink" th:onclick="'javascript:setPaging('+ ${page} +');'"  th:text="${page}"></span>
+								</li>
+								<li th:class="${search.pedidos.number + 1 == search.pedidos.totalPages} ? disabled">
+									<span class="pageLink" th:onclick="'javascript:setPaging('+ ${search.pedidos.number + 2} +');'">&rarr;</span>
+								</li>
+								<li th:class="${search.pedidos.number + 1 == search.pedidos.totalPages} ? disabled">
+									<span class="pageLink" th:onclick="'javascript:setPaging('+ ${search.pedidos.totalPages} +');'"  >&raquo;</span>
+								</li>
+							</ul>
+						</div>
+	        		</div>
+	        	</div>
+	    	</div><!-- col-md-12 -->
+		</div><!-- row -->
+	</div>
 </body>
 </html>
