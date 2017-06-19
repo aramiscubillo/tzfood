@@ -20,6 +20,38 @@ $( document ).ready(function() {
 	 });
 	
 	 
+	 $( "#verNormal" ).click(function() {
+		 $('.extra').show();
+		 $('.mobil').hide();
+		 $('.normal').show();
+		 $('#verNormal').hide();
+		 $('#verMobil').show();
+	 });
+	 
+	 $( "#verMobil" ).click(function() {
+		 $('.extra').hide();
+		 $('.mobil').show();
+		 $('.normal').hide();
+		 $('#verNormal').show();
+		 $('#verMobil').hide();
+	 });
+	
+	 
+	 if($( window ).width() <= 992){
+		 $('.extra').hide();
+		 $('.mobil').show();
+		 $('.normal').hide();
+		 $('#verNormal').show();
+		 $('#verMobil').hide();
+	 }else{
+		 $('.extra').show();
+		 $('.mobil').hide();
+		 $('.normal').show();
+		 $('#verNormal').hide();
+		 $('#verMobil').show();
+	 }
+	 
+	 
 	 $('.picker').datepicker({
 	      dateFormat: 'dd-mm-yy'
 	});

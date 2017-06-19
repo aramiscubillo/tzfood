@@ -118,9 +118,9 @@ public class PedidoController {
     		detallePedidoService.savePedido(detalle);
     	}
 
-    	String urlDetails = "http://localhost:8080/pedido/"+pedido.getId()+"/"+pedido.getToken();
+    	String urlDetails = GeneralConstants.HOST+"/pedido/"+pedido.getId()+"/"+pedido.getToken();
     	sender.emailPedidoHecho(pedido.getId(), urlDetails,
-    			pedido.getEmail(), pedido.getNombrePersona());
+    			pedido.getEmail(), pedido.getNombrePersona(), pedido.isEfectivo());
     	
         return "redirect:/pedido/" +pedido.getId()+"/"+pedido.getToken();
     }
@@ -131,7 +131,7 @@ public class PedidoController {
         
     	Pedido pedido = pedidoService.getPedido(id);
     	
-    	if(pedido.getToken().equals(token)){
+    	if(pedido.getToken().equals(token) && pedido.isActivo()){
     		model.addAttribute("pedido", pedido);
             return "views/pedido/pedidoDetails";
     	}else{
@@ -140,27 +140,49 @@ public class PedidoController {
    
     }
     
-    //@Secured({GeneralConstants.ROL_ADMIN})
+    @Secured({GeneralConstants.ROL_ADMIN})
     @RequestMapping(value = "pedido/pagar", method = RequestMethod.GET)
     public @ResponseBody String marcasPago( @RequestParam(value = "id", required = true) int id) {
        
+    	try{
     	Pedido pedido = pedidoService.getPedido(id);
     	pedido.setPagado(true);
     	pedidoService.savePedido(pedido);
     	
+    	String urlDetails = GeneralConstants.HOST+"/pedido/"+pedido.getId()+"/"+pedido.getToken();
+    	sender.emailPedidoPagado(pedido.getId(), urlDetails,
+    			pedido.getEmail(), pedido.getNombrePersona());
+    	
     	 return "200";
+    	 
+    	}catch(Exception e){
+    		return "500";
+    	}
     }
     
+    @Secured({GeneralConstants.ROL_ADMIN})
     @RequestMapping(value = "pedido/confirmar", method = RequestMethod.GET)
     public @ResponseBody String marcarConfirmado( @RequestParam(value = "id", required = true) int id) {
        
-    	Pedido pedido = pedidoService.getPedido(id);
-    	pedido.setListoParaEntrega(true);
-    	pedidoService.savePedido(pedido);
+    	try{
+    		
+	    	Pedido pedido = pedidoService.getPedido(id);
+	    	pedido.setListoParaEntrega(true);
+	    	pedidoService.savePedido(pedido);
+	    	 
+	    	String urlDetails = GeneralConstants.HOST+"/pedido/"+pedido.getId()+"/"+pedido.getToken();
+	    	sender.emailPedidoConfirmado(pedido.getId(), urlDetails,
+	    			pedido.getEmail(), pedido.getNombrePersona());
     	
     	 return "200";
+    	 
+    	}catch(Exception e){
+    		return "500";
+    	} 
     }
     
+    
+    @Secured({GeneralConstants.ROL_ADMIN})
     @RequestMapping(value = "pedido/eliminar", method = RequestMethod.GET)
     public @ResponseBody String eliminarAdmin( @RequestParam(value = "id", required = true) int id) {
        
@@ -171,6 +193,7 @@ public class PedidoController {
     	 return "200";
     }
     
+    @Secured({GeneralConstants.ROL_ADMIN})
     @RequestMapping(value = "pedido/entregar", method = RequestMethod.GET)
     public @ResponseBody String entregar( @RequestParam(value = "id", required = true) int id) {
        
@@ -182,7 +205,7 @@ public class PedidoController {
     	 return "200";
     }
     
-    //@Secured({GeneralConstants.ROL_ADMIN})
+    @Secured({GeneralConstants.ROL_ADMIN})
     @RequestMapping(value = "/pedidos/{type}", method = RequestMethod.GET)
     public String list(@PathVariable String type, Model model){
         
@@ -214,6 +237,7 @@ public class PedidoController {
     }
     
     
+    @Secured({GeneralConstants.ROL_ADMIN})
     @RequestMapping(value = "/pedidos/{type}", method = RequestMethod.POST)
     public String listPost(PedidoSearchModel search, @PathVariable String type, Model model){
     	
@@ -255,7 +279,7 @@ public class PedidoController {
     	return "";
     }
      
-    
+   /* 
     @RequestMapping("pedido/editar/{id}")
     public String edit(@PathVariable int id, Model model){
         model.addAttribute("pedido", pedidoService.getPedido(id));
@@ -269,12 +293,18 @@ public class PedidoController {
     	pedidoService.savePedido(pedido);
         return "redirect:/pedido/" + pedido.getId();
     }
-    
+    */
     
     @RequestMapping("pedido/eliminar/{id}/{token}")
     public String deleteCliente(@PathVariable int id, @PathVariable String token){
-    	pedidoService.deletePedido(id);
-        return "redirect:/pedidos";
+
+    	Pedido pedido = pedidoService.getPedido(id);
+    	
+    	if(pedido.getToken().equals(token) && pedido.isActivo()){
+    		pedido.setActivo(false);
+    	}
+    	
+    	return "redirect:/";
     }
 	
 }

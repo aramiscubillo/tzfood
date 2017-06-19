@@ -23,4 +23,7 @@ public class GeneralConstants {
 	
 	public static final String[] MARCAS = {"Super Guato", "Ascan", "ABC"};
 	
+	
+	public static final String HOST = "http://localhost:8080";
+	
 }
