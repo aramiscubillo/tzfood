@@ -174,9 +174,9 @@ function buildTable(){
 		 			'<td>'+productos[i].nombre+'</td>'+
 		 			'<td>'+productos[i].marca+'</td>'+
 		 			'<td>'+productos[i].presentacion+'</td>'+
-		 			'<td>'+productos[i].precio+'</td>'+
+		 			'<td> ₡ '+productos[i].precio+'</td>'+
 		 			'<td>'+productos[i].cantidad+'</td>'+
-		 			'<td>'+productos[i].precioTotal+'</td>'+
+		 			'<td> ₡ '+productos[i].precioTotal+'</td>'+
 		 			'<td>'+
 		 				'<button type="button" id="'+i+'" onClick="eliminar(this)" class="eliminar-producto btn btn-default">Eliminar</button>'+
 	 				'</td>'+

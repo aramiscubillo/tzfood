@@ -12,78 +12,111 @@
 	
     <h2>Informaci&oacute;n del Pedido</h2>
         <div>
-            <form class="form-horizontal">
+            <form class="form-horizontal" style="padding-top: 15px;">
               
               	 <div class="form-group">
-                    <label class="col-sm-2 control-label">C&eacute;dula:</label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${pedido.cedulaPersona}"></p>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                    	<label class="">C&eacute;dula:</label>
+                   	</div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-9">
+                        <p class="" th:text="${pedido.cedulaPersona}"></p>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">Nombre:</label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${pedido.nombrePersona}">pedido</p>
+                	<div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                    	<label class="">Nombre:</label>
+                   	</div>
+                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-9">
+                        <p class="" th:text="${pedido.nombrePersona}">pedido</p>
                     </div>
                 </div>
                  <div class="form-group">
-                    <label class="col-sm-2 control-label">Email:</label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${pedido.email}"></p>
+                 	<div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                    	<label class="">Email:</label>
+                   	</div>
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-9">
+                        <p class="" th:text="${pedido.email}"></p>
                     </div>
                 </div>
                  <div class="form-group">
-                    <label class="col-sm-2 control-label">Tel&eacute;fono:</label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${pedido.telefono}"></p>
+                 	<div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                    	 <label class="">Tel&eacute;fono:</label>
+                   	</div>
+                   
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-9">
+                        <p class="" th:text="${pedido.telefono}"></p>
                     </div>
                 </div>
                  <div class="form-group">
-                    <label class="col-sm-2 control-label">Entregado:</label>
-                    <div class="col-sm-10">
+                 	<div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                    	<label class="">Entregado:</label>
+                   	</div>
+                    
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-9">
                        	<span th:if="${pedido.entregado}==true">Si</span>
                			<span th:if="${pedido.entregado}==false">No</span>
                     </div>
                 </div>
+                <div class="form-group">
+                	<div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                    	 <label class="">Pago en efectivo:</label>
+                   	</div>
+                   
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-9" >
+                       	<span th:if="${pedido.efectivo}==true">Si</span>
+               			<span th:if="${pedido.efectivo}==false">No</span>
+                    </div>
+                </div>
                  <div class="form-group">
-                    <label class="col-sm-2 control-label">Pagado:</label>
-                    <div class="col-sm-10">
+                 	<div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                    	<label class="">Pagado:</label>
+                   	</div>
+                    
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-9">
                         <span th:if="${pedido.pagado}==true">Si</span>
                			<span th:if="${pedido.pagado}==false">No</span>
                     </div>
                 </div>
                  <div class="form-group">
-                    <label class="col-sm-2 control-label">Provincia:</label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${pedido.provincia}"></p>
+                 	<div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                    	<label class="">Provincia:</label>
+                   	</div>
+                    
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-9">
+                        <p class="" th:text="${pedido.provincia}"></p>
                     </div>
                 </div>
                  <div class="form-group">
-                    <label class="col-sm-2 control-label">Cant&oacute;n:</label>
-                    <div class="col-sm-10">
-                        <p class="form-control-static" th:text="${pedido.canton}"></p>
+                 	<div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                    	 <label class=" ">Cant&oacute;n:</label>
+                   	</div>
+                   
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-9">
+                        <p class="" th:text="${pedido.canton}"></p>
                     </div>
                 </div>
                 <h3>Productos:</h3>
-                 <table class="table table-striped">
-		            <tr>
-		                <th>Producto</th>
-		                <th>Presentaci&oacute;n</th>
-		                <th>Marca</th>
-		                <th>Cantidad</th>
-		                <th>Precio</th>
-		                <th>Precio Total</th>    
-		            </tr>
-		            <tr th:each="detalle : ${pedido.detalles}" >
-		                <td th:text="${detalle.producto.nombre}"></td>
-		                <td th:text="${detalle.producto.presentacion}"></td>
-		                <td th:text="${detalle.producto.marca}"></td>
-		                <td th:text="${detalle.cantidad}"></td>
-		                <td th:text="${detalle.precio}"></td>
-		                <td th:text="${detalle.precio*detalle.cantidad}"></td>
-		            </tr>
-		           
-		        </table>
+                <div class="table-responsive" style="min-height: 100px;">
+	                <table class="table table-striped">
+			            <tr>
+			                <th>Producto</th>
+			                <th>Presentaci&oacute;n</th>
+			                <th>Marca</th>
+			                <th>Cantidad</th>
+			                <th>Precio</th>
+			                <th>Precio Total</th>    
+			            </tr>
+			            <tr th:each="detalle : ${pedido.detalles}" >
+			                <td th:text="${detalle.producto.nombre}"></td>
+			                <td th:text="${detalle.producto.presentacion}"></td>
+			                <td th:text="${detalle.producto.marca}"></td>
+			                <td th:text="${detalle.cantidad}"></td>
+			                <td th:text="₡ + ${detalle.precio}"></td>
+			                <td th:text="₡ + ${detalle.precio*detalle.cantidad}"></td>
+			            </tr>
+			           
+			        </table>
+		        </div>
             </form>
     </div>
 </div>
