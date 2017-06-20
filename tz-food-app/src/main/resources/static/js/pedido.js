@@ -9,7 +9,11 @@ $( document ).ready(function() {
 	 $( "#errorPresentacion" ).hide();
 	 $( "#errorProducto" ).hide();
 	 $( "#errorMarca" ).hide();
+	 
+	 $( "#fechaEntrega" ).hide();
 	
+	 $( "#hiddenCanton" ).hide();
+		
 	 
 	 $('#marcas').change(
 		        function() {
@@ -32,6 +36,7 @@ $( document ).ready(function() {
 	 
 	 $('#provincias').change(
 			 function() {
+				 $( "#fechaEntrega" ).hide();
 				 var pathname = window.location.pathname;
 				 $.getJSON("/ubicacion/getRegionByRegionPapa", {
 					 regionPapa : $(this).val(),
@@ -40,15 +45,37 @@ $( document ).ready(function() {
 					 var html = '<option value="">--selecione un canton--</option>';
 					 var len = data.length;
 					 for ( var i = 0; i < len; i++) {
-						 html += '<option value="' + data[i].id + '">'
+						 html += '<option value="' + data[i].id +','+data[i].fechaEntrega  + '">'
 						 + data[i].nombre + '</option>';
 					 }
 					 html += '</option>';
 					 $('#cantones').html(html);
+					 
+					 
+					 
 				 });
 			 });
 
-	 
+	 $('#cantones').change(
+			 function() {
+				 //var pathname = window.location.pathname;
+				 
+				 var html='';
+				 
+				 var place= $(this).val().substring($(this).val().lastIndexOf(",")+1);
+				 console.log(place)
+
+				 if(place=='null'){
+					 html= '<p> Las entregas para este cant&oacute;n se realizan por medio de encomienda y tienen un valor de  ₡2500 de env&iacute;o</p>'
+				 }else{
+					 html= '<p> Las entregas para este cant&oacute;n se realizan los siguientes d&iacute;as: '+ place +'</p>';
+					
+				 }
+				 
+				 $('#fechaEntrega').html(html);
+				 $( "#fechaEntrega" ).show();
+				
+			 });
 	 
 	 
 	 $('#productos').change(

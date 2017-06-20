@@ -12,6 +12,7 @@ public class UbicacionJsonModel {
 	private int id;
 	private String nombre;
 	private int regionPapa;
+	private String fechaEntrega;
 	
 	/**
 	 * 
@@ -37,6 +38,12 @@ public class UbicacionJsonModel {
 	}
 	public void setRegionPapa(int regionPapa) {
 		this.regionPapa = regionPapa;
+	}
+	public String getFechaEntrega() {
+		return fechaEntrega;
+	}
+	public void setFechaEntrega(String fechaEntrega) {
+		this.fechaEntrega = fechaEntrega;
 	}
 	
 	

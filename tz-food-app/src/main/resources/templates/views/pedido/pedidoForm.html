@@ -48,6 +48,13 @@
 		                </div>
 		                 
 		            </div>
+	             	<div class="margin-group ">
+		                <label class="control-label text-form">Tel&eacute;fono de Oficina:</label>
+		                <div class="">
+		                    <input type="text" class="form-control pedido-input" th:field="*{pedido.telefonoOficina}" data-validation="number" data-validation-allowing="float" data-validation-error-msg="El campo de t&eacute;lefono de oficina es requerido y solo permite numeros"/>
+		                </div>
+		                 
+		            </div>
 	             	<div class=" margin-group">
 		                <label class="control-label text-form">Email:</label>
 		                <div class="">
@@ -78,7 +85,9 @@
 					       th:text="${canton.nombre}" >
 					      </option>
 					    </select>
-					    
+					    <div class="fechaEntregaContainer">
+					    	<p id="fechaEntrega"></p>
+					    </div>
 					</div>
 		            
 		            
