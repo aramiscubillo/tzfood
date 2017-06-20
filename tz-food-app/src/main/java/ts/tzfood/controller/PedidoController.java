@@ -295,16 +295,19 @@ public class PedidoController {
     }
     */
     
-    @RequestMapping("pedido/eliminar/{id}/{token}")
-    public String deleteCliente(@PathVariable int id, @PathVariable String token){
+    @RequestMapping(value = "pedido/eliminarCliente", method = RequestMethod.GET)
+    public @ResponseBody String eliminarCliente( @RequestParam(value = "id", required = true) int id,  @RequestParam(value = "token", required = true) String token) {
 
     	Pedido pedido = pedidoService.getPedido(id);
     	
     	if(pedido.getToken().equals(token) && pedido.isActivo()){
     		pedido.setActivo(false);
+    		pedidoService.savePedido(pedido);
     	}
     	
-    	return "redirect:/";
+    	return "200";
     }
 	
+  
+    
 }

@@ -3,7 +3,7 @@
 <head lang="en">
 
     <title>Pedido Details</title>
-
+	<script src="../static/js/pedidoDetail.js" th:src="@{/js/pedidoDetail.js}"></script>
     <!--/*/ <th:block th:include="fragments/general/head :: head"></th:block> /*/-->
 </head>
 <body>
@@ -95,6 +95,15 @@
                         <p class="" th:text="${pedido.canton}"></p>
                     </div>
                 </div>
+                
+                <div th:if="${pedido.listoParaEntrega}==false" class="form-group">
+                	<div class="col-lg-12">
+	                	<button type="button" class="btn btn-danger btn-sm" th:onclick="'eliminar(\'' + ${pedido.id} + '\', \'' + ${pedido.token} + '\');'">
+	                		<span class="">Eliminar</span>
+	                	</button>
+                	</div>
+                </div>
+                
                 <h3>Productos:</h3>
                 <div class="table-responsive" style="min-height: 100px;">
 	                <table class="table table-striped">
@@ -116,6 +125,7 @@
 			            </tr>
 			           
 			        </table>
+			        
 		        </div>
             </form>
     </div>
