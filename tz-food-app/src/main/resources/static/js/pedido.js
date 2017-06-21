@@ -59,25 +59,43 @@ $( document ).ready(function() {
 	 $('#cantones').change(
 			 function() {
 				 //var pathname = window.location.pathname;
-				 
+
 				 var html='';
-				 
+
 				 var place= $(this).val().substring($(this).val().lastIndexOf(",")+1);
-				 console.log(place)
 
 				 if(place=='null'){
 					 html= '<p> Las entregas para este cant&oacute;n se realizan por medio de encomienda y tienen un valor de  ₡2500 de env&iacute;o</p>'
 				 }else{
 					 html= '<p> Las entregas para este cant&oacute;n se realizan los siguientes d&iacute;as: '+ place +'</p>';
-					
+
 				 }
-				 
+
 				 $('#fechaEntrega').html(html);
 				 $( "#fechaEntrega" ).show();
-				
+
 			 });
-	 
-	 
+
+	 $('#presentacion').change(
+			 function() {
+				 //var pathname = window.location.pathname;
+				 
+				 producto = $('#presentacion').find(":selected").data("value");
+				 
+				 var html='';
+
+				 var precio= producto.precio
+
+				 html= '<span>₡ '+ precio + '</span>'
+				 
+
+				 $('#precioProducto').html(html);
+				 
+
+			 });
+
+
+
 	 $('#productos').change(
 		        function() {
 		        	var pathname = window.location.pathname;

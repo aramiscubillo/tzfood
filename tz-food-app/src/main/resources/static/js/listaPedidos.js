@@ -12,11 +12,14 @@ $( document ).ready(function() {
 	pageSize = $('#pageSize').find(":selected").attr('value');
 	
 	
+	
+	
+	 
+	
 	 $( "#buscar" ).click(function() {
 		 $('#pageNumber').val(0);
 		 console.log($('#pageNumber').val());
-		 console.log('asdfasdf');
-	    $( "#frmBuscar" ).submit();
+		 $( "#frmBuscar" ).submit();
 	 });
 	
 	 
@@ -77,6 +80,55 @@ $( document ).ready(function() {
 
 	 
 });
+
+
+function openModalPedido(id){
+	console.log(id)
+	
+	var pathname = window.location.pathname;
+	
+	$.getJSON("/pedido/getById", {
+		id : id,
+		ajax : 'true'
+	}, function(data) {
+		
+		
+		$('#modalCedula').text(data.cedulaPersona);
+		$('#modalEmail').text(data.email);
+		$('#modalCanton').text(data.canton);
+		$('#modalFechaEntrega').text(data.fechaEntrega);
+		$('#modalFechaPago').text(data.fechaPago);
+		$('#modalListoEntrega').text(data.listoParaEntrega);
+		$('#modalNombre').text(data.nombrePersona);
+		$('#modalPagado').text(data.pagado);
+		$('#modalProvincia').text(data.provincia);
+		$('#modalTelefono').text(data.telefono);
+		$('#modalTelefonoOficina').text(data.telefonoOficina);
+		$('#modalDisponibilidad').text(data.disponibilidad);
+		
+		
+		if(data.efectivo){
+			$('#modalEntregado').text("Si");
+		}else{
+			$('#modalEntregado').text("No");
+		}
+		
+		if(data.entregado){
+			$('#modalEfectivo').text("Si");
+		}else{
+			$('#modalEfectivo').text("No");
+		}
+		
+		
+		
+		$("#modalPedido").modal();
+		
+	});
+
+	
+    
+}
+
 
 /*
 function search(){

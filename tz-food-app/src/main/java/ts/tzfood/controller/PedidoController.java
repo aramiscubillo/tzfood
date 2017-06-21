@@ -30,7 +30,10 @@ import ts.tzfood.domain.DetallePedido;
 import ts.tzfood.domain.Pedido;
 import ts.tzfood.domain.Producto;
 import ts.tzfood.email.EmailTemplateUtils;
+import ts.tzfood.jsonModels.PedidoJsonModel;
 import ts.tzfood.jsonModels.ProductoJsonModel;
+import ts.tzfood.mappers.PedidoMapper;
+import ts.tzfood.mappers.ProductoMapper;
 import ts.tzfood.models.PedidoModel;
 import ts.tzfood.models.PedidoSearchModel;
 import ts.tzfood.services.DetallePedidoServiceInterface;
@@ -63,7 +66,7 @@ public class PedidoController {
 	
 
 	
-	
+	private PedidoMapper mapper = new PedidoMapper();
 	private static final int[] PAGE_SIZES = {3, 5, 10, 20, 50, 100 };
 	private static final String[] BOLEANOS = {"", "Si", "No" };
 	
@@ -154,11 +157,20 @@ public class PedidoController {
    
     }
     
+    @RequestMapping(value = "pedido/getById", method = RequestMethod.GET)
+    public @ResponseBody PedidoJsonModel getById( @RequestParam(value = "id", required = true) int id) {
+       
+    	return mapper.mapToJsonModel(pedidoService.getPedido(id));
+    }
+    
+    
     
     @RequestMapping("pedido/limiteDiario")
     public String overLimit(Model model){
         return "views/pedido/limiteDiario";
     }
+    
+    
     
     @Secured({GeneralConstants.ROL_ADMIN})
     @RequestMapping(value = "pedido/pagar", method = RequestMethod.GET)
