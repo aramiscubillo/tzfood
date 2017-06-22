@@ -160,7 +160,21 @@ public class PedidoController {
     @RequestMapping(value = "pedido/getById", method = RequestMethod.GET)
     public @ResponseBody PedidoJsonModel getById( @RequestParam(value = "id", required = true) int id) {
        
-    	return mapper.mapToJsonModel(pedidoService.getPedido(id));
+    	Pedido pedido = pedidoService.getPedido(id);
+    	return mapper.mapToJsonModel(pedido);
+    }
+    
+    
+    @RequestMapping("pedidoView/{id}")
+    public String detailsLoadView(@PathVariable int id,  Model model){
+        
+    	Pedido pedido = pedidoService.getPedido(id);
+    	
+		model.addAttribute("pedido", pedido);
+		
+        return "views/pedido/pedidoDetails :: detailsContent";
+    	
+   
     }
     
     

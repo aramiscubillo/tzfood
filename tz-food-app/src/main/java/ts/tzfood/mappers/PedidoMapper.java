@@ -9,8 +9,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import ts.tzfood.domain.DetallePedido;
 import ts.tzfood.domain.Pedido;
 import ts.tzfood.domain.Producto;
+import ts.tzfood.jsonModels.DetallePedidoJsonModel;
 import ts.tzfood.jsonModels.PedidoJsonModel;
 import ts.tzfood.jsonModels.ProductoJsonModel;
 
@@ -45,7 +47,23 @@ public class PedidoMapper implements Mapper<Pedido,PedidoJsonModel>{
 		model.setTelefono(object.getTelefono());
 		model.setTelefonoOficina(object.getTelefonoOficina());
 		
+		List<DetallePedidoJsonModel> detalles = new ArrayList<DetallePedidoJsonModel>();
+		DetallePedidoJsonModel detalleJson = null;
 		
+		for (DetallePedido detalle : object.getDetalles()) {
+		   
+			detalleJson = new DetallePedidoJsonModel();
+			
+			detalleJson.setId(detalle.getId());
+			detalleJson.setCantidad(detalle.getCantidad());
+			detalleJson.setPrecio(detalle.getPrecio());
+			detalleJson.setProducto(detalle.getProducto());
+			
+			detalles.add(detalleJson);
+			
+		}
+		
+		model.setDetalles(detalles);
 		
 		return model;
 	}

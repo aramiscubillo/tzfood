@@ -4,6 +4,9 @@
 package ts.tzfood.jsonModels;
 
 import java.util.Date;
+import java.util.List;
+
+import ts.tzfood.domain.DetallePedido;
 
 /**
  * @author Aramis
@@ -27,6 +30,8 @@ public class PedidoJsonModel {
     private String canton;
     private String telefono;
     private String telefonoOficina;
+    private List<DetallePedidoJsonModel> detalles;
+    
 	/**
 	 * 
 	 */
@@ -129,6 +134,13 @@ public class PedidoJsonModel {
 	public void setTelefonoOficina(String telefonoOficina) {
 		this.telefonoOficina = telefonoOficina;
 	}
+	public List<DetallePedidoJsonModel> getDetalles() {
+		return detalles;
+	}
+	public void setDetalles(List<DetallePedidoJsonModel> detalles) {
+		this.detalles = detalles;
+	}
+
 	
 	
 	

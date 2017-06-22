@@ -83,15 +83,18 @@ $( document ).ready(function() {
 
 
 function openModalPedido(id){
-	console.log(id)
 	
 	var pathname = window.location.pathname;
 	
+	$("#modalPedido").modal();
+	
+	$("#content").load('http://localhost:8080/pedidoView/'+id);
+	
+	/*
 	$.getJSON("/pedido/getById", {
 		id : id,
 		ajax : 'true'
 	}, function(data) {
-		
 		
 		$('#modalCedula').text(data.cedulaPersona);
 		$('#modalEmail').text(data.email);
@@ -105,7 +108,7 @@ function openModalPedido(id){
 		$('#modalTelefono').text(data.telefono);
 		$('#modalTelefonoOficina').text(data.telefonoOficina);
 		$('#modalDisponibilidad').text(data.disponibilidad);
-		
+
 		
 		if(data.efectivo){
 			$('#modalEntregado').text("Si");
@@ -119,15 +122,14 @@ function openModalPedido(id){
 			$('#modalEfectivo').text("No");
 		}
 		
-		
+		console.log(data);
 		
 		$("#modalPedido").modal();
-		
-	});
 
-	
-    
+		
+	});*/
 }
+
 
 
 /*
