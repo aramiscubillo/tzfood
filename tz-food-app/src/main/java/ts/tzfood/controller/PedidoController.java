@@ -3,14 +3,8 @@
  */
 package ts.tzfood.controller;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.annotation.Secured;
@@ -21,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -33,7 +26,6 @@ import ts.tzfood.email.EmailTemplateUtils;
 import ts.tzfood.jsonModels.PedidoJsonModel;
 import ts.tzfood.jsonModels.ProductoJsonModel;
 import ts.tzfood.mappers.PedidoMapper;
-import ts.tzfood.mappers.ProductoMapper;
 import ts.tzfood.models.PedidoModel;
 import ts.tzfood.models.PedidoSearchModel;
 import ts.tzfood.services.DetallePedidoServiceInterface;
@@ -74,7 +66,7 @@ public class PedidoController {
 	@RequestMapping(value = {"/","pedido/nuevo"}, method = RequestMethod.GET)
     public String newPedido(Model model){
         model.addAttribute("model", new PedidoModel());
-        model.addAttribute("marcas", GeneralConstants.MARCAS);
+        model.addAttribute("marcas", productoService.getMarcas());
         model.addAttribute("provincias", ubicacionService.getUbicacionByRegionPapa(1));
         return "views/pedido/pedidoForm";
     }

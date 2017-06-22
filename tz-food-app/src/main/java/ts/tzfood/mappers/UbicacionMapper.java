@@ -10,7 +10,6 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import ts.tzfood.domain.Ubicacion;
-import ts.tzfood.jsonModels.ProductoJsonModel;
 import ts.tzfood.jsonModels.UbicacionJsonModel;
 
 /**

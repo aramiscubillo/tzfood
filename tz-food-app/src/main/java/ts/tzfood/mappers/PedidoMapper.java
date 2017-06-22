@@ -4,17 +4,14 @@
 package ts.tzfood.mappers;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 import ts.tzfood.domain.DetallePedido;
 import ts.tzfood.domain.Pedido;
-import ts.tzfood.domain.Producto;
 import ts.tzfood.jsonModels.DetallePedidoJsonModel;
 import ts.tzfood.jsonModels.PedidoJsonModel;
-import ts.tzfood.jsonModels.ProductoJsonModel;
 
 /**
  * @author Aramis

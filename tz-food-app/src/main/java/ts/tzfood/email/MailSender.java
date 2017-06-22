@@ -16,7 +16,6 @@ import javax.mail.internet.MimeMultipart;
 
 import org.springframework.stereotype.Component;
 
-
 import ts.tzfood.TzFoodAppApplication;
 import ts.tzfood.constants.EmailConfigConstants;
 

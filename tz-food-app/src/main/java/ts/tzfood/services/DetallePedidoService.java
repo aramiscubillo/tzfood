@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import ts.tzfood.domain.DetallePedido;
 import ts.tzfood.repositories.DetallePedidoRepository;
-import ts.tzfood.repositories.PedidoRepository;
 
 /**
  * @author Aramis

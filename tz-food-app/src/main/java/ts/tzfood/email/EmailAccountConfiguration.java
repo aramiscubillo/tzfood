@@ -11,6 +11,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 
 import org.springframework.context.annotation.Configuration;
+
 import ts.tzfood.TzFoodAppApplication;
 
 // TODO: Auto-generated Javadoc

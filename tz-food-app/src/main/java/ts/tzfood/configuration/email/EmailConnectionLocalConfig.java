@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 
 import javax.mail.MessagingException;
+
 import org.springframework.stereotype.Component;
 
 import ts.tzfood.TzFoodAppApplication;

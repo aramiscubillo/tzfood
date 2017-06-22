@@ -32,13 +32,17 @@ public class EmailTemplateUtils {
 		
 		String deposito = "<p>Para completar tu orden debes realizar los siguientes pasos:</p>"
 							+"<ol>"
-							+"<li>Realizar la transferencia o dep&oacute;sito a la cuenta de Territorio de Zaguates</li>"
+							+"<li>Realizar la transferencia o dep&oacute;sito a alguna de las cuentas de Territorio de Zaguates</li>"
 							+"<li>Mandarle una foto del comprobante al n&uacute;mero 8888-3333 y con tu n&uacute;mero de c&eacute;dula</li>"
 							+"<li>Te llegar&aactue; otro correo indicando que tu pedido ha sido marcado como pagado</li>"
 						+"</ol>";
 		
+		String cuentas = "";
+		
 		if(efectivo){
 			deposito = "<p>Te informaremos cuando tu pedido est&eacute; listo para ser entregado</p>";
+		}else{
+			cuentas= cuentas();
 		}
 		
 		//todo
@@ -50,7 +54,8 @@ public class EmailTemplateUtils {
 								deposito
 								+ "<p>Puede consulta el "+
 								"estado de su pedido <a href=\""+url+"\">aqu&iacute;</a> </p>"+
-								"<p></p>"+
+								"<p></p><br/>"+
+								cuentas+
 							"</body>"+
 						"</html>";
 		sender.send(email, html, "Pedido de alimento | Territorio de Zaguates");	
@@ -58,7 +63,38 @@ public class EmailTemplateUtils {
 	}
 	
 	
-	
+	private String cuentas(){
+		String cuentas = ""+
+			"<h5>BAC San José</h5>"+
+			"<ul>"+
+			"<li>Cuenta de ahorro en colones: 918964842</li>"+
+			"<li>Cuenta cliente para sinpe: 10200009189648426</li>"+
+			"<li>Cuenta de ahorro en dólares: 908905698</li>"+ 
+			"<li>Cuenta cliente para sinpe: 10200009089056981</li>"+
+			"<li>Álvaro Enrique Saumet Martínez. Cédula costarricense: 8 0110 0888</li>"+
+			"</ul>"+
+			"<br/><br/>"+
+			"<h5>Banco de Costa Rica / BCR</h5>" +
+			"<ul>"+
+			"<li>Cuenta de ahorro en colones: 001-1560373-3</li>"+
+			"<li>Cuenta cliente para sinpe: 15202001156037334</li>"+
+			"<li>Cuenta de ahorro en dólares: 001-1560377-6</li>"+
+			"<li>Cuenta cliente para sinpe: 15202001156037765</li>"+
+			"<li>Álvaro Enrique Saumet Martínez. Cédula costarricense: 8 0110 0888</li>"+
+			"</ul>"+
+			"<br/><br/>"+
+			"<h5>Banco Nacional de CR</h5>"+
+			"<ul>"+
+			"<li>Cuenta de ahorro en colones: 200-01-208-108766-3</li>"+
+			"<li>Cuenta cliente para sinpe: 15120820011087661</li>"+
+			"<li>Cuenta de ahorro en dólares: 200-02-000-728510-3</li>"+
+			"<li>Cuenta cliente para sinpe: 15100020027285103</li>"+
+			"<li>Álvaro Enrique Saumet Martínez: Cédula costarricense: 8 0110 0888</li>"+
+			"</ul>"+
+			"<br/><br/>";
+
+		return cuentas;
+}
 	
 	@Async
 	public void emailPedidoConfirmado(int pedidoId, String url, String email, String nombrePersona) throws Exception{

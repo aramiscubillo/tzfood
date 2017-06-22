@@ -6,8 +6,6 @@ package ts.tzfood.jsonModels;
 import java.util.Date;
 import java.util.List;
 
-import ts.tzfood.domain.DetallePedido;
-
 /**
  * @author Aramis
  *

@@ -8,7 +8,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import scala.annotation.meta.field;
 import ts.tzfood.domain.Producto;
 import ts.tzfood.repositories.ProductoRepository;
 
@@ -60,7 +59,15 @@ public class ProductoService implements ProductoServiceInterface{
 	}
 	
 	
-	public List<Producto> getProductosPorNombre(String nombre){
-		return productoRepo.findByNombre(nombre);
+	public List<Producto> getProductosPorNombre(String nombre, String marca){
+		return productoRepo.findByNombre(nombre, marca);
+	}
+
+	/* (non-Javadoc)
+	 * @see ts.tzfood.services.ProductoServiceInterface#getMarcas(java.lang.String)
+	 */
+	@Override
+	public List<String> getMarcas() {
+		return productoRepo.findMarcas();
 	}
 }

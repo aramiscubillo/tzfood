@@ -3,9 +3,6 @@
  */
 package ts.tzfood.models;
 
-import java.util.Date;
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 
 import ts.tzfood.domain.Pedido;

@@ -3,16 +3,6 @@
  */
 package ts.tzfood.jsonModels;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-
-import ts.tzfood.domain.DetallePedido;
-import ts.tzfood.domain.Pedido;
 import ts.tzfood.domain.Producto;
 
 /**

@@ -6,7 +6,7 @@
 	<groupId>ts.tzfoodBeta</groupId>
 	<artifactId>tz-food-app-beta</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>tz-food-app</name>
 	<description>Demo project for Spring Boot</description>

@@ -23,5 +23,7 @@ public interface ProductoServiceInterface {
 	
 	List<String> getNombreProductosPorMarca(String nombre);
 	
-	List<Producto> getProductosPorNombre(String nombre);
+	List<String> getMarcas();
+	
+	List<Producto> getProductosPorNombre(String nombre, String marca);
 }

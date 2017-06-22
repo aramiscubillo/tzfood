@@ -35,9 +35,11 @@ public class ProductoController {
     }
 	
 	@RequestMapping(value = "producto/getByNombre", method = RequestMethod.GET)
-    public @ResponseBody List<ProductoJsonModel> getNombresPorNombre( @RequestParam(value = "nombre", required = true) String nombre) {
+    public @ResponseBody List<ProductoJsonModel> getNombresPorNombre( 
+    		@RequestParam(value = "nombre", required = true) String nombre,
+    		@RequestParam(value = "marca", required = true) String marca) {
        
-		return mapper.mapToJsonModel(productoService.getProductosPorNombre(nombre));
+		return mapper.mapToJsonModel(productoService.getProductosPorNombre(nombre, marca));
     }
 	
 }

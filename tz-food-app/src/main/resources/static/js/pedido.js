@@ -101,6 +101,7 @@ $( document ).ready(function() {
 		        	var pathname = window.location.pathname;
 		            $.getJSON("/producto/getByNombre", {
 		            	nombre : $(this).val(),
+		            	marca: $('#marcas').val(),
 		                ajax : 'true'
 		            }, function(data) {
 		                var html = '<option value="">--seleccione una presentación--</option>';
@@ -112,7 +113,7 @@ $( document ).ready(function() {
 		                	
 		                	
 		                    html += '<option data-value=\'' + stringObject +'\'>'
-		                            + data[i].presentacion + '</option>';
+		                            + data[i].presentacion+' ' +data[i].nombre +' '+data[i].marca+ '</option>';
 		                }
 		                html += '</option>';
 		                $('#presentacion').html(html);

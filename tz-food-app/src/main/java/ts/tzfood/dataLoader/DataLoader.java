@@ -3,19 +3,12 @@
  */
 package ts.tzfood.dataLoader;
 
-import java.util.Date;
-
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-import ts.tzfood.constants.GeneralConstants;
-import ts.tzfood.domain.Pedido;
-import ts.tzfood.domain.Producto;
-import ts.tzfood.domain.Ubicacion;
-import ts.tzfood.domain.Usuario;
 import ts.tzfood.repositories.PedidoRepository;
 import ts.tzfood.repositories.ProductoRepository;
 import ts.tzfood.repositories.UbicacionRepository;

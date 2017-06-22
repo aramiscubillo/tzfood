@@ -20,7 +20,10 @@ public interface ProductoRepository extends CrudRepository<Producto, Integer>{
 	@Query("select DISTINCT p.nombre from  Producto p where p.marca = :marca and p.activo = true ORDER BY p.nombre ASC") 
 	List<String> findByMarca(@Param("marca") String marca);
 	
-	@Query("select p from  Producto p where p.nombre = :nombre and p.activo = true ORDER BY p.presentacion ASC") 
-	List<Producto> findByNombre(@Param("nombre") String nombre);
+	@Query("select p from  Producto p where p.nombre = :nombre and p.marca = :marca and p.activo = true ORDER BY p.presentacion ASC") 
+	List<Producto> findByNombre(@Param("nombre") String nombre, @Param("marca") String marca);
 	
+	
+	@Query("select DISTINCT p.marca from  Producto p where p.activo = true ORDER BY p.marca ASC") 
+	List<String> findMarcas();
 }
