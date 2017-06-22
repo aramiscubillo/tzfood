@@ -71,5 +71,14 @@ public interface PedidoRepository extends CrudRepository<Pedido, Integer>{
 			@Param("provincia") String provincia, 
 			@Param("canton") String canton,
 			Pageable pageable);
+
+
+
+	@Query("SELECT count(id) FROM Pedido p WHERE "
+			+ "( DAY(p.fechaCreacion)= :dia ) and "
+			+ "( MONTH(p.fechaCreacion)= :mes)")
+	public int getPedidosDia(
+			@Param("dia") int dia,
+			@Param("mes") int mes);
 	
 }

@@ -3,6 +3,8 @@
  */
 package ts.tzfood.services;
 
+import java.util.Date;
+
 import org.springframework.data.domain.Page;
 
 import ts.tzfood.domain.Pedido;
@@ -23,6 +25,8 @@ public interface PedidoServiceInterface {
 	void deletePedido(int id);
 	
 	Page<Pedido> find(PedidoSearchModel model);
+
+	int getCantPedidosDia(Date date);
 	
 	
 }

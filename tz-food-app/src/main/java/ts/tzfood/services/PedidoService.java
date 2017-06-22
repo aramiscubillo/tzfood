@@ -160,6 +160,22 @@ public class PedidoService  implements PedidoServiceInterface{
     	return df.parse(dateString);
     	
     }
+
+	@Override
+	public int getCantPedidosDia(Date date) {
+		int dia= date.getDate();
+		int mes= date.getMonth();
+		
+		if(mes==11){
+			mes=12;
+		}else{
+			mes=mes+1;
+		}
+				
+		
+		int cant= pedidoRepo.getPedidosDia(dia, mes);
+		return cant;
+	}
 	
 	
 }

@@ -3,10 +3,10 @@
 <head lang="en">
 
     <title>Admistraci&oacute;n de Pedidos</title>
-
-    <!--/*/ <th:block th:include="fragments/general/head :: head"></th:block> /*/-->
+	<!--/*/ <th:block th:include="fragments/general/head :: head"></th:block> /*/-->
      <script src="../static/js/listaPedidos.js"
             th:src="@{/js/listaPedidos.js}"></script>
+      
 </head>
 <body>
 	<div class="container">
@@ -143,9 +143,12 @@
 					                 <td th:text="${#dates.format(pedido.fechaCreacion, 'dd-MM-yyyy')}"></td>
 					                 <td  class="extra" th:text="${pedido.provincia}"></td>
 					               	 <td>
-					               	 	<a class="btn btn-info  btn-xs" th:href="${ '/pedido/' + pedido.id+ '/'+pedido.token}">
-											<span class="glyphicon glyphicon-search"></span>
-										</a>
+					               	 
+					               	 	<button class="btn btn-info  btn-xs" id="myBtn" data-toggle="modal" data-target="#myModal" th:onclick="'openModalPedido(\'' + ${pedido.id} + '\');'">
+					                 		<span class="glyphicon glyphicon-search"></span>
+					                 	</button>
+					               	 
+					               	 
 					               	 	
 				              	 	</td>
 					                 <td>
@@ -193,7 +196,34 @@
 	        		</div>
 	        	</div>
 	    	</div><!-- col-md-12 -->
+				<!-- Modal -->
+			<div id="modalPedido" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+		
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Detalle de Pedido</h4>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+									<div id="content">
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Aceptar</button>
+						</div>
+					</div>
+		
+				</div>
+			</div>
 		</div><!-- row -->
+	
 	</div>
 </body>
 </html>

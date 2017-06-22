@@ -1,13 +1,9 @@
 
 <head th:fragment="header">
  
-    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+	<link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
           th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}"
           rel="stylesheet" media="screen" />
-
-    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
-            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
-
           
     <link href="../static/css/main.css"
           th:href="@{/css/main.css}" rel="stylesheet" media="screen"/>
@@ -16,9 +12,18 @@
       <link href="../static/css/jquery-ui.css"
           th:href="@{/css/jquery-ui.css}" rel="stylesheet" media="screen"/>
           
+      <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+      
       <script src="../static/js/libs/jquery-ui.js"
             th:src="@{/js/libs/jquery-ui.js}"></script>
 
+	
+		 <script src="../static/js/libs/jquery-dateFormat.min.js"
+		 th:src="@{/js/libs/jquery-dateFormat.min.js}"></script>
+            
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
   	<link rel="shortcut icon" type="image/ico" href="/images/iconPerrito.png"/>

@@ -30,7 +30,10 @@ import ts.tzfood.domain.DetallePedido;
 import ts.tzfood.domain.Pedido;
 import ts.tzfood.domain.Producto;
 import ts.tzfood.email.EmailTemplateUtils;
+import ts.tzfood.jsonModels.PedidoJsonModel;
 import ts.tzfood.jsonModels.ProductoJsonModel;
+import ts.tzfood.mappers.PedidoMapper;
+import ts.tzfood.mappers.ProductoMapper;
 import ts.tzfood.models.PedidoModel;
 import ts.tzfood.models.PedidoSearchModel;
 import ts.tzfood.services.DetallePedidoServiceInterface;
@@ -63,7 +66,7 @@ public class PedidoController {
 	
 
 	
-	
+	private PedidoMapper mapper = new PedidoMapper();
 	private static final int[] PAGE_SIZES = {3, 5, 10, 20, 50, 100 };
 	private static final String[] BOLEANOS = {"", "Si", "No" };
 	
@@ -79,50 +82,64 @@ public class PedidoController {
     @RequestMapping(value = "pedido/nuevo", method = RequestMethod.POST)
     public String save(PedidoModel model) throws Exception{
     	
-    	Pedido pedido = model.getPedido();
-    	pedido.setActivo(true);
-    	pedido.setFechaCreacion(new Date());
-    	pedido.setPagado(false);
-    	pedido.setListoParaEntrega(false);
-    	pedido.setToken(new Date().getTime()+"");
+    	int cantPedidos= pedidoService.getCantPedidosDia(new Date());
     	
-    	
-    	String provincia = ubicacionService.getLugar(Integer.parseInt(model.getPedido().getProvincia())).getNombre();
-    	String canton = ubicacionService.getLugar(Integer.parseInt(model.getPedido().getCanton())).getNombre();
-    	
-    	pedido.setEfectivo(model.getPedido().isEfectivo());
-    	pedido.setProvincia(provincia);
-    	pedido.setCanton(canton);
-    	
-    	pedidoService.savePedido(pedido);
-    	
-    	String products = model.getProductosList();
-    	products = java.net.URLDecoder.decode(products, "UTF-8");
-    	ObjectMapper mapper = new ObjectMapper();
-    	ProductoJsonModel[] jsonObjects = mapper.readValue(products, ProductoJsonModel[].class);
+    	if(cantPedidos>50){
+    		 return "redirect:/pedido/limiteDiario";
+    	}else{
+    		Pedido pedido = model.getPedido();
+        	
+        	pedido.setActivo(true);
+        	pedido.setFechaCreacion(new Date());
+        	pedido.setPagado(false);
+        	pedido.setListoParaEntrega(false);
+        	pedido.setToken(new Date().getTime()+"");
+        	
+        	
+        	String provincia = ubicacionService.getLugar(Integer.parseInt(model.getPedido().getProvincia())).getNombre();
+        	
+        	String[] cantonCampo= model.getPedido().getCanton().split(",");
+        	
+        	
+        	String canton = ubicacionService.getLugar(Integer.parseInt(cantonCampo[0])).getNombre();
 
-    	DetallePedido detalle;
-    	Producto producto;
-    	for(int i=0; i< jsonObjects.length; i++){
-    		detalle = new DetallePedido();
-    		producto = productoService.getProducto(jsonObjects[i].getId());
+        	
+        	pedido.setEfectivo(model.getPedido().isEfectivo());
+        	pedido.setProvincia(provincia);
+        	pedido.setCanton(canton);
+        	
+        	pedidoService.savePedido(pedido);
+        	
+        	String products = model.getProductosList();
+        	products = java.net.URLDecoder.decode(products, "UTF-8");
+        	ObjectMapper mapper = new ObjectMapper();
+        	ProductoJsonModel[] jsonObjects = mapper.readValue(products, ProductoJsonModel[].class);
 
-    		detalle.setActivo(true);
-    		detalle.setCantidad(jsonObjects[i].getCantidad());
-    		detalle.setFechaCreacion(new Date());
-    		detalle.setPedido(pedido);
-    		detalle.setPrecio(producto.getPrecio());
-    		detalle.setProducto(producto);
-    		pedido.getDetalles().add(detalle);
-    		
-    		detallePedidoService.savePedido(detalle);
+        	DetallePedido detalle;
+        	Producto producto;
+        	for(int i=0; i< jsonObjects.length; i++){
+        		detalle = new DetallePedido();
+        		producto = productoService.getProducto(jsonObjects[i].getId());
+
+        		detalle.setActivo(true);
+        		detalle.setCantidad(jsonObjects[i].getCantidad());
+        		detalle.setFechaCreacion(new Date());
+        		detalle.setPedido(pedido);
+        		detalle.setPrecio(producto.getPrecio());
+        		detalle.setProducto(producto);
+        		pedido.getDetalles().add(detalle);
+        		
+        		
+        		detallePedidoService.savePedido(detalle);
+        	}
+
+        	String urlDetails = GeneralConstants.HOST+"/pedido/"+pedido.getId()+"/"+pedido.getToken();
+        	sender.emailPedidoHecho(pedido.getId(), urlDetails,
+        			pedido.getEmail(), pedido.getNombrePersona(), pedido.isEfectivo());
+        	
+            return "redirect:/pedido/" +pedido.getId()+"/"+pedido.getToken();
     	}
-
-    	String urlDetails = GeneralConstants.HOST+"/pedido/"+pedido.getId()+"/"+pedido.getToken();
-    	sender.emailPedidoHecho(pedido.getId(), urlDetails,
-    			pedido.getEmail(), pedido.getNombrePersona(), pedido.isEfectivo());
     	
-        return "redirect:/pedido/" +pedido.getId()+"/"+pedido.getToken();
     }
     
     
@@ -139,6 +156,35 @@ public class PedidoController {
     	}
    
     }
+    
+    @RequestMapping(value = "pedido/getById", method = RequestMethod.GET)
+    public @ResponseBody PedidoJsonModel getById( @RequestParam(value = "id", required = true) int id) {
+       
+    	Pedido pedido = pedidoService.getPedido(id);
+    	return mapper.mapToJsonModel(pedido);
+    }
+    
+    
+    @RequestMapping("pedidoView/{id}")
+    public String detailsLoadView(@PathVariable int id,  Model model){
+        
+    	Pedido pedido = pedidoService.getPedido(id);
+    	
+		model.addAttribute("pedido", pedido);
+		
+        return "views/pedido/pedidoDetails :: detailsContent";
+    	
+   
+    }
+    
+    
+    
+    @RequestMapping("pedido/limiteDiario")
+    public String overLimit(Model model){
+        return "views/pedido/limiteDiario";
+    }
+    
+    
     
     @Secured({GeneralConstants.ROL_ADMIN})
     @RequestMapping(value = "pedido/pagar", method = RequestMethod.GET)

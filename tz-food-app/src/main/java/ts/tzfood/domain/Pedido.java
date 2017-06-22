@@ -30,6 +30,7 @@ public class Pedido extends ObjetoBase{
     private String provincia;
     private String canton;
     private String telefono;
+    private String telefonoOficina;
    
     
     @OneToOne(fetch=FetchType.LAZY)
@@ -170,6 +171,14 @@ public class Pedido extends ObjetoBase{
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	public String getTelefonoOficina() {
+		return telefonoOficina;
+	}
+
+	public void setTelefonoOficina(String telefonoOficina) {
+		this.telefonoOficina = telefonoOficina;
 	}
 
 	public boolean isEfectivo() {
