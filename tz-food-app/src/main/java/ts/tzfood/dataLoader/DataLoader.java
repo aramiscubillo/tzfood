@@ -3,12 +3,16 @@
  */
 package ts.tzfood.dataLoader;
 
+import java.util.Date;
+
 import org.jasypt.util.password.StrongPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import ts.tzfood.constants.GeneralConstants;
+import ts.tzfood.domain.Usuario;
 import ts.tzfood.repositories.PedidoRepository;
 import ts.tzfood.repositories.ProductoRepository;
 import ts.tzfood.repositories.UbicacionRepository;
@@ -41,16 +45,17 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent>{
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		
 	   
-		/*
+		
 	    Usuario usuario = new Usuario();
 	    usuario.setActivo(true);
 	    usuario.setEnabled(true);
 	    usuario.setFechaCreacion(new Date());
 	    usuario.setRol(GeneralConstants.ROL_ADMIN);
 	    usuario.setEncryptedPassword(strongEncryptor.encryptPassword("abc123456"));
-	    usuario.setUsername("aramis");
+	    usuario.setUsername("tzAdmin");
 	    usuarioRepo.save(usuario);
 	    
+	    /*
 	    usuario = new Usuario();
 	    usuario.setActivo(true);
 	    usuario.setEnabled(true);
