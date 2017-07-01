@@ -1,3 +1,5 @@
+var encomienda = false; 
+
 $( document ).ready(function() {
 
 	 $.validate({
@@ -66,10 +68,12 @@ $( document ).ready(function() {
 
 				 if(place=='null'){
 					 html= '<p> Las entregas para este cant&oacute;n se realizan por medio de encomienda y tienen un valor de  ₡2500 de env&iacute;o</p>'
+						 encomienda = true;
 				 }else{
 					 html= '<p> Las entregas para este cant&oacute;n se realizan los siguientes d&iacute;as: '+ place +'</p>';
-
+					 encomienda = false;
 				 }
+				 
 
 				 $('#fechaEntrega').html(html);
 				 $( "#fechaEntrega" ).show();
@@ -229,12 +233,22 @@ function buildTable(){
 		 		'<tr>'		
 	 }
 	 
+	 if(encomienda){
+		 html += '<tr>'+
+					'<td></td>'+
+					'<td></td>'+
+					'<td></td>'+
+					'<td colspan="2" style="text-align: right;">Encomienda:</td>'+
+					'<td>₡'+2500+'</td>'+
+				'</tr>';
+		 totalSum+= 2500;
+	 }
+	 
 	 html += '<tr>'+
 	 			'<td></td>'+
 	 			'<td></td>'+
 	 			'<td></td>'+
-	 			'<td></td>'+
-	 			'<td></td>'+
+	 			'<td colspan="2" style="text-align: right;">TOTAL:</td>'+
 	 			'<td>'+totalSum+'</td>'+
 	 		'</tr>'+
  		'</table>'

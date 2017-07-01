@@ -31,6 +31,7 @@ public class Pedido extends ObjetoBase{
     private boolean pagado;
     private boolean entregado;
     private boolean efectivo;
+    private boolean encomienda = false;
     private String token;
     private String provincia;
     private String canton;
@@ -192,6 +193,14 @@ public class Pedido extends ObjetoBase{
 
 	public void setEfectivo(boolean efectivo) {
 		this.efectivo = efectivo;
+	}
+
+	public boolean isEncomienda() {
+		return encomienda;
+	}
+
+	public void setEncomienda(boolean encomienda) {
+		this.encomienda = encomienda;
 	}
 
 

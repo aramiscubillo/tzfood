@@ -51,7 +51,7 @@
 	             	<div class="margin-group ">
 		                <label class="control-label text-form">Tel&eacute;fono de Oficina:</label>
 		                <div class="">
-		                    <input type="text" class="form-control pedido-input" th:field="*{pedido.telefonoOficina}" data-validation="number" data-validation-allowing="float" data-validation-error-msg="El campo de t&eacute;lefono de oficina es requerido y solo permite numeros"/>
+		                    <input type="text" class="form-control pedido-input" th:field="*{pedido.telefonoOficina}" />
 		                </div>
 		                 
 		            </div>
@@ -167,7 +167,7 @@
 					</div>
 					<div class="">
 			            <div id="pedido_submit" class="hidden">
-			                <button style="margin-top: 20px;" type="submit" class="btn btn-default btn-pedido">Crear Pedido</button>
+			                <button style="margin-top: 20px;" type="submit" class="btn btn-primary btn-pedido">Crear Pedido</button>
 			            </div>
 		            </div>
 		            <br/><br/>

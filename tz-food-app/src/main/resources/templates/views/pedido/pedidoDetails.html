@@ -78,6 +78,17 @@
                			<span th:if="${pedido.pagado}==false">No</span>
                     </div>
                 </div>
+                  <div class="form-group">
+                 	<div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                    	<label class="">Encomienda:</label>
+                   	</div>
+                    
+                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-9">
+                        <span th:if="${pedido.encomienda}==true">Si</span>
+               			<span th:if="${pedido.encomienda}==false">No</span>
+                    </div>
+                </div>
+                
                  <div class="form-group">
                  	<div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
                     	<label class="">Provincia:</label>

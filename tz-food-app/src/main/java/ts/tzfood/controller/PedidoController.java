@@ -22,6 +22,7 @@ import ts.tzfood.constants.GeneralConstants;
 import ts.tzfood.domain.DetallePedido;
 import ts.tzfood.domain.Pedido;
 import ts.tzfood.domain.Producto;
+import ts.tzfood.domain.Ubicacion;
 import ts.tzfood.email.EmailTemplateUtils;
 import ts.tzfood.jsonModels.PedidoJsonModel;
 import ts.tzfood.jsonModels.ProductoJsonModel;
@@ -80,7 +81,7 @@ public class PedidoController {
     		 return "redirect:/pedido/limiteDiario";
     	}else{
     		Pedido pedido = model.getPedido();
-        	
+        	pedido.setEncomienda(false);
         	pedido.setActivo(true);
         	pedido.setFechaCreacion(new Date());
         	pedido.setPagado(false);
@@ -88,17 +89,23 @@ public class PedidoController {
         	pedido.setToken(new Date().getTime()+"");
         	
         	
-        	String provincia = ubicacionService.getLugar(Integer.parseInt(model.getPedido().getProvincia())).getNombre();
+        	Ubicacion provincia = ubicacionService.getLugar(Integer.parseInt(model.getPedido().getProvincia()));
         	
         	String[] cantonCampo= model.getPedido().getCanton().split(",");
         	
         	
-        	String canton = ubicacionService.getLugar(Integer.parseInt(cantonCampo[0])).getNombre();
+        	Ubicacion canton = ubicacionService.getLugar(Integer.parseInt(cantonCampo[0]));
 
         	
         	pedido.setEfectivo(model.getPedido().isEfectivo());
-        	pedido.setProvincia(provincia);
-        	pedido.setCanton(canton);
+        	pedido.setProvincia(provincia.getNombre());
+        	pedido.setCanton(canton.getNombre());
+        	
+        	if(canton.getFechaEntrega() != null && canton.getFechaEntrega().length()>0){
+        		pedido.setEncomienda(false);
+        	}else{
+        		pedido.setEncomienda(true);
+        	}
         	
         	pedidoService.savePedido(pedido);
         	

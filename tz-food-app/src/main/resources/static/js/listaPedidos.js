@@ -88,7 +88,7 @@ function openModalPedido(id){
 	
 	$("#modalPedido").modal();
 	
-	$("#content").load('http://localhost:8080/pedidoView/'+id);
+	$("#content").load'https://alimento.territoriodezaguates.com/pedidoView/'+id);
 	
 	/*
 	$.getJSON("/pedido/getById", {
